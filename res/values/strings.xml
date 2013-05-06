@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trier Bus Time Tracker | Alpha</string>
+    <string name="app_name_about">Trier Bus Time Tracker | About</string>
+    <string name="settings_title">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_reload">Reload</string>
+    <string name="action_delete_config">Delete config</string>
+    <string name="action_about_tbbt">About</string>
+    <string name="bustime_arrival_text">Arrival time</string>
+    <string name="no_network_connection_text">No network connection.</string>
+    <string name="item_already_on_favorites_list_text">This item is already on favorites list</string>
+    <string name="settings_delete_everything_button_text">Delete all settings</string>
+    <string name="bustime_no_bus">There are no buses in the next hour.</string>
+    <string name="about_developer_text"><b>Development</b>:\nChristopher Kaster</string>
+    <string name="about_special_thanks"><b>Special thanks to</b>:\nDaniel Fett</string>
+    <string name="about_data_text"><b>About the data</b>:\nThe realtime data is parsed from the SWT (Stadtwerke Trier) realtime information website. Neither this project nor the author are somehow related to the SWT.</string>
+
+</resources>

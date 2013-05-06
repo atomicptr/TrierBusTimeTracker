@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_about">Trier Bus Time Tracker | Über</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_reload">Aktualisieren</string>
+    <string name="action_delete_config">Konfigurationen löschen</string>
+    <string name="action_about_tbbt">Über diese App</string>
+    <string name="bustime_arrival_text">Ankunftszeit</string>
+    <string name="no_network_connection_text">Keine Netzwerkverbindung.</string>
+    <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
+    <string name="settings_delete_everything_button_text">Lösche ALLE Einstellungen</string>
+    <string name="bustime_no_bus">Innerhalb der nächsten Stunde fährt kein Bus von dieser Haltestelle ab.</string>
+    <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
+    <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett</string>
+    <string name="about_data_text"><b>Über die Echtzeitdaten</b>:\nAlle Echtzeitinformationen werde von der Online Auskunft der SWT (Stadtwerke Trier) verarbeitet. Weder diese Applikationen noch der Autor haben in irgendeiner Weise etwas mit den Stadtwerken Trier zu tun.</string>
+    
+</resources>

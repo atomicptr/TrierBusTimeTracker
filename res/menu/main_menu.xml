@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="888"
+        android:showAsAction="never"
+        android:title="@string/action_settings" />
+    
+    <item 
+        android:id="@+id/action_about_tbbt"
+        android:orderInCategory="999"
+        android:showAsAction="never"
+        android:title="@string/action_about_tbbt"/>
+
+</menu>
