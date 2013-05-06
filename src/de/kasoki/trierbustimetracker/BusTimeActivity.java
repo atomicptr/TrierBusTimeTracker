@@ -36,6 +36,8 @@ public class BusTimeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		// get selected bus code
 		Intent intent = getIntent();
 		busTimeCode = intent.getStringExtra("BUS_TIME_CODE");
@@ -77,6 +79,9 @@ public class BusTimeActivity extends Activity {
 		// reload action pressed
 		case R.id.action_reload:
 			reload();
+			return true;
+		case android.R.id.home:
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
