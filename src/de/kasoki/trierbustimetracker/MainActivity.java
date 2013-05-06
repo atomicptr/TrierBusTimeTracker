@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
+import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class MainActivity extends Activity {
 
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
 
 	private static final int MAJOR_VERSION = 0;
 	private static final int MINOR_VERSION = 0;
-	private static final int PATCH_VERSION = 11;
+	private static final int PATCH_VERSION = 12;
 	private static final boolean IS_DEVELOPMENT_BUILD = true;
 
 	@Override
@@ -154,11 +155,20 @@ public class MainActivity extends Activity {
 	}
 
 	private void startBusTimeActivity(BusStop busStop) {
-		Intent intent = new Intent(this, BusTimeActivity.class);
-
-		intent.putExtra("BUS_TIME_CODE", busStop.getStopCode());
-
-		this.startActivity(intent);
+		if(Helper.isNetworkAvailable(this)) {
+			Intent intent = new Intent(this, BusTimeActivity.class);
+	
+			intent.putExtra("BUS_TIME_CODE", busStop.getStopCode());
+	
+			this.startActivity(intent);
+		} else {
+			Log.d("NETWORK", "NO NETWORK CONNECTION");
+			
+			String noNetworkConnectionText = getResources().getString(R.string.no_network_connection_text);
+			
+			Toast toast = Toast.makeText(this.getApplicationContext(), noNetworkConnectionText, Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 
 	@Override

@@ -6,16 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +19,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.swtrealtime.BusTime;
+import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class BusTimeActivity extends Activity {
 
@@ -39,7 +35,7 @@ public class BusTimeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
-
+		
 		// get selected bus code
 		Intent intent = getIntent();
 		busTimeCode = intent.getStringExtra("BUS_TIME_CODE");
@@ -98,7 +94,7 @@ public class BusTimeActivity extends Activity {
 		final Runnable r = new Runnable() {
 			@Override
 			public void run() {
-				if (isNetworkAvailable()) {
+				if (Helper.isNetworkAvailable(activity)) {
 					// delete the content of the old list, we don't them anymore ;)
 					listViewContent.clear();
 
@@ -160,17 +156,6 @@ public class BusTimeActivity extends Activity {
 		};
 
 		handler.post(r);
-	}
-
-	public boolean isNetworkAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-		// if no network is available networkInfo will be null
-		// otherwise check if we are connected
-		if (networkInfo != null && networkInfo.isConnected()) {
-			return true;
-		}
-		return false;
 	}
 	
 	@Override
