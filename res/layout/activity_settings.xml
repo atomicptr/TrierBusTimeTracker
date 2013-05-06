@@ -28,4 +28,13 @@
             android:onClick="onDeleteAllConfigurationFilesButtonClicked" />
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/autoReloadCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:text="@string/settings_use_auto_reload_text" />
+
 </RelativeLayout>
