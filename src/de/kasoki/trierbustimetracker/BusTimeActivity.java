@@ -1,38 +1,31 @@
 package de.kasoki.trierbustimetracker;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
-import de.kasoki.swtrealtime.BusTime;
-import de.kasoki.trierbustimetracker.utils.Helper;
+import de.kasoki.trierbustimetracker.tasks.ReloadTask;
 
 public class BusTimeActivity extends Activity {
 
-	private List<BusTime> busTimesList;
-	private List<Map<String, String>> listViewContent;
+	private volatile List<Map<String, String>> listViewContent;
 
-	private ListView busStopListView;
-	private SimpleAdapter listAdapter;
+	private volatile ListView busStopListView;
+	private volatile SimpleAdapter listAdapter;
 
 	private String busTimeCode;
 
-	private volatile boolean reloadActive;
+	private volatile boolean reloadActive = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,104 +88,52 @@ public class BusTimeActivity extends Activity {
 	private synchronized void reload() {
 		final String busTimeCode = this.busTimeCode;
 		final BusTimeActivity activity = this;
-
+		
 		if (!this.reloadActive) {
-			// maybe is should refactor the code below
-			Handler handler = new Handler();
-
-			final Runnable r = new Runnable() {
-				@Override
-				public void run() {
-					if (Helper.isNetworkAvailable(activity)) {
-						// delete the content of the old list, we don't them
-						// anymore ;)
-						listViewContent.clear();
-
-						// disable reload button
-						activity.setReloadActive(true);
-
-						// retrieve stuff from the SWT servers
-						busTimesList = BusTime.fromStopCode(busTimeCode);
-
-						Collections.sort(busTimesList);
-
-						for (BusTime b : busTimesList) {
-							Log.d("BUSTIME RECIEVED", b.toString());
-
-							final Map<String, String> data = new HashMap<String, String>(
-									2);
-
-							String delay = "";
-
-							if (b.getDelay() != 0) {
-								String operand = b.getDelay() < 0 ? "-" : "+";
-								delay = String.format(" %s %d%s", operand,
-										b.getDelay(), "m");
-							}
-
-							String arrivalTimeText = getResources().getString(
-									R.string.bustime_arrival_text);
-
-							data.put(
-									"FIRST_LINE",
-									String.format("(%d) %s", b.getNumber(),
-											b.getDestination()));
-							data.put("SECOND_LINE", String.format("%s: %s%s",
-									arrivalTimeText,
-									b.getArrivalTimeAsString(), delay));
-
-							activity.runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									listViewContent.add(data);
-								}
-
-							});
-
-						}
-
-						// when the list is empty show the user that there are
-						// no buses atm
-						if (listViewContent.isEmpty()) {
-							final Map<String, String> data = new HashMap<String, String>(
-									2);
-							data.put(
-									"FIRST_LINE",
-									getResources().getString(
-											R.string.bustime_no_bus));
-							data.put("SECOND_LINE", "");
-
-							listViewContent.add(data);
-						}
-
-						// enable reload button
-						activity.setReloadActive(false);
-
-						listAdapter.notifyDataSetChanged();
-					} else {
-						// No connection
-						Log.d("NETWORK", "NO NETWORK CONNECTION");
-
-						String noNetworkConnectionText = getResources()
-								.getString(R.string.no_network_connection_text);
-
-						Toast toast = Toast.makeText(
-								activity.getApplicationContext(),
-								noNetworkConnectionText, Toast.LENGTH_SHORT);
-						toast.show();
-					}
-				}
-			};
-
-			handler.post(r);
+			new ReloadTask(activity, busTimeCode).execute(0);
 		}
 	}
 
 	public void setReloadActive(boolean bool) {
 		this.reloadActive = bool;
 	}
+	
+	public void notifyListViewDataSetChanged() {
+		listAdapter.notifyDataSetChanged();
+	}
+	
+	public void setListViewContent(List<Map<String, String>> content) {
+		this.listViewContent = content;
+	}
+	
+	public void resetListAdapter() {
+		listAdapter = new SimpleAdapter(this, listViewContent,
+				android.R.layout.simple_list_item_2, new String[] {
+						"FIRST_LINE", "SECOND_LINE" }, new int[] {
+						android.R.id.text1, android.R.id.text2 });
+		
+		this.busStopListView.setAdapter(listAdapter);
+	}
 
+	public void onReloadTaskFinished(final List<Map<String, String>> content) {
+		final BusTimeActivity activity = this;
+		
+		Handler mainHandler = new Handler(activity.getApplicationContext().getMainLooper());
+		
+		Runnable r = new Runnable() {
+		    public void run() {
+		    	activity.setListViewContent(content);
+		    	
+		    	activity.resetListAdapter();
+		    	
+		    	activity.notifyListViewDataSetChanged();
+		    	
+		    }
+		};
+		
+		mainHandler.post(r);
+	}
+	
 	@Override
 	public void onResume() {
 		reload();
