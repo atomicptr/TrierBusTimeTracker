@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.kasoki.trierbustimetracker"
     android:versionCode="1"
-    android:versionName="0.0.19-DEV" >
+    android:versionName="0.0.20-DEV" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="8"
         android:targetSdkVersion="17" />
     
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>

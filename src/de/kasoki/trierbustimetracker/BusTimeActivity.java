@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,13 +31,16 @@ public class BusTimeActivity extends Activity {
 
 	private volatile boolean reloadActive = false;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		if(Helper.getCurrentAPILevel() >= 16) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+		
 		// get selected bus code
 		Intent intent = getIntent();
 		busTimeCode = intent.getStringExtra("BUS_TIME_CODE");
@@ -52,10 +56,12 @@ public class BusTimeActivity extends Activity {
 
 		busStopListView.setAdapter(listAdapter);
 
-		// set thread policy to permit all
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
-		StrictMode.setThreadPolicy(policy);
+		if(Helper.getCurrentAPILevel() >= 9) {
+			// set thread policy to permit all
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
 
 		// set title to bus stop
 		this.setTitle(BusStop.getBusStopByStopCode(busTimeCode).getName());
