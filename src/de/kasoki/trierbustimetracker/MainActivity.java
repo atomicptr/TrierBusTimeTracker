@@ -2,6 +2,7 @@ package de.kasoki.trierbustimetracker;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
+import de.kasoki.trierbustimetracker.utils.Identifier;
 
 public class MainActivity extends Activity {
 
@@ -32,9 +34,6 @@ public class MainActivity extends Activity {
 	private ArrayList<String> favorites;
 
 	private ConfigurationManager config;
-
-	private static final String APP_PREFERENCES_FAVORITE_IDENTIFIER = "de.kasoki.trierbustimetracker.FAVORITES";
-	private static final int SETTINGS_REQUEST_CODE = 0x01;
 
 	private static final int MAJOR_VERSION = 0;
 	private static final int MINOR_VERSION = 0;
@@ -109,7 +108,7 @@ public class MainActivity extends Activity {
 		// settings menu clicked
 		case R.id.action_settings:
 			intent = new Intent(this, SettingsActivity.class);
-			this.startActivityForResult(intent, SETTINGS_REQUEST_CODE);
+			this.startActivityForResult(intent, Identifier.SETTINGS_REQUEST_CODE);
 			return true;
 		// about menu clicked
 		case R.id.action_about_tbbt:
@@ -169,14 +168,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle state) {
 		state.putStringArrayList(
-				MainActivity.APP_PREFERENCES_FAVORITE_IDENTIFIER,
+				Identifier.APP_PREFERENCES_FAVORITE_IDENTIFIER,
 				this.favorites);
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle state) {
 		this.favorites = state
-				.getStringArrayList(MainActivity.APP_PREFERENCES_FAVORITE_IDENTIFIER);
+				.getStringArrayList(Identifier.APP_PREFERENCES_FAVORITE_IDENTIFIER);
 		this.listAdapter.notifyDataSetChanged();
 	}
 
@@ -185,7 +184,7 @@ public class MainActivity extends Activity {
 		if (resultCode == RESULT_OK) {
 
 			// Got request code from settings
-			if (requestCode == MainActivity.SETTINGS_REQUEST_CODE) {
+			if (requestCode == Identifier.SETTINGS_REQUEST_CODE) {
 				boolean deleteSettings = data.getExtras().getBoolean(
 						"DELETE_SETTINGS", false);
 
@@ -231,7 +230,7 @@ public class MainActivity extends Activity {
 			developmentBuild = "-DEV";
 		}
 
-		return String.format("%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
+		return String.format(Locale.getDefault(), "%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
 				PATCH_VERSION, developmentBuild);
 	}
 

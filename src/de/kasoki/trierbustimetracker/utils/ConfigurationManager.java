@@ -14,8 +14,6 @@ import android.content.Context;
 
 public class ConfigurationManager {
 	
-	private static final String APP_FAVORITE_FILE_IDENTIFIER = "de.kasoki.trierbustimetracker.CONF_FAVORITES";
-	
 	private Activity parent;
 	
 	public ConfigurationManager(Activity parent) {
@@ -25,7 +23,7 @@ public class ConfigurationManager {
 	public ArrayList<String> getFavorites() {
 		try {
 			BufferedInputStream in = new BufferedInputStream(
-					parent.openFileInput(APP_FAVORITE_FILE_IDENTIFIER));
+					parent.openFileInput(Identifier.APP_FAVORITE_FILE_IDENTIFIER));
 
 			String content = "";
 
@@ -38,7 +36,7 @@ public class ConfigurationManager {
 			JSONObject object = new JSONObject(content);
 
 			JSONArray array = (JSONArray) object
-					.get(APP_FAVORITE_FILE_IDENTIFIER);
+					.get(Identifier.APP_FAVORITE_FILE_IDENTIFIER);
 
 			ArrayList<String> favorites = new ArrayList<String>();
 
@@ -61,13 +59,13 @@ public class ConfigurationManager {
 
 	public void saveFavorites(ArrayList<String> favorites) {
 		try {
-			FileOutputStream fout = parent.openFileOutput(APP_FAVORITE_FILE_IDENTIFIER,
+			FileOutputStream fout = parent.openFileOutput(Identifier.APP_FAVORITE_FILE_IDENTIFIER,
 					Context.MODE_PRIVATE);
 
 			JSONObject object = new JSONObject();
 			JSONArray array = new JSONArray(favorites);
 
-			object.put(APP_FAVORITE_FILE_IDENTIFIER, array);
+			object.put(Identifier.APP_FAVORITE_FILE_IDENTIFIER, array);
 
 			fout.write(object.toString().getBytes());
 			fout.close();
@@ -84,7 +82,7 @@ public class ConfigurationManager {
 
 	/** Removes all configuration files */
 	public void clear() {
-		parent.getApplicationContext().deleteFile(APP_FAVORITE_FILE_IDENTIFIER);
+		parent.getApplicationContext().deleteFile(Identifier.APP_FAVORITE_FILE_IDENTIFIER);
 		
 	}
 }
