@@ -9,12 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.tasks.ReloadTask;
+import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class BusTimeActivity extends Activity {
 
@@ -56,7 +59,7 @@ public class BusTimeActivity extends Activity {
 
 		// set title to bus stop
 		this.setTitle(BusStop.getBusStopByStopCode(busTimeCode).getName());
-		
+
 		// get information
 		reload();
 	}
@@ -88,52 +91,65 @@ public class BusTimeActivity extends Activity {
 	private synchronized void reload() {
 		final String busTimeCode = this.busTimeCode;
 		final BusTimeActivity activity = this;
-		
+
 		if (!this.reloadActive) {
-			new ReloadTask(activity, busTimeCode).execute(0);
+			if (Helper.isNetworkAvailable(activity)) {
+				new ReloadTask(activity, busTimeCode).execute(0);
+			} else {
+				// No connection
+				Log.d("NETWORK", "NO NETWORK CONNECTION");
+
+				String noNetworkConnectionText = activity.getResources()
+						.getString(R.string.no_network_connection_text);
+
+				Toast toast = Toast.makeText(activity.getApplicationContext(),
+						noNetworkConnectionText, Toast.LENGTH_SHORT);
+				toast.show();
+			}
 		}
 	}
 
 	public void setReloadActive(boolean bool) {
 		this.reloadActive = bool;
 	}
-	
+
 	public void notifyListViewDataSetChanged() {
 		listAdapter.notifyDataSetChanged();
 	}
-	
+
 	public void setListViewContent(List<Map<String, String>> content) {
 		this.listViewContent = content;
 	}
-	
+
 	public void resetListAdapter() {
 		listAdapter = new SimpleAdapter(this, listViewContent,
 				android.R.layout.simple_list_item_2, new String[] {
 						"FIRST_LINE", "SECOND_LINE" }, new int[] {
 						android.R.id.text1, android.R.id.text2 });
-		
+
 		this.busStopListView.setAdapter(listAdapter);
 	}
 
 	public void onReloadTaskFinished(final List<Map<String, String>> content) {
 		final BusTimeActivity activity = this;
-		
-		Handler mainHandler = new Handler(activity.getApplicationContext().getMainLooper());
-		
+
+		Handler mainHandler = new Handler(activity.getApplicationContext()
+				.getMainLooper());
+
 		Runnable r = new Runnable() {
-		    public void run() {
-		    	activity.setListViewContent(content);
-		    	
-		    	activity.resetListAdapter();
-		    	
-		    	activity.notifyListViewDataSetChanged();
-		    	
-		    }
+			public void run() {
+				activity.setListViewContent(content);
+
+				activity.resetListAdapter();
+
+				activity.notifyListViewDataSetChanged();
+
+			}
 		};
-		
+
 		mainHandler.post(r);
 	}
-	
+
 	@Override
 	public void onResume() {
 		reload();

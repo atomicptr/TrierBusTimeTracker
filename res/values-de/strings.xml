@@ -14,5 +14,6 @@
     <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
     <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett</string>
     <string name="about_data_text"><b>Über die Echtzeitdaten</b>:\nAlle Echtzeitinformationen werde von der Online Auskunft der SWT (Stadtwerke Trier) verarbeitet. Weder diese Applikationen noch der Autor haben in irgendeiner Weise etwas mit den Stadtwerken Trier zu tun.</string>
+    <string name="loading_dialog_text">Lade informationen...</string>
     
 </resources>
