@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -31,14 +33,13 @@ public class BusTimeActivity extends Activity {
 
 	private volatile boolean reloadActive = false;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
 
-		if(Helper.getCurrentAPILevel() >= 16) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+		if(Helper.getCurrentAPILevel() >= 11) {
+			this.addHomeAsUpButtonToActionBar();
 		}
 		
 		// get selected bus code
@@ -57,10 +58,7 @@ public class BusTimeActivity extends Activity {
 		busStopListView.setAdapter(listAdapter);
 
 		if(Helper.getCurrentAPILevel() >= 9) {
-			// set thread policy to permit all
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-					.permitAll().build();
-			StrictMode.setThreadPolicy(policy);
+			this.setThreadPolicyToAllowAll();
 		}
 
 		// set title to bus stop
@@ -68,6 +66,19 @@ public class BusTimeActivity extends Activity {
 
 		// get information
 		reload();
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void addHomeAsUpButtonToActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+	private void setThreadPolicyToAllowAll() {
+		// set thread policy to permit all
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 	}
 
 	@Override
@@ -124,8 +135,8 @@ public class BusTimeActivity extends Activity {
 
 	public void setListViewContent(List<Map<String, String>> content) {
 		listViewContent.clear();
-		
-		for(Map<String, String> data : content) {
+
+		for (Map<String, String> data : content) {
 			listViewContent.add(data);
 		}
 	}

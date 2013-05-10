@@ -2,7 +2,9 @@ package de.kasoki.trierbustimetracker;
 
 import de.kasoki.trierbustimetracker.utils.Helper;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +18,17 @@ public class AboutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 		
-		if(Helper.getCurrentAPILevel() >= 16) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+		if(Helper.getCurrentAPILevel() >= 11) {
+			this.addHomeAsUpButtonToActionBar();
 		}
 
 		TextView versionTextView = (TextView) this.findViewById(R.id.versionTextView);
 		versionTextView.setText(MainActivity.getVersion());
+	}
+	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void addHomeAsUpButtonToActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
