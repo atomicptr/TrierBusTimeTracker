@@ -118,16 +118,11 @@ public class BusTimeActivity extends Activity {
 	}
 
 	public void setListViewContent(List<Map<String, String>> content) {
-		this.listViewContent = content;
-	}
-
-	public void resetListAdapter() {
-		listAdapter = new SimpleAdapter(this, listViewContent,
-				android.R.layout.simple_list_item_2, new String[] {
-						"FIRST_LINE", "SECOND_LINE" }, new int[] {
-						android.R.id.text1, android.R.id.text2 });
-
-		this.busStopListView.setAdapter(listAdapter);
+		listViewContent.clear();
+		
+		for(Map<String, String> data : content) {
+			listViewContent.add(data);
+		}
 	}
 
 	public void onReloadTaskFinished(final List<Map<String, String>> content) {
@@ -139,8 +134,6 @@ public class BusTimeActivity extends Activity {
 		Runnable r = new Runnable() {
 			public void run() {
 				activity.setListViewContent(content);
-
-				activity.resetListAdapter();
 
 				activity.notifyListViewDataSetChanged();
 
