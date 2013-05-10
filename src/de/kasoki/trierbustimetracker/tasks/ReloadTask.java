@@ -85,7 +85,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 	}
 
 	@Override
-	public void onPreExecute() {
+	protected void onPreExecute() {
 		String loadingDialogText = activity.getResources().getString(
 				R.string.loading_dialog_text);
 
@@ -93,7 +93,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 	}
 
 	@Override
-	public void onPostExecute(Long result) {
+	protected void onPostExecute(Long result) {
 		progressDialog.dismiss();
 	}
 
