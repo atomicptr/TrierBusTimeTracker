@@ -73,7 +73,6 @@ public class BusTimeActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		switch (item.getItemId()) {
 		// reload action pressed
 		case R.id.action_reload:
@@ -128,6 +127,7 @@ public class BusTimeActivity extends Activity {
 	public void onReloadTaskFinished(final List<Map<String, String>> content) {
 		final BusTimeActivity activity = this;
 
+		// run code in the main thread
 		Handler mainHandler = new Handler(activity.getApplicationContext()
 				.getMainLooper());
 

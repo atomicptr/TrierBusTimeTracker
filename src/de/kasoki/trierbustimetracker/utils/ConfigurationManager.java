@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import de.kasoki.trierbustimetracker.MainActivity;
-
 import android.app.Activity;
 import android.content.Context;
 

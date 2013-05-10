@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
 		listView.setAdapter(listAdapter);
 
 		// add OnItemClickListener to listView
+		// TODO: Refactor this statement
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -102,7 +103,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		Intent intent;
 
 		switch (item.getItemId()) {
@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
 			intent = new Intent(this, SettingsActivity.class);
 			this.startActivityForResult(intent, SETTINGS_REQUEST_CODE);
 			return true;
-			// about menu clicked
+		// about menu clicked
 		case R.id.action_about_tbbt:
 			intent = new Intent(this, AboutActivity.class);
 			this.startActivity(intent);
@@ -201,7 +201,6 @@ public class MainActivity extends Activity {
 
 	// This method loads the favorites list on start
 	protected void onStart() {
-		
 		ArrayList<String> favorites = config.getFavorites();
 		
 		if(favorites != null) {

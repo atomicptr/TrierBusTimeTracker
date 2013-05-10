@@ -9,11 +9,9 @@ import java.util.Map;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 import de.kasoki.swtrealtime.BusTime;
 import de.kasoki.trierbustimetracker.BusTimeActivity;
 import de.kasoki.trierbustimetracker.R;
-import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
