@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.kasoki.trierbustimetracker"
     android:versionCode="1"
-    android:versionName="0.0.14-DEV" >
+    android:versionName="0.0.15-DEV" >
 
     <uses-sdk
         android:minSdkVersion="11"

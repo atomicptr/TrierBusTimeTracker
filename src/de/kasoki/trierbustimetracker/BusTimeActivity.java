@@ -25,32 +25,34 @@ public class BusTimeActivity extends Activity {
 
 	private List<BusTime> busTimesList;
 	private List<Map<String, String>> listViewContent;
-	
+
 	private ListView busStopListView;
 	private SimpleAdapter listAdapter;
-	
+
 	private String busTimeCode;
-	
+
+	private volatile boolean reloadActive;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		// get selected bus code
 		Intent intent = getIntent();
 		busTimeCode = intent.getStringExtra("BUS_TIME_CODE");
-		
+
 		// init stuff
 		busStopListView = (ListView) this.findViewById(R.id.busStopListView);
 		listViewContent = new ArrayList<Map<String, String>>();
-		
+
 		listAdapter = new SimpleAdapter(this, listViewContent,
-                android.R.layout.simple_list_item_2, 
-                new String[] {"FIRST_LINE", "SECOND_LINE" }, 
-                new int[] {android.R.id.text1, android.R.id.text2 });
-		
+				android.R.layout.simple_list_item_2, new String[] {
+						"FIRST_LINE", "SECOND_LINE" }, new int[] {
+						android.R.id.text1, android.R.id.text2 });
+
 		busStopListView.setAdapter(listAdapter);
 
 		// set thread policy to permit all
@@ -60,7 +62,7 @@ public class BusTimeActivity extends Activity {
 
 		// set title to bus stop
 		this.setTitle(BusStop.getBusStopByStopCode(busTimeCode).getName());
-		
+
 		// get information
 		reload();
 	}
@@ -91,82 +93,111 @@ public class BusTimeActivity extends Activity {
 	// reload the bus times and set them to the busStopListView
 	private synchronized void reload() {
 		final String busTimeCode = this.busTimeCode;
-		final Activity activity = this;
-		
-		// maybe is should refactor the code below
-		Handler handler = new Handler();
+		final BusTimeActivity activity = this;
 
-		final Runnable r = new Runnable() {
-			@Override
-			public void run() {
-				if (Helper.isNetworkAvailable(activity)) {
-					// delete the content of the old list, we don't them anymore ;)
-					listViewContent.clear();
+		if (!this.reloadActive) {
+			// maybe is should refactor the code below
+			Handler handler = new Handler();
 
-					// retrieve stuff from the SWT servers
-					busTimesList = BusTime.fromStopCode(busTimeCode);
+			final Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					if (Helper.isNetworkAvailable(activity)) {
+						// delete the content of the old list, we don't them
+						// anymore ;)
+						listViewContent.clear();
 
-					Collections.sort(busTimesList);
-					
-					for (BusTime b : busTimesList) {
-						Log.d("BUSTIME RECIEVED", b.toString());
-						
-						final Map<String, String> data = new HashMap<String, String>(2);
-						
-						String delay = "";
-						
-						if(b.getDelay() != 0) {
-							String operand = b.getDelay() < 0 ? "-" : "+";
-							delay = String.format(" %s %d%s", operand, b.getDelay(), "m");
-						}
-						
-						String arrivalTimeText = getResources().getString(R.string.bustime_arrival_text);
-						
-				        data.put("FIRST_LINE", String.format("(%d) %s", b.getNumber(), b.getDestination()));
-				        data.put("SECOND_LINE", String.format("%s: %s%s", arrivalTimeText, b.getArrivalTimeAsString(), delay));
-				        
-				        activity.runOnUiThread(new Runnable() {
+						// disable reload button
+						activity.setReloadActive(true);
 
-							@Override
-							public void run() {
-								listViewContent.add(data);
+						// retrieve stuff from the SWT servers
+						busTimesList = BusTime.fromStopCode(busTimeCode);
+
+						Collections.sort(busTimesList);
+
+						for (BusTime b : busTimesList) {
+							Log.d("BUSTIME RECIEVED", b.toString());
+
+							final Map<String, String> data = new HashMap<String, String>(
+									2);
+
+							String delay = "";
+
+							if (b.getDelay() != 0) {
+								String operand = b.getDelay() < 0 ? "-" : "+";
+								delay = String.format(" %s %d%s", operand,
+										b.getDelay(), "m");
 							}
-				        	
-				        });
-				       
-					}
-					
-					// when the list is empty show the user that there are no buses atm
-					if(listViewContent.isEmpty()) {
-						final Map<String, String> data = new HashMap<String, String>(2);
-						data.put("FIRST_LINE", getResources().getString(R.string.bustime_no_bus));
-						data.put("SECOND_LINE", "");
-						
-						listViewContent.add(data);
-					}
-					
-					listAdapter.notifyDataSetChanged();
-				} else {
-					// No connection
-					Log.d("NETWORK", "NO NETWORK CONNECTION");
-					
-					String noNetworkConnectionText = getResources().getString(R.string.no_network_connection_text);
-					
-					Toast toast = Toast.makeText(activity.getApplicationContext(), noNetworkConnectionText, Toast.LENGTH_SHORT);
-					toast.show();
-					
-					activity.finish();
-				}
-			}
-		};
 
-		handler.post(r);
+							String arrivalTimeText = getResources().getString(
+									R.string.bustime_arrival_text);
+
+							data.put(
+									"FIRST_LINE",
+									String.format("(%d) %s", b.getNumber(),
+											b.getDestination()));
+							data.put("SECOND_LINE", String.format("%s: %s%s",
+									arrivalTimeText,
+									b.getArrivalTimeAsString(), delay));
+
+							activity.runOnUiThread(new Runnable() {
+
+								@Override
+								public void run() {
+									listViewContent.add(data);
+								}
+
+							});
+
+						}
+
+						// when the list is empty show the user that there are
+						// no buses atm
+						if (listViewContent.isEmpty()) {
+							final Map<String, String> data = new HashMap<String, String>(
+									2);
+							data.put(
+									"FIRST_LINE",
+									getResources().getString(
+											R.string.bustime_no_bus));
+							data.put("SECOND_LINE", "");
+
+							listViewContent.add(data);
+						}
+
+						// enable reload button
+						activity.setReloadActive(false);
+
+						listAdapter.notifyDataSetChanged();
+					} else {
+						// No connection
+						Log.d("NETWORK", "NO NETWORK CONNECTION");
+
+						String noNetworkConnectionText = getResources()
+								.getString(R.string.no_network_connection_text);
+
+						Toast toast = Toast.makeText(
+								activity.getApplicationContext(),
+								noNetworkConnectionText, Toast.LENGTH_SHORT);
+						toast.show();
+
+						//activity.finish();
+					}
+				}
+			};
+
+			handler.post(r);
+		}
 	}
-	
+
+	public void setReloadActive(boolean bool) {
+		this.reloadActive = bool;
+	}
+
 	@Override
 	public void onResume() {
 		reload();
-		
+
 		super.onResume();
 	}
 
