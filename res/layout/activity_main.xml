@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,45 +6,51 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <Spinner
-        android:id="@+id/busStopSpinner"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/addToFavoritesButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-		android:layout_toLeftOf="@+id/actionSelectedButton"
-        android:drawableLeft="@drawable/ic_action_star"
- 		android:gravity="left|center_vertical"
- 		android:onClick="onAddToFavoritesButtonClicked" />
-
-    <Button
-        android:id="@+id/actionSelectedButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentRight="true"
-        android:drawableLeft="@drawable/ic_action_done"
- 		android:gravity="left|center_vertical"
- 		android:onClick="onActionSelectedButtonClicked"/>
-
+	    <Spinner
+	        android:id="@+id/busStopSpinner"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="100"
+	        />
+	
+	    <Button
+	        android:id="@+id/addToFavoritesButton"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:drawableLeft="@drawable/ic_action_star"
+	 		android:gravity="left|center_vertical"
+	 		android:onClick="onAddToFavoritesButtonClicked"
+	 		android:layout_weight="1" />
+	
+	    <Button
+	        android:id="@+id/actionSelectedButton"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:drawableLeft="@drawable/ic_action_done"
+	 		android:gravity="left|center_vertical"
+	 		android:onClick="onActionSelectedButtonClicked"
+	 		android:layout_weight="1" />
+	</LinearLayout>
+	
     <ListView
         android:id="@+id/favoritesListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/busStopSpinner"
-        android:layout_below="@+id/busStopSpinner"
         android:layout_marginTop="10dp" >
     </ListView>
 
-</RelativeLayout>
+</LinearLayout>
