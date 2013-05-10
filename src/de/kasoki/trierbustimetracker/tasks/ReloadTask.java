@@ -99,5 +99,10 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 		return 0L;
 	}
+	
+	@Override
+	public void onCancelled() {
+		Log.d("CANCEL", "RELOAD TASK WAS CANCELLED");
+	}
 
 }
