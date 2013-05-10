@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,7 +63,7 @@ public class BusTimeActivity extends Activity {
 
 		// set title to bus stop
 		this.setTitle(BusStop.getBusStopByStopCode(busTimeCode).getName());
-
+		
 		// get information
 		reload();
 	}
@@ -180,8 +181,6 @@ public class BusTimeActivity extends Activity {
 								activity.getApplicationContext(),
 								noNetworkConnectionText, Toast.LENGTH_SHORT);
 						toast.show();
-
-						//activity.finish();
 					}
 				}
 			};
