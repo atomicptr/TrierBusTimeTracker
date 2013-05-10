@@ -19,4 +19,8 @@ public class Helper {
 		}
 		return false;
 	}
+	
+	public static int getCurrentAPILevel() {
+		return android.os.Build.VERSION.SDK_INT;
+	}
 }
