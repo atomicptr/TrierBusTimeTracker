@@ -1,23 +1,14 @@
 package de.kasoki.trierbustimetracker;
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
+import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class MainActivity extends Activity {
@@ -39,13 +31,14 @@ public class MainActivity extends Activity {
 	private ArrayList<String> busStopList;
 	private ArrayList<String> favorites;
 
-	private static final String APP_IDENTIFIER = "de.kasoki.TRIER_BUS_TIME_TRACKER";
+	private ConfigurationManager config;
+
 	private static final String APP_PREFERENCES_FAVORITE_IDENTIFIER = "de.kasoki.trierbustimetracker.FAVORITES";
 	private static final int SETTINGS_REQUEST_CODE = 0x01;
 
 	private static final int MAJOR_VERSION = 0;
 	private static final int MINOR_VERSION = 0;
-	private static final int PATCH_VERSION = 13;
+	private static final int PATCH_VERSION = 14;
 	private static final boolean IS_DEVELOPMENT_BUILD = true;
 
 	@Override
@@ -55,6 +48,8 @@ public class MainActivity extends Activity {
 
 		Log.d("TBBT", getVersion());
 
+		config = new ConfigurationManager(this);
+		
 		busStopList = new ArrayList<String>();
 		favorites = new ArrayList<String>();
 
@@ -206,63 +201,26 @@ public class MainActivity extends Activity {
 
 	// This method loads the favorites list on start
 	protected void onStart() {
-		try {
-			BufferedInputStream in = new BufferedInputStream(
-					openFileInput(MainActivity.APP_IDENTIFIER));
-
-			String content = "";
-
-			while (in.available() > 0) {
-				content += (char) in.read();
+		
+		ArrayList<String> favorites = config.getFavorites();
+		
+		if(favorites != null) {
+			
+			this.favorites.clear();
+			
+			for(String f : favorites) {
+				this.favorites.add(f);
 			}
-
-			in.close();
-
-			JSONObject object = new JSONObject(content);
-
-			JSONArray array = (JSONArray) object
-					.get(MainActivity.APP_PREFERENCES_FAVORITE_IDENTIFIER);
-
-			favorites.clear();
-
-			for (int i = 0; i < array.length(); i++) {
-				String item = array.getString(i);
-
-				favorites.add(item);
-			}
-
-			listAdapter.notifyDataSetChanged();
-		} catch (FileNotFoundException e) {
-			// Don't do anything, file will be created in onStop
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-
+		
+		listAdapter.notifyDataSetChanged();
+		
 		super.onStart();
 	}
 
 	// This method saves the favorites list to a file
 	protected void onStop() {
-		try {
-			FileOutputStream fout = openFileOutput(MainActivity.APP_IDENTIFIER,
-					Context.MODE_PRIVATE);
-
-			JSONObject object = new JSONObject();
-			JSONArray array = new JSONArray(favorites);
-
-			object.put(MainActivity.APP_PREFERENCES_FAVORITE_IDENTIFIER, array);
-
-			fout.write(object.toString().getBytes());
-			fout.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		config.saveFavorites(favorites);
 
 		super.onStop();
 	}
@@ -280,6 +238,6 @@ public class MainActivity extends Activity {
 
 	// delete ALL the settings!
 	public void deleteAllSettings() {
-		getApplicationContext().deleteFile(MainActivity.APP_IDENTIFIER);
+		config.clear();
 	}
 }
