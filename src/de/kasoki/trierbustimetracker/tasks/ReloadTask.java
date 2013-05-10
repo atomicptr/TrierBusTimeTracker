@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import android.app.ProgressDialog;
@@ -47,7 +48,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 			if (b.getDelay() != 0) {
 				String operand = b.getDelay() < 0 ? "-" : "+";
-				delay = String.format(" %s %d%s", operand, b.getDelay(), "m");
+				delay = String.format(Locale.getDefault(), " %s %d%s", operand, b.getDelay(), "m");
 			}
 
 			String arrivalTimeText = activity.getResources().getString(
