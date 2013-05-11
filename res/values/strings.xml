@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Trier Bus Time Tracker | Alpha</string>
+    <string name="app_name">Trier Bus Time Tracker</string>
     <string name="app_name_about">Trier Bus Time Tracker | About</string>
     <string name="settings_title">Settings</string>
     <string name="action_settings">Settings</string>
