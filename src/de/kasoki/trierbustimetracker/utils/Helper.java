@@ -29,7 +29,6 @@ public class Helper {
 		try {
 			return activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionName;
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -50,7 +50,6 @@ public class ConfigurationManager {
 		} catch (FileNotFoundException e) {
 			// Don't do anything, file will be created in onStop
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -71,10 +70,8 @@ public class ConfigurationManager {
 			fout.close();
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
