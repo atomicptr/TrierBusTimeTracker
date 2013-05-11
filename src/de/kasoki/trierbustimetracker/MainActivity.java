@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
+import de.kasoki.trierbustimetracker.adapter.FavoriteListAdapter;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 import de.kasoki.trierbustimetracker.utils.Identifier;
@@ -25,7 +26,7 @@ public class MainActivity extends Activity {
 	private ArrayAdapter<String> spinnerAdapter;
 	private Spinner busStopSpinner;
 
-	private ArrayAdapter<String> listAdapter;
+	private FavoriteListAdapter listAdapter;
 	private ListView listView;
 
 	private BusStop[] busStopIndex;
@@ -62,8 +63,7 @@ public class MainActivity extends Activity {
 		spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item, busStopList);
 
-		listAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, favorites);
+		listAdapter = new FavoriteListAdapter(favorites, this);
 
 		// set adapters
 		busStopSpinner.setAdapter(spinnerAdapter);
