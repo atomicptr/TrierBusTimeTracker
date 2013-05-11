@@ -2,7 +2,6 @@ package de.kasoki.trierbustimetracker;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
