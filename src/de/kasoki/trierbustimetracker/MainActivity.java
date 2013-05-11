@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +45,7 @@ public class MainActivity extends Activity {
 		Log.d("TBBT", Helper.getVersion(this));
 
 		config = new ConfigurationManager(this);
-		
+
 		busStopList = new ArrayList<String>();
 		favorites = new ArrayList<String>();
 
@@ -85,6 +87,8 @@ public class MainActivity extends Activity {
 			}
 
 		});
+
+		this.registerForContextMenu(listView);
 	}
 
 	@Override
@@ -102,9 +106,10 @@ public class MainActivity extends Activity {
 		// settings menu clicked
 		case R.id.action_settings:
 			intent = new Intent(this, SettingsActivity.class);
-			this.startActivityForResult(intent, Identifier.SETTINGS_REQUEST_CODE);
+			this.startActivityForResult(intent,
+					Identifier.SETTINGS_REQUEST_CODE);
 			return true;
-		// about menu clicked
+			// about menu clicked
 		case R.id.action_about_tbbt:
 			intent = new Intent(this, AboutActivity.class);
 			this.startActivity(intent);
@@ -143,27 +148,88 @@ public class MainActivity extends Activity {
 	}
 
 	private void startBusTimeActivity(BusStop busStop) {
-		if(Helper.isNetworkAvailable(this)) {
+		if (Helper.isNetworkAvailable(this)) {
 			Intent intent = new Intent(this, BusTimeActivity.class);
-	
+
 			intent.putExtra("BUS_TIME_CODE", busStop.getStopCode());
-	
+
 			this.startActivity(intent);
 		} else {
 			Log.d("NETWORK", "NO NETWORK CONNECTION");
-			
-			String noNetworkConnectionText = getResources().getString(R.string.no_network_connection_text);
-			
-			Toast toast = Toast.makeText(this.getApplicationContext(), noNetworkConnectionText, Toast.LENGTH_SHORT);
+
+			String noNetworkConnectionText = getResources().getString(
+					R.string.no_network_connection_text);
+
+			Toast toast = Toast.makeText(this.getApplicationContext(),
+					noNetworkConnectionText, Toast.LENGTH_SHORT);
 			toast.show();
 		}
 	}
 
 	@Override
+	public void onCreateContextMenu(ContextMenu menu, View view,
+			ContextMenuInfo menuInfo) {
+		if (view.getId() == R.id.favoritesListView) {
+			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+			
+			menu.setHeaderTitle(favorites.get(info.position));
+
+			String[] menuItems = getResources().getStringArray(
+					R.array.favorites_menu);
+
+			for (int i = 0; i < menuItems.length; i++) {
+				menu.add(Menu.NONE, i, i, menuItems[i]);
+			}
+		}
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		
+		String selectedItem = favorites.get(info.position);
+
+		switch(item.getItemId()) {
+		// select
+		case 0:
+			contextMenuSelect(selectedItem);
+			break;
+		// delete
+		case 1:
+			contextDeleteEntry(info.position);
+			break;
+		default:
+			Log.d("ERROR", "Unknown Context menu option: " + item.getItemId());
+			break;
+		}
+		
+		
+		
+		return true;
+	}
+	
+	private void contextMenuSelect(String item) {
+		busStopSpinner.setSelection(busStopList.indexOf(item));
+
+		onActionSelectedButtonClicked(null);
+	}
+
+	private void contextDeleteEntry(int position) {
+		String item = favorites.get(position);
+		
+		favorites.remove(position);
+		
+		listAdapter.notifyDataSetChanged();
+		
+		String message = getResources().getString(R.string.favorite_item_deleted, item);
+		
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
 	protected void onSaveInstanceState(Bundle state) {
 		state.putStringArrayList(
-				Identifier.APP_PREFERENCES_FAVORITE_IDENTIFIER,
-				this.favorites);
+				Identifier.APP_PREFERENCES_FAVORITE_IDENTIFIER, this.favorites);
 	}
 
 	@Override
@@ -195,18 +261,18 @@ public class MainActivity extends Activity {
 	// This method loads the favorites list on start
 	protected void onStart() {
 		ArrayList<String> favorites = config.getFavorites();
-		
-		if(favorites != null) {
-			
+
+		if (favorites != null) {
+
 			this.favorites.clear();
-			
-			for(String f : favorites) {
+
+			for (String f : favorites) {
 				this.favorites.add(f);
 			}
 		}
-		
+
 		listAdapter.notifyDataSetChanged();
-		
+
 		super.onStart();
 	}
 

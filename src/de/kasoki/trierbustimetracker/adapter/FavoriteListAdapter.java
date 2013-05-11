@@ -19,7 +19,7 @@ public class FavoriteListAdapter extends BaseAdapter {
 		this.favorites = favorites;
 		this.context = context;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return favorites.size();
@@ -39,7 +39,8 @@ public class FavoriteListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
 		if (view == null) {
-			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = vi.inflate(R.layout.main_list_item_favorites, null);
 		}
 
