@@ -2,6 +2,7 @@ package de.kasoki.trierbustimetracker.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -22,5 +23,16 @@ public class Helper {
 	
 	public static int getCurrentAPILevel() {
 		return android.os.Build.VERSION.SDK_INT;
+	}
+	
+	public static String getVersion(Activity activity) {
+		try {
+			return activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
 	}
 }

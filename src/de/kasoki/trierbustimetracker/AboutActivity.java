@@ -23,7 +23,7 @@ public class AboutActivity extends Activity {
 		}
 
 		TextView versionTextView = (TextView) this.findViewById(R.id.versionTextView);
-		versionTextView.setText(MainActivity.getVersion());
+		versionTextView.setText(Helper.getVersion(this));
 	}
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)

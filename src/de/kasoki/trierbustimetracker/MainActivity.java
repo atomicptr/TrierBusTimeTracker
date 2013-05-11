@@ -35,17 +35,12 @@ public class MainActivity extends Activity {
 
 	private ConfigurationManager config;
 
-	private static final int MAJOR_VERSION = 0;
-	private static final int MINOR_VERSION = 0;
-	private static final int PATCH_VERSION = 24;
-	private static final boolean IS_DEVELOPMENT_BUILD = true;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Log.d("TBBT", getVersion());
+		Log.d("TBBT", Helper.getVersion(this));
 
 		config = new ConfigurationManager(this);
 		
@@ -221,17 +216,6 @@ public class MainActivity extends Activity {
 		config.saveFavorites(favorites);
 
 		super.onStop();
-	}
-
-	public static String getVersion() {
-		String developmentBuild = "";
-
-		if (IS_DEVELOPMENT_BUILD) {
-			developmentBuild = "-DEV";
-		}
-
-		return String.format(Locale.getDefault(), "%d.%d.%d%s", MAJOR_VERSION, MINOR_VERSION,
-				PATCH_VERSION, developmentBuild);
 	}
 
 	// delete ALL the settings!
