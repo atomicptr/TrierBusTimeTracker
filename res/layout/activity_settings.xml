@@ -17,13 +17,13 @@
         <ToggleButton
             android:id="@+id/deleteAllConfigurationFilesToggleButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:onClick="onDeleteAllConfigurationFilesToggleButtonClicked" />
 
         <Button
             android:id="@+id/deleteAllConfigurationFilesButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/settings_delete_everything_button_text"
             android:onClick="onDeleteAllConfigurationFilesButtonClicked" />
     </LinearLayout>

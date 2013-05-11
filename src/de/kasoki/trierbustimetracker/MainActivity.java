@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
 	private static final int MAJOR_VERSION = 0;
 	private static final int MINOR_VERSION = 0;
-	private static final int PATCH_VERSION = 23;
+	private static final int PATCH_VERSION = 24;
 	private static final boolean IS_DEVELOPMENT_BUILD = true;
 
 	@Override
