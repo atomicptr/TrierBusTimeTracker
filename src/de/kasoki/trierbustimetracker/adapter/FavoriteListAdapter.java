@@ -41,7 +41,7 @@ public class FavoriteListAdapter extends BaseAdapter {
 		if (view == null) {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = vi.inflate(R.layout.main_list_item_favorites, null);
+			view = vi.inflate(R.layout.list_item_favorites, null);
 		}
 
 		TextView busStopName = (TextView) view.findViewById(R.id.busstop_name);
