@@ -70,7 +70,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 			data.put("TIME", "");
 			data.put("DESTINATION",
 					activity.getResources().getString(R.string.bustime_no_bus));
-			data.put("TIME", ":(");
+			data.put("TIME", "");
 
 			listViewContent.add(data);
 		}
