@@ -1,8 +1,8 @@
 package de.kasoki.trierbustimetracker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,18 +15,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import de.kasoki.swtrealtime.BusStop;
+import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter;
 import de.kasoki.trierbustimetracker.tasks.ReloadTask;
 import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class BusTimeActivity extends Activity {
 
-	private volatile List<Map<String, String>> listViewContent;
+	private volatile ArrayList<HashMap<String, String>> listViewContent;
 
 	private volatile ListView busStopListView;
-	private volatile SimpleAdapter listAdapter;
+	private volatile BusTimeAdapter listAdapter;
 
 	private String busTimeCode;
 
@@ -47,12 +47,9 @@ public class BusTimeActivity extends Activity {
 
 		// init stuff
 		busStopListView = (ListView) this.findViewById(R.id.busStopListView);
-		listViewContent = new ArrayList<Map<String, String>>();
+		listViewContent = new ArrayList<HashMap<String, String>>();
 
-		listAdapter = new SimpleAdapter(this, listViewContent,
-				android.R.layout.simple_list_item_2, new String[] {
-						"FIRST_LINE", "SECOND_LINE" }, new int[] {
-						android.R.id.text1, android.R.id.text2 });
+		listAdapter = new BusTimeAdapter(listViewContent, this);
 
 		busStopListView.setAdapter(listAdapter);
 
@@ -132,15 +129,15 @@ public class BusTimeActivity extends Activity {
 		listAdapter.notifyDataSetChanged();
 	}
 
-	public void setListViewContent(List<Map<String, String>> content) {
+	public void setListViewContent(List<HashMap<String, String>> content) {
 		listViewContent.clear();
 
-		for (Map<String, String> data : content) {
+		for (HashMap<String, String> data : content) {
 			listViewContent.add(data);
 		}
 	}
 
-	public void onReloadTaskFinished(final List<Map<String, String>> content) {
+	public void onReloadTaskFinished(final List<HashMap<String, String>> content) {
 		final BusTimeActivity activity = this;
 
 		// run code in the main thread

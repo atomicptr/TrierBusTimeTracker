@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -17,7 +15,7 @@ import de.kasoki.trierbustimetracker.R;
 public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 	private BusTimeActivity activity;
-	private List<Map<String, String>> listViewContent;
+	private List<HashMap<String, String>> listViewContent;
 
 	private String busTimeCode;
 
@@ -25,7 +23,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 	public ReloadTask(BusTimeActivity activity, String busTimeCode) {
 		this.activity = activity;
-		this.listViewContent = new ArrayList<Map<String, String>>();
+		this.listViewContent = new ArrayList<HashMap<String, String>>();
 		this.busTimeCode = busTimeCode;
 	}
 
@@ -42,7 +40,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 		for (BusTime b : busTimesList) {
 			Log.d("BUSTIME RECIEVED", b.toString());
 
-			final Map<String, String> data = new HashMap<String, String>(2);
+			final HashMap<String, String> data = new HashMap<String, String>(2);
 
 			String delay = "";
 
@@ -54,10 +52,10 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 			String arrivalTimeText = activity.getResources().getString(
 					R.string.bustime_arrival_text);
 
-			data.put("FIRST_LINE",
-					String.format("(%d) %s", b.getNumber(), b.getDestination()));
+			data.put("NUMBER", Integer.toString(b.getNumber()));
+			data.put("DESTINATION", b.getDestination());
 			data.put(
-					"SECOND_LINE",
+					"TIME",
 					String.format("%s: %s%s", arrivalTimeText,
 							b.getArrivalTimeAsString(), delay));
 
@@ -68,10 +66,11 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 		// when the list is empty show the user that there are
 		// no buses atm
 		if (listViewContent.isEmpty()) {
-			final Map<String, String> data = new HashMap<String, String>(2);
-			data.put("FIRST_LINE",
+			final HashMap<String, String> data = new HashMap<String, String>(3);
+			data.put("TIME", "");
+			data.put("DESTINATION",
 					activity.getResources().getString(R.string.bustime_no_bus));
-			data.put("SECOND_LINE", "");
+			data.put("TIME", "");
 
 			listViewContent.add(data);
 		}
