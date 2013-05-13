@@ -259,6 +259,7 @@ public class MainActivity extends Activity {
 	}
 
 	// This method loads the favorites list on start
+	@Override
 	protected void onStart() {
 		ArrayList<String> favorites = config.getFavorites();
 
@@ -277,6 +278,7 @@ public class MainActivity extends Activity {
 	}
 
 	// This method saves the favorites list to a file
+	@Override
 	protected void onStop() {
 		config.saveFavorites(favorites);
 
