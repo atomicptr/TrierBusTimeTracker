@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ToggleButton;
+import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class SettingsActivity extends Activity {
 
+	private ConfigurationManager config;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +25,8 @@ public class SettingsActivity extends Activity {
 		if(Helper.getCurrentAPILevel() >= 11) {
 			this.addHomeAsUpButtonToActionBar();
 		}
+		
+		config = new ConfigurationManager(this);
 		
 		toggleDeleteEverything(false);
 	}
@@ -67,5 +73,39 @@ public class SettingsActivity extends Activity {
 		
 		toggleDeleteEverything(false);
 		finish();
+	}
+	
+	@Override
+	protected void onStart() {
+		// load settings
+
+		CheckBox autoReloadCheckbox = (CheckBox) this.findViewById(R.id.autoReloadCheckbox);
+		CheckBox useNotificationsForReloadCheckbox = (CheckBox) this.findViewById(R.id.use_notifications_for_reload_checkbox);
+
+		config.loadSettingsActivity();
+		
+		try {
+			autoReloadCheckbox.setChecked(config.useAutoReload());
+			useNotificationsForReloadCheckbox.setChecked(config.useNotifications());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		// save settings
+		
+		CheckBox autoReloadCheckbox = (CheckBox) this.findViewById(R.id.autoReloadCheckbox);
+		CheckBox useNotificationsForReloadCheckbox = (CheckBox) this.findViewById(R.id.use_notifications_for_reload_checkbox);
+
+		boolean useAutoReload = autoReloadCheckbox.isChecked();
+		boolean useNotifications = useNotificationsForReloadCheckbox.isChecked();
+		
+		config.saveSettingsActivity(useAutoReload, useNotifications);
+
+		super.onStop();
 	}
 }
