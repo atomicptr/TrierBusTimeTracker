@@ -52,7 +52,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 			String arrivalTimeText = activity.getResources().getString(
 					R.string.bustime_arrival_text);
 
-			data.put("NUMBER", Integer.toString(b.getNumber()));
+			data.put("NUMBER", String.format("%02d", b.getNumber()));
 			data.put("DESTINATION", b.getDestination());
 			data.put(
 					"TIME",
