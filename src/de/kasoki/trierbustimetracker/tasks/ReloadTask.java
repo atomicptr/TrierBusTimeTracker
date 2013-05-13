@@ -40,7 +40,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 		for (BusTime b : busTimesList) {
 			Log.d("BUSTIME RECIEVED", b.toString());
 
-			final HashMap<String, String> data = new HashMap<String, String>(2);
+			final HashMap<String, String> data = new HashMap<String, String>();
 
 			String delay = "";
 
@@ -66,7 +66,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 		// when the list is empty show the user that there are
 		// no buses atm
 		if (listViewContent.isEmpty()) {
-			final HashMap<String, String> data = new HashMap<String, String>(3);
+			final HashMap<String, String> data = new HashMap<String, String>();
 			data.put("TIME", "");
 			data.put("DESTINATION",
 					activity.getResources().getString(R.string.bustime_no_bus));
