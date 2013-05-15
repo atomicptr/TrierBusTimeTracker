@@ -24,6 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import android.annotation.SuppressLint;
 import java.util.Iterator;
 
 /**
@@ -31,6 +32,7 @@ import java.util.Iterator;
  * @author JSON.org
  * @version 2010-12-24
  */
+@SuppressLint("DefaultLocale")
 public class HTTP {
 
     /** Carriage return/line feed. */
@@ -68,7 +70,8 @@ public class HTTP {
      * of the XML string.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @SuppressLint("DefaultLocale")
+	public static JSONObject toJSONObject(String string) throws JSONException {
         JSONObject     jo = new JSONObject();
         HTTPTokener    x = new HTTPTokener(string);
         String         token;
@@ -124,7 +127,8 @@ public class HTTP {
      * @throws JSONException if the object does not contain enough
      *  information.
      */
-    public static String toString(JSONObject jo) throws JSONException {
+    @SuppressWarnings("rawtypes")
+	public static String toString(JSONObject jo) throws JSONException {
         Iterator     keys = jo.keys();
         String       string;
         StringBuffer sb = new StringBuffer();

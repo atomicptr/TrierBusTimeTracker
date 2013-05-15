@@ -39,6 +39,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
+
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external
  * form is a string wrapped in curly braces with colons between the names and
@@ -93,6 +95,8 @@ import java.util.Set;
  * @author JSON.org
  * @version 2012-12-01
  */
+@SuppressWarnings("all")
+@SuppressLint("DefaultLocale")
 public class JSONObject {
     /**
      * The maximum number of keys in the key pool.
@@ -978,7 +982,8 @@ public class JSONObject {
     }
 
 
-    private void populateMap(Object bean) {
+    @SuppressLint("DefaultLocale")
+	private void populateMap(Object bean) {
         Class klass = bean.getClass();
 
 // If klass is a System class then set includeSuperClass to false.
