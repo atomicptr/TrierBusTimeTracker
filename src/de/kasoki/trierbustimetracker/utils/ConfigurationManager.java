@@ -84,8 +84,14 @@ public class ConfigurationManager {
 
 	/** Removes all configuration files */
 	public void clear() {
-		parent.getApplicationContext().deleteFile(Identifier.APP_FAVORITE_FILE_IDENTIFIER);
+		String[] configFileNames = {
+			Identifier.APP_FAVORITE_FILE_IDENTIFIER,
+			Identifier.APP_SETTINGS_FILE_IDENTIFIER
+		};
 		
+		for(String configFile : configFileNames) {
+			parent.getApplicationContext().deleteFile(configFile);
+		}
 	}
 
 	public void saveSettingsActivity(boolean useAutoReload, boolean useNotifications) {
