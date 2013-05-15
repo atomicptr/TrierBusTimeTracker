@@ -46,7 +46,7 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 			if (b.getDelay() != 0) {
 				String operand = b.getDelay() < 0 ? "-" : "+";
-				delay = String.format(" %s %d%s", operand, b.getDelay(), "m");
+				delay = activity.getResources().getString(R.string.bustime_delay_text, operand, b.getDelay(), "m");
 			}
 
 			String arrivalTimeText = activity.getResources().getString(
