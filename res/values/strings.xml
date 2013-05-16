@@ -7,7 +7,7 @@
     <string name="action_reload">Reload</string>
     <string name="action_delete_config">Delete config</string>
     <string name="action_about_tbbt">About</string>
-    <string name="bustime_arrival_text">Arrival time: %1$s <b>%2$s %3$s%4$s</b></string>
+    <string name="bustime_arrival_text">Arrival time: %1$s %2$s %3$s%4$s</string>
     <string name="no_network_connection_text">No network connection.</string>
     <string name="item_already_on_favorites_list_text">This item is already on favorites list</string>
     <string name="favorite_item_deleted">Removed %s from favorites.</string>
