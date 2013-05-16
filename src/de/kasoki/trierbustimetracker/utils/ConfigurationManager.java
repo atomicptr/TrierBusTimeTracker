@@ -56,9 +56,11 @@ public class ConfigurationManager {
 			// Don't do anything, file will be created in onStop
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		return null;
+		} catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
 	}
 
 	public void saveFavorites(ArrayList<String> favorites) {
@@ -78,9 +80,11 @@ public class ConfigurationManager {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-	}
+		} catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 	/** Removes all configuration files */
 	public void clear() {
@@ -111,9 +115,11 @@ public class ConfigurationManager {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-	}
+		} catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 	
 	public void loadSettingsActivity() {
 		try {
@@ -138,8 +144,10 @@ public class ConfigurationManager {
 			// Don't do anything, file will be created in onStop
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
+		} catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public boolean useAutoReload() throws Exception {
 		if(this.settingsLoaded) {
