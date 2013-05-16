@@ -43,24 +43,24 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 			final HashMap<String, String> data = new HashMap<String, String>();
 
 			String delay = "";
+            String operand = "";
+            String suffix = "";
 
 			if (b.getDelay() != 0) {
-				String operand = b.getDelay() < 0 ? "-" : "+";
-				delay = activity.getResources().getString(R.string.bustime_delay_text, operand, b.getDelay(), "m");
+				operand = b.getDelay() < 0 ? "-" : "+";
+
+				delay = Integer.toString(b.getDelay());
+                suffix = "m";
 			}
 
 			String arrivalTimeText = activity.getResources().getString(
-					R.string.bustime_arrival_text);
+					R.string.bustime_arrival_text, b.getArrivalTimeAsString(), operand, delay, suffix);
 
 			data.put("NUMBER", String.format("%02d", b.getNumber()));
 			data.put("DESTINATION", b.getDestination());
-			data.put(
-					"TIME",
-					String.format("%s: %s%s", arrivalTimeText,
-							b.getArrivalTimeAsString(), delay));
+			data.put("TIME", arrivalTimeText);
 
 			listViewContent.add(data);
-
 		}
 
 		// when the list is empty show the user that there are

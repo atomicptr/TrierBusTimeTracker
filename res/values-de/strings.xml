@@ -6,7 +6,7 @@
     <string name="action_reload">Aktualisieren</string>
     <string name="action_delete_config">Konfigurationen löschen</string>
     <string name="action_about_tbbt">Über diese App</string>
-    <string name="bustime_arrival_text">Ankunftszeit</string>
+    <string name="bustime_arrival_text">Ankunftszeit: %1$s <b>%2$s %3$s%4$s</b></string>
     <string name="no_network_connection_text">Keine Netzwerkverbindung.</string>
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
     <string name="favorite_item_deleted">%s wurde von der Favoritenliste entfernt.</string>
