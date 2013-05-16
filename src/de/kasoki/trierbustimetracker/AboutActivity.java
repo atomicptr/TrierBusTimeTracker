@@ -1,6 +1,5 @@
 package de.kasoki.trierbustimetracker;
 
-import de.kasoki.trierbustimetracker.utils.Helper;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class AboutActivity extends Activity {
 

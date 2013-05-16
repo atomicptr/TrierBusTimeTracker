@@ -1,9 +1,5 @@
 package de.kasoki.trierbustimetracker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +16,10 @@ import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter;
 import de.kasoki.trierbustimetracker.tasks.ReloadTask;
 import de.kasoki.trierbustimetracker.utils.Helper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class BusTimeActivity extends Activity {
 

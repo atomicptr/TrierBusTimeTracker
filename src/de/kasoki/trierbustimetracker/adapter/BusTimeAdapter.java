@@ -1,16 +1,15 @@
 package de.kasoki.trierbustimetracker.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import de.kasoki.trierbustimetracker.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import de.kasoki.trierbustimetracker.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BusTimeAdapter extends BaseAdapter {
 	private ArrayList<HashMap<String, String>> data;

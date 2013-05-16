@@ -1,16 +1,16 @@
 package de.kasoki.trierbustimetracker.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Context;
 
 public class ConfigurationManager {
 	

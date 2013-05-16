@@ -1,8 +1,5 @@
 package de.kasoki.trierbustimetracker;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,16 +9,15 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.*;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.adapter.FavoriteListAdapter;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 import de.kasoki.trierbustimetracker.utils.Identifier;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends Activity {
 

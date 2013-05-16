@@ -1,16 +1,16 @@
 package de.kasoki.trierbustimetracker.tasks;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import de.kasoki.swtrealtime.BusTime;
 import de.kasoki.trierbustimetracker.BusTimeActivity;
 import de.kasoki.trierbustimetracker.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
