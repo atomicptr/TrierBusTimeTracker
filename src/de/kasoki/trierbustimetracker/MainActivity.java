@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.*;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.adapter.FavoriteListAdapter;
+import de.kasoki.trierbustimetracker.utils.AppUpdateObserver;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 import de.kasoki.trierbustimetracker.utils.Identifier;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
 	private ConfigurationManager config;
 
     private AutoUpdateApk updater;
+    private AppUpdateObserver appUpdateObserver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class MainActivity extends Activity {
         Log.d("TBBT", "-- Initialize AutoUpdateApk --");
         updater = new AutoUpdateApk(getApplicationContext());
         updater.setUpdateInterval(2 * AutoUpdateApk.HOURS);
+
+        appUpdateObserver = new AppUpdateObserver(this);
+        updater.addObserver(appUpdateObserver);
 
         if(new ConfigurationManager(this).useMobileConnectionForAppUpdates()) {
             updater.enableMobileUpdates();
@@ -128,6 +133,7 @@ public class MainActivity extends Activity {
 
         // check updates menu clicked
         case R.id.action_check_update:
+            appUpdateObserver.showStatusOnce();
             updater.checkUpdatesManually();
             return true;
 		default:

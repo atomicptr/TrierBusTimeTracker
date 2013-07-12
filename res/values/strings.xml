@@ -24,5 +24,6 @@
     <string name="settings_use_notifications_reload_text">Push notification when bus times change</string>
     <string name="loading_dialog_text">loading...</string>
     <string name="action_check_updates">Check for updates</string>
+    <string name="no_update_text">No updates available</string>
 
 </resources>
