@@ -21,8 +21,9 @@ public class ConfigurationManager {
 	private boolean settingsLoaded = false;
 	private boolean useAutoReload = false;
 	private boolean useNotifications = false;
-	
-	public ConfigurationManager(Activity parent) {
+    private boolean useMobileConnectionForAppUpdates = true;
+
+    public ConfigurationManager(Activity parent) {
 		this.parent = parent;
 	}
 	
@@ -67,11 +68,12 @@ public class ConfigurationManager {
 		}
 	}
 
-	public void saveSettingsActivity(boolean useAutoReload, boolean useNotifications) {
+	public void saveSettingsActivity(boolean useAutoReload, boolean useNotifications, boolean useMobileConnectionForAppUpdates) {
         SharedPreferences.Editor editor = parent.getSharedPreferences(Identifier.APP_SETTINGS_FILE_IDENTIFIER, Context.MODE_PRIVATE).edit();
 
         editor.putBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, useAutoReload);
         editor.putBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, useNotifications);
+        editor.putBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, useMobileConnectionForAppUpdates);
 
         editor.commit();
     }
@@ -81,23 +83,32 @@ public class ConfigurationManager {
 
         this.useAutoReload = prefs.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, false);
         this.useNotifications = prefs.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, false);
+        this.useMobileConnectionForAppUpdates = prefs.getBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, false);
 
         this.settingsLoaded = true;
     }
 	
-	public boolean useAutoReload() throws Exception {
-		if(this.settingsLoaded) {
-			return this.useAutoReload;
-		} else {
-			throw new Exception("You need to use :ConfigurationManager.loadSettingsActivity");
-		}
+	public boolean useAutoReload() {
+		if(!this.settingsLoaded) {
+            this.loadSettingsActivity();
+        }
+
+        return this.useAutoReload;
 	}
 	
-	public boolean useNotifications() throws Exception {
-		if(this.settingsLoaded) {
-			return this.useNotifications;
-		} else {
-			throw new Exception("You need to use :ConfigurationManager.loadSettingsActivity");
-		}
+	public boolean useNotifications() {
+		if(!this.settingsLoaded) {
+            this.loadSettingsActivity();
+        }
+
+        return this.useNotifications;
 	}
+
+    public boolean useMobileConnectionForAppUpdates() {
+        if(!this.settingsLoaded) {
+            this.loadSettingsActivity();
+        }
+
+        return this.useMobileConnectionForAppUpdates;
+    }
 }

@@ -13,6 +13,8 @@
     <string name="settings_delete_everything_button_text">Lösche ALLE Einstellungen</string>
     <string name="settings_auto_reload_caption">Automatische Aktualisierung der Abfahrzeiten</string>
     <string name="settings_delete_everything_caption">Lösche ALLE Einstellungen</string>
+    <string name="settings_app_update_caption">Aktualisierungseinstellungen</string>
+    <string name="settings_use_mobile_conn_for_app_update">Erlaube Benutzung der mobilen Datenverbindung zum Aktualisieren der Anwendung</string>
     <string name="bustime_no_bus">Innerhalb der nächsten Stunde fährt kein Bus von dieser Haltestelle ab.</string>
     <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
     <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)</string>

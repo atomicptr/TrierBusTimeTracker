@@ -46,7 +46,12 @@ public class MainActivity extends Activity {
         Log.d("TBBT", "-- Initialize AutoUpdateApk --");
         updater = new AutoUpdateApk(getApplicationContext());
         updater.setUpdateInterval(2 * AutoUpdateApk.HOURS);
-        updater.enableMobileUpdates();
+
+        if(new ConfigurationManager(this).useMobileConnectionForAppUpdates()) {
+            updater.enableMobileUpdates();
+        } else {
+            updater.disableMobileUpdates();
+        }
         
 
 		config = new ConfigurationManager(this);

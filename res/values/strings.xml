@@ -19,6 +19,8 @@
     <string name="about_data_text"><b>About the data</b>:\nThe realtime data is parsed from the SWT (Stadtwerke Trier) realtime information website. Neither this project nor the author are somehow related to the SWT.</string>
     <string name="settings_use_auto_reload_text">Use Auto-Reload</string>
     <string name="settings_auto_reload_caption">Automatic bus time reloading</string>
+    <string name="settings_app_update_caption">App update settings</string>
+    <string name="settings_use_mobile_conn_for_app_update">Use mobile connection for app updates</string>
     <string name="settings_use_notifications_reload_text">Push notification when bus times change</string>
     <string name="loading_dialog_text">loading...</string>
     <string name="action_check_updates">Check for updates</string>
