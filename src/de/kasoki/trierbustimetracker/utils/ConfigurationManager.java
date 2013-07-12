@@ -62,59 +62,27 @@ public class ConfigurationManager {
 		};
 
 		for(String configFile : configFileNames) {
-			parent.getApplicationContext().deleteFile(configFile);
+			SharedPreferences.Editor editor = parent.getSharedPreferences(configFile, Context.MODE_PRIVATE).edit();
+            editor.clear().commit();
 		}
 	}
 
 	public void saveSettingsActivity(boolean useAutoReload, boolean useNotifications) {
-		try {
-			FileOutputStream fout = parent.openFileOutput(Identifier.APP_SETTINGS_FILE_IDENTIFIER,
-					Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = parent.getSharedPreferences(Identifier.APP_SETTINGS_FILE_IDENTIFIER, Context.MODE_PRIVATE).edit();
 
-			JSONObject object = new JSONObject();
+        editor.putBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, useAutoReload);
+        editor.putBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, useNotifications);
 
-			object.put(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, useAutoReload);
-			object.put(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, useNotifications);
-
-			fout.write(object.toString().getBytes());
-			fout.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        editor.commit();
     }
 	
 	public void loadSettingsActivity() {
-		try {
-			BufferedInputStream in = new BufferedInputStream(
-					parent.openFileInput(Identifier.APP_SETTINGS_FILE_IDENTIFIER));
+        SharedPreferences prefs = parent.getSharedPreferences(Identifier.APP_SETTINGS_FILE_IDENTIFIER, Context.MODE_PRIVATE);
 
-			String content = "";
+        this.useAutoReload = prefs.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, false);
+        this.useNotifications = prefs.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, false);
 
-			while (in.available() > 0) {
-				content += (char) in.read();
-			}
-
-			in.close();
-
-			JSONObject object = new JSONObject(content);
-
-			this.useAutoReload = object.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER);
-			this.useNotifications = object.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER);
-
-			this.settingsLoaded = true;
-		} catch (FileNotFoundException e) {
-			// Don't do anything, file will be created in onStop
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-            e.printStackTrace();
-        }
+        this.settingsLoaded = true;
     }
 	
 	public boolean useAutoReload() throws Exception {
