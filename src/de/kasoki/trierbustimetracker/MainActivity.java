@@ -311,4 +311,13 @@ public class MainActivity extends Activity {
 	public void deleteAllSettings() {
 		config.clear();
 	}
+
+    public void showNoUpdatesToast() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.no_update_text), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

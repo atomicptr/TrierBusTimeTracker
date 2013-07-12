@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 import com.lazydroid.autoupdateapk.AutoUpdateApk;
+import de.kasoki.trierbustimetracker.MainActivity;
 import de.kasoki.trierbustimetracker.R;
 
 import java.util.Observable;
@@ -11,11 +12,11 @@ import java.util.Observer;
 
 public class AppUpdateObserver implements Observer {
 
-    private Context context;
-    private boolean showStatus = false;
+    private MainActivity activity;
+    private volatile boolean showStatus = false;
 
-    public AppUpdateObserver(Context context) {
-        this.context = context;
+    public AppUpdateObserver(MainActivity activity) {
+        this.activity = activity;
     }
 
     public void showStatusOnce() {
@@ -29,7 +30,7 @@ public class AppUpdateObserver implements Observer {
         if(update.equals(AutoUpdateApk.AUTOUPDATE_NO_UPDATE)) {
             Log.i("TBBT-AppUpdate", "no update");
             if(showStatus) {
-                Toast.makeText(context, context.getResources().getString(R.string.no_update_text), Toast.LENGTH_SHORT).show();
+                activity.showNoUpdatesToast();
                 this.showStatus = false;
             }
         }
