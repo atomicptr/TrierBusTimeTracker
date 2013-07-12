@@ -15,6 +15,7 @@ import de.kasoki.trierbustimetracker.adapter.FavoriteListAdapter;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 import de.kasoki.trierbustimetracker.utils.Identifier;
+import com.lazydroid.autoupdateapk.AutoUpdateApk;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,12 +34,17 @@ public class MainActivity extends Activity {
 
 	private ConfigurationManager config;
 
+    private AutoUpdateApk autoUpdateApk;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		Log.d("TBBT", Helper.getVersion(this));
+
+        Log.d("TBBT", "Initialize AutoUpdateApk");
+        autoUpdateApk = new AutoUpdateApk(getApplicationContext());
 
 		config = new ConfigurationManager(this);
 
