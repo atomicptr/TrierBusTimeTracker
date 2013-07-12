@@ -1,17 +1,17 @@
 //
-//      Copyright (c) 2012 lenik terenin
+//	Copyright (c) 2012 lenik terenin
 //
-//      Licensed under the Apache License, Version 2.0 (the "License");
-//      you may not use this file except in compliance with the License.
-//      You may obtain a copy of the License at
+//	Licensed under the Apache License, Version 2.0 (the "License");
+//	you may not use this file except in compliance with the License.
+//	You may obtain a copy of the License at
 //
-//              http://www.apache.org/licenses/LICENSE-2.0
+//		http://www.apache.org/licenses/LICENSE-2.0
 //
-//      Unless required by applicable law or agreed to in writing, software
-//      distributed under the License is distributed on an "AS IS" BASIS,
-//      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//      See the License for the specific language governing permissions and
-//      limitations under the License.
+//	Unless required by applicable law or agreed to in writing, software
+//	distributed under the License is distributed on an "AS IS" BASIS,
+//	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//	See the License for the specific language governing permissions and
+//	limitations under the License.
 
 package com.lazydroid.autoupdateapk;
 
@@ -65,13 +65,13 @@ public class AutoUpdateApk extends Observable {
     // this class is supposed to be instantiated in any of your activities or,
     // better yet, in Application subclass. Something along the lines of:
     //
-    //      private AutoUpdateApk aua;      <-- you need to add this line of code
+    //	private AutoUpdateApk aua;	<-- you need to add this line of code
     //
-    //      public void onCreate(Bundle savedInstanceState) {
-    //              super.onCreate(savedInstanceState);
-    //              setContentView(R.layout.main);
+    //	public void onCreate(Bundle savedInstanceState) {
+    //		super.onCreate(savedInstanceState);
+    //		setContentView(R.layout.main);
     //
-    //              aua = new AutoUpdateApk(getApplicationContext());       <-- and add this line too
+    //		aua = new AutoUpdateApk(getApplicationContext());	<-- and add this line too
     //
     public AutoUpdateApk(Context ctx) {
         setupVariables(ctx);
@@ -129,7 +129,7 @@ public class AutoUpdateApk extends Observable {
     // and polling server every few minutes might be a reason for suspension)
     //
     public void checkUpdatesManually() {
-        checkUpdates(true);             // force update check
+        checkUpdates(true);		// force update check
     }
 
     public static final String AUTOUPDATE_CHECKING = "autoupdate_checking";
@@ -150,7 +150,7 @@ public class AutoUpdateApk extends Observable {
     protected final static String TAG = "AutoUpdateApk";
 
     private final static String ANDROID_PACKAGE = "application/vnd.android.package-archive";
-    //      private final static String API_URL = "http://auto-update-apk.appspot.com/check";
+    //	private final static String API_URL = "http://auto-update-apk.appspot.com/check";
     private final static String API_URL = "http://www.auto-update-apk.com/check";
 
     protected static Context context = null;
@@ -159,7 +159,7 @@ public class AutoUpdateApk extends Observable {
     private static long last_update = 0;
 
     private static int appIcon = android.R.drawable.ic_popup_reminder;
-    private static int versionCode = 0;             // as low as it gets
+    private static int versionCode = 0;		// as low as it gets
     private static String packageName;
     private static String appName;
     private static int device_id;
@@ -169,9 +169,9 @@ public class AutoUpdateApk extends Observable {
     public static final long DAYS = 24 * HOURS;
 
     // 3-4 hours in dev.mode, 1-2 days for stable releases
-    private static long UPDATE_INTERVAL = 3 * HOURS;        // how often to check
+    private static long UPDATE_INTERVAL = 3 * HOURS;	// how often to check
 
-    private static boolean mobile_updates = false;          // download updates over wifi only
+    private static boolean mobile_updates = false;		// download updates over wifi only
 
     private final static Handler updateHandler = new Handler();
     protected final static String UPDATE_FILE = "update_file";
@@ -179,7 +179,7 @@ public class AutoUpdateApk extends Observable {
     private final static String MD5_TIME = "md5_time";
     private final static String MD5_KEY = "md5";
 
-    private static int NOTIFICATION_ID = 0xBEEF;
+    private static int NOTIFICATION_ID = 0xDEADBEEF;
     private static int NOTIFICATION_FLAGS = Notification.FLAG_AUTO_CANCEL | Notification.FLAG_NO_CLEAR;
     private static long WAKEUP_INTERVAL = 15 * MINUTES;
 
@@ -199,7 +199,7 @@ public class AutoUpdateApk extends Observable {
         @Override
         public void run() {
             checkUpdates(false);
-            updateHandler.removeCallbacks(periodicUpdate);  // remove whatever others may have posted
+            updateHandler.removeCallbacks(periodicUpdate);	// remove whatever others may have posted
             updateHandler.postDelayed(this, WAKEUP_INTERVAL);
         }
     };
@@ -216,7 +216,7 @@ public class AutoUpdateApk extends Observable {
                 checkUpdates(false);
                 updateHandler.postDelayed(periodicUpdate, UPDATE_INTERVAL);
             } else {
-                updateHandler.removeCallbacks(periodicUpdate);  // no network anyway
+                updateHandler.removeCallbacks(periodicUpdate);	// no network anyway
             }
         }
     };
@@ -229,7 +229,7 @@ public class AutoUpdateApk extends Observable {
         device_id = crc32(Secure.getString( context.getContentResolver(), Secure.ANDROID_ID));
         last_update = preferences.getLong("last_update", 0);
         NOTIFICATION_ID += crc32(packageName);
-//              schedule.add(new ScheduleEntry(0,24));
+//		schedule.add(new ScheduleEntry(0,24));
 
         ApplicationInfo appinfo = context.getApplicationInfo();
         if( appinfo.icon != 0 ) {
@@ -262,7 +262,7 @@ public class AutoUpdateApk extends Observable {
     }
 
     private boolean checkSchedule() {
-        if( schedule.size() == 0 ) return true; // empty schedule always fits
+        if( schedule.size() == 0 ) return true;	// empty schedule always fits
 
         int now = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         for( ScheduleEntry e : schedule ) {
@@ -320,13 +320,13 @@ public class AutoUpdateApk extends Observable {
                 }
                 return result;
             } catch (ParseException e) {
-//                              e.printStackTrace();
+//				e.printStackTrace();
                 Log_e(TAG, e.getMessage());
             } catch (ClientProtocolException e) {
-//                              e.printStackTrace();
+//				e.printStackTrace();
                 Log_e(TAG, e.getMessage());
             } catch (IOException e) {
-//                              e.printStackTrace();
+//				e.printStackTrace();
                 Log_e(TAG, e.getMessage());
             } finally {
                 httpclient.getConnectionManager().shutdown();
@@ -375,9 +375,6 @@ public class AutoUpdateApk extends Observable {
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager nm = (NotificationManager) context.getSystemService(ns);
 
-        //nm.cancel( NOTIFICATION_ID ); // tried this, but it just doesn't do the trick =(
-        nm.cancelAll();
-
         String update_file = preferences.getString(UPDATE_FILE, "");
         if( update_file.length() > 0 ) {
             setChanged();
@@ -398,6 +395,8 @@ public class AutoUpdateApk extends Observable {
 
             notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
             nm.notify( NOTIFICATION_ID, notification);
+        } else {
+            nm.cancel( NOTIFICATION_ID );
         }
     }
 
@@ -413,7 +412,6 @@ public class AutoUpdateApk extends Observable {
             while( (length = bis.read(buf)) != -1 ) {
                 md.update(buf, 0, length);
             }
-            bis.close();
 
             byte[] array = md.digest();
             StringBuffer sb = new StringBuffer();
@@ -423,7 +421,7 @@ public class AutoUpdateApk extends Observable {
             Log_v(TAG, "md5sum: " + sb.toString());
             return sb.toString();
         } catch (Exception e) {
-//                      e.printStackTrace();
+//			e.printStackTrace();
             Log_e(TAG, e.getMessage());
         }
         return "md5bad";
@@ -444,7 +442,7 @@ public class AutoUpdateApk extends Observable {
             packageInfo = pm.getPackageInfo(packageName, flags);
             versionCode = packageInfo.versionCode;
         } catch (NameNotFoundException e) {
-//                      e.printStackTrace();
+//			e.printStackTrace();
             Log_e(TAG, e.getMessage());
         }
         if( packageInfo.requestedPermissions != null ) {
@@ -453,7 +451,7 @@ public class AutoUpdateApk extends Observable {
                 required_perms.remove(p);
             }
             if( required_perms.size() == 0 ) {
-                return true;    // permissions are in order
+                return true;	// permissions are in order
             }
             // something is missing
             for( String p : required_perms ) {

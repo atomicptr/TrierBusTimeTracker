@@ -43,10 +43,11 @@ public class MainActivity extends Activity {
 
 		Log.d("TBBT", Helper.getVersion(this));
 
-        Log.d("TBBT", "Initialize AutoUpdateApk");
+        Log.d("TBBT", "-- Initialize AutoUpdateApk --");
         updater = new AutoUpdateApk(getApplicationContext());
-        updater.setUpdateInterval(AutoUpdateApk.HOURS);
+        updater.setUpdateInterval(2 * AutoUpdateApk.HOURS);
         updater.enableMobileUpdates();
+        
 
 		config = new ConfigurationManager(this);
 
