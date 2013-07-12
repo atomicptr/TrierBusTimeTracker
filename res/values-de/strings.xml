@@ -20,5 +20,6 @@
     <string name="settings_use_auto_reload_text">Benutze die Automatische Aktualisierung für Abfahrtzeiten</string>
     <string name="settings_use_notifications_reload_text">Erstelle eine \"Notification\" wenn sich Abfahrtszeiten ändern.</string>
     <string name="loading_dialog_text">Lade Informationen...</string>
+    <string name="action_check_updates">Auf Updates prüfen</string>
     
 </resources>

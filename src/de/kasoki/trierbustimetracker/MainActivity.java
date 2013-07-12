@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
 	private ConfigurationManager config;
 
-    private AutoUpdateApk autoUpdateApk;
+    private AutoUpdateApk updater;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		Log.d("TBBT", Helper.getVersion(this));
 
         Log.d("TBBT", "Initialize AutoUpdateApk");
-        autoUpdateApk = new AutoUpdateApk(getApplicationContext());
+        updater = new AutoUpdateApk(getApplicationContext());
 
 		config = new ConfigurationManager(this);
 
@@ -111,11 +111,17 @@ public class MainActivity extends Activity {
 			this.startActivityForResult(intent,
 					Identifier.SETTINGS_REQUEST_CODE);
 			return true;
-			// about menu clicked
+
+		// about menu clicked
 		case R.id.action_about_tbbt:
 			intent = new Intent(this, AboutActivity.class);
 			this.startActivity(intent);
 			return true;
+
+        // check updates menu clicked
+        case R.id.action_check_update:
+            updater.checkUpdatesManually();
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

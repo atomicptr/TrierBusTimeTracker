@@ -21,5 +21,6 @@
     <string name="settings_auto_reload_caption">Automatic bus time reloading</string>
     <string name="settings_use_notifications_reload_text">Push notification when bus times change</string>
     <string name="loading_dialog_text">loading...</string>
+    <string name="action_check_updates">Check for updates</string>
 
 </resources>
