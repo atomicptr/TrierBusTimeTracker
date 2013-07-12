@@ -2,6 +2,7 @@ package de.kasoki.trierbustimetracker.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,64 +27,31 @@ public class ConfigurationManager {
 	}
 	
 	public ArrayList<String> getFavorites() {
-		try {
-			BufferedInputStream in = new BufferedInputStream(
-					parent.openFileInput(Identifier.APP_FAVORITE_FILE_IDENTIFIER));
+		ArrayList<String> favorites = new ArrayList<String>();
 
-			String content = "";
+        SharedPreferences prefs = parent.getSharedPreferences(Identifier.APP_FAVORITE_FILE_IDENTIFIER, Context.MODE_PRIVATE);
 
-			while (in.available() > 0) {
-				content += (char) in.read();
-			}
+        int length = prefs.getInt("favorites_length", 0);
 
-			in.close();
-
-			JSONObject object = new JSONObject(content);
-
-			JSONArray array = (JSONArray) object
-					.get(Identifier.APP_FAVORITE_FILE_IDENTIFIER);
-
-			ArrayList<String> favorites = new ArrayList<String>();
-
-			for (int i = 0; i < array.length(); i++) {
-				String item = array.getString(i);
-
-				favorites.add(item);
-			}
-
-			return favorites;
-		} catch (FileNotFoundException e) {
-			// Don't do anything, file will be created in onStop
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-            e.printStackTrace();
+        for(int i = 0; i < length; i++) {
+            favorites.add(prefs.getString("favorites" + i, null));
         }
 
-        return null;
+        return favorites;
 	}
 
 	public void saveFavorites(ArrayList<String> favorites) {
-		try {
-			FileOutputStream fout = parent.openFileOutput(Identifier.APP_FAVORITE_FILE_IDENTIFIER,
-					Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = parent.getSharedPreferences(Identifier.APP_FAVORITE_FILE_IDENTIFIER, Context.MODE_PRIVATE).edit();
 
-			JSONObject object = new JSONObject();
-			JSONArray array = new JSONArray(favorites);
+        int length = favorites.size();
 
-			object.put(Identifier.APP_FAVORITE_FILE_IDENTIFIER, array);
+        editor.putInt("favorites_length", length);
 
-			fout.write(object.toString().getBytes());
-			fout.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-            e.printStackTrace();
+        for(int i = 0; i < length; i++) {
+            editor.putString("favorites" + i, favorites.get(i));
         }
 
+        editor.commit();
     }
 
 	/** Removes all configuration files */
@@ -92,7 +60,7 @@ public class ConfigurationManager {
 			Identifier.APP_FAVORITE_FILE_IDENTIFIER,
 			Identifier.APP_SETTINGS_FILE_IDENTIFIER
 		};
-		
+
 		for(String configFile : configFileNames) {
 			parent.getApplicationContext().deleteFile(configFile);
 		}
@@ -104,7 +72,7 @@ public class ConfigurationManager {
 					Context.MODE_PRIVATE);
 
 			JSONObject object = new JSONObject();
-			
+
 			object.put(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, useAutoReload);
 			object.put(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, useNotifications);
 
@@ -138,7 +106,7 @@ public class ConfigurationManager {
 
 			this.useAutoReload = object.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER);
 			this.useNotifications = object.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER);
-			
+
 			this.settingsLoaded = true;
 		} catch (FileNotFoundException e) {
 			// Don't do anything, file will be created in onStop
