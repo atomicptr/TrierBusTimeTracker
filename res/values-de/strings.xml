@@ -24,5 +24,6 @@
     <string name="loading_dialog_text">Lade Informationen...</string>
     <string name="action_check_updates">Auf Updates prüfen</string>
     <string name="no_update_text">Keine Aktualisierungen verfügbar</string>
-    
+    <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
+
 </resources>

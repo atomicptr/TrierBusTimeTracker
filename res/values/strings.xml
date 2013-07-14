@@ -25,5 +25,6 @@
     <string name="loading_dialog_text">loading...</string>
     <string name="action_check_updates">Check for updates</string>
     <string name="no_update_text">No updates available</string>
+    <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
 
 </resources>

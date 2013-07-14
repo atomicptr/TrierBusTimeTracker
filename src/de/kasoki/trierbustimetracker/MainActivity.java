@@ -216,8 +216,12 @@ public class MainActivity extends Activity {
 		case 0:
 			contextMenuSelect(selectedItem);
 			break;
+        // add shortcut
+        case 1:
+            contextAddShortcutToHomescreen(selectedItem);
+            break;
 		// delete
-		case 1:
+		case 2:
 			contextDeleteEntry(info.position);
 			break;
 		default:
@@ -235,6 +239,30 @@ public class MainActivity extends Activity {
 
 		onActionSelectedButtonClicked(null);
 	}
+
+    private void contextAddShortcutToHomescreen(String itemName) {
+        String code = BusStop.getBusStopByName(itemName).getStopCode();
+
+        Intent shortcutIntent = new Intent(this, BusTimeActivity.class);
+
+        shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+        shortcutIntent.putExtra("BUS_TIME_CODE", code);
+
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, itemName);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher));
+
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+
+        this.sendBroadcast(addIntent);
+
+        if(Helper.getCurrentAPILevel() >= 11) {
+            Toast.makeText(this, getString(R.string.shortcut_created, itemName), Toast.LENGTH_LONG).show();
+        }
+    }
 
 	private void contextDeleteEntry(int position) {
 		String item = favorites.get(position);
