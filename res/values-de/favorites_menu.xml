@@ -2,6 +2,7 @@
 <resources >
 	<string-array name="favorites_menu">
 	    <item>Auswählen</item>
+        <item>Shortcut dem Homescreen hinzufügen</item>
 	    <item>Von Favoriten entfernen</item>
 	</string-array>
 </resources>
