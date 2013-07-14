@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
 	private FavoriteListAdapter listAdapter;
 	private ListView listView;
 
-	private BusStop[] busStopIndex;
 	private ArrayList<String> busStopList;
 	private ArrayList<String> favorites;
 
@@ -64,13 +63,9 @@ public class MainActivity extends Activity {
 		busStopList = new ArrayList<String>();
 		favorites = new ArrayList<String>();
 
-		busStopIndex = new BusStop[BusStop.values().length];
-
 		// create the BusStop list and an index for later usage
 		for (BusStop bs : BusStop.values()) {
 			busStopList.add(bs.getName());
-
-			busStopIndex[busStopList.indexOf(bs.getName())] = bs;
 		}
 
 		// initialize stuff
@@ -164,7 +159,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void onActionSelectedButtonClicked(View view) {
-		BusStop busStop = busStopIndex[busStopSpinner.getSelectedItemPosition()];
+		BusStop busStop = BusStop.getBusStopByName((String) busStopSpinner.getSelectedItem());
 
 		startBusTimeActivity(busStop);
 	}
