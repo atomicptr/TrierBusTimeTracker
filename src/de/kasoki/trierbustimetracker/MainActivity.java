@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 
 		Log.d("TBBT", Helper.getVersion(this));
 
+        // run updater
         Log.d("TBBT", "-- Initialize AutoUpdateApk --");
         updater = new AutoUpdateApk(getApplicationContext());
         updater.setUpdateInterval(2 * AutoUpdateApk.HOURS);
@@ -88,12 +89,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+                String busstopName = (String) parent.getItemAtPosition(position);
 
-				String item = (String) parent.getItemAtPosition(position);
-
-				busStopSpinner.setSelection(busStopList.indexOf(item));
-
-				onActionSelectedButtonClicked(view);
+                startBusTimeActivity(busstopName);
 			}
 
 		});
@@ -164,6 +162,10 @@ public class MainActivity extends Activity {
 		startBusTimeActivity(busStop);
 	}
 
+    private void startBusTimeActivity(String busStopName) {
+        startBusTimeActivity(BusStop.getBusStopByName(busStopName));
+    }
+
 	private void startBusTimeActivity(BusStop busStop) {
 		if (Helper.isNetworkAvailable(this)) {
 			Intent intent = new Intent(this, BusTimeActivity.class);
@@ -229,10 +231,8 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	private void contextMenuSelect(String item) {
-		busStopSpinner.setSelection(busStopList.indexOf(item));
-
-		onActionSelectedButtonClicked(null);
+	private void contextMenuSelect(String busstopName) {
+		startBusTimeActivity(busstopName);
 	}
 
     private void contextAddShortcutToHomescreen(String itemName) {
