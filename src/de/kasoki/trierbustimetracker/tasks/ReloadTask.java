@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import de.kasoki.swtrealtime.BusTime;
+import de.kasoki.swtrealtime.exceptions.ServerResponseException;
 import de.kasoki.trierbustimetracker.BusTimeActivity;
 import de.kasoki.trierbustimetracker.R;
 
@@ -33,55 +34,69 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 		activity.setReloadActive(true);
 
 		// retrieve stuff from the SWT servers
-		List<BusTime> busTimesList = BusTime.fromStopCode(busTimeCode);
+        List<BusTime> busTimesList = null;
 
-		Collections.sort(busTimesList);
+        try {
+            busTimesList = BusTime.fromStopCode(busTimeCode);
+        } catch (ServerResponseException e) {
+            this.activity.toastServerError(e.getServerResponseCode());
 
-		for (BusTime b : busTimesList) {
-			Log.d("BUSTIME RECIEVED", b.toString());
+            this.cancel(true);
+        }
 
-			final HashMap<String, String> data = new HashMap<String, String>();
+        if(!this.isCancelled()) {
+            Collections.sort(busTimesList);
 
-			String delay = "";
-            String operand = "";
-            String suffix = "";
+            for (BusTime b : busTimesList) {
+                Log.d("BUSTIME RECIEVED", b.toString());
 
-			if (b.getDelay() != 0) {
-				operand = b.getDelay() < 0 ? "-" : "+";
+                final HashMap<String, String> data = new HashMap<String, String>();
 
-				delay = Integer.toString(b.getDelay());
-                suffix = "m";
-			}
+                String delay = "";
+                String operand = "";
+                String suffix = "";
 
-			String arrivalTimeText = activity.getResources().getString(
-					R.string.bustime_arrival_text, b.getArrivalTimeAsString(), operand, delay, suffix);
+                if (b.getDelay() != 0) {
+                    operand = b.getDelay() < 0 ? "-" : "+";
 
-			data.put("NUMBER", String.format("%02d", b.getNumber()));
-			data.put("DESTINATION", b.getDestination());
-			data.put("TIME", arrivalTimeText);
+                    delay = Integer.toString(b.getDelay());
+                    suffix = "m";
+                }
 
-			listViewContent.add(data);
-		}
+                String arrivalTimeText = activity.getResources().getString(
+                        R.string.bustime_arrival_text, b.getArrivalTimeAsString(), operand, delay, suffix);
 
-		// when the list is empty show the user that there are
-		// no buses atm
-		if (listViewContent.isEmpty()) {
-			final HashMap<String, String> data = new HashMap<String, String>();
-			data.put("TIME", "");
-			data.put("DESTINATION",
-					activity.getResources().getString(R.string.bustime_no_bus));
-			data.put("TIME", "");
+                data.put("NUMBER", String.format("%02d", b.getNumber()));
+                data.put("DESTINATION", b.getDestination());
+                data.put("TIME", arrivalTimeText);
 
-			listViewContent.add(data);
-		}
+                listViewContent.add(data);
+            }
 
-		// enable reload actions
-		activity.setReloadActive(false);
+            // when the list is empty show the user that there are
+            // no buses atm
+            if (listViewContent.isEmpty()) {
+                final HashMap<String, String> data = new HashMap<String, String>();
+                data.put("NUMBER", "");
+                data.put("DESTINATION",
+                        activity.getResources().getString(R.string.bustime_no_bus));
+                data.put("TIME", "");
 
-		// return finished listViewContent to BusTimeActivity
-		activity.onReloadTaskFinished(listViewContent);
+                listViewContent.add(data);
+            }
 
-		return 0L;
+            // enable reload actions
+            activity.setReloadActive(false);
+
+            // return finished listViewContent to BusTimeActivity
+            activity.onReloadTaskFinished(listViewContent);
+        } else {
+            // reload task failed
+            activity.setReloadActive(false);
+            activity.onReloadTaskFailed();
+        }
+
+        return 0L;
 	}
 
 	@Override
@@ -94,12 +109,18 @@ public class ReloadTask extends AsyncTask<Integer, Integer, Long> {
 
 	@Override
 	protected void onPostExecute(Long result) {
-		progressDialog.dismiss();
+        if(progressDialog != null) {
+		    progressDialog.dismiss();
+        }
 	}
 
 	@Override
 	public void onCancelled() {
 		Log.d("CANCEL", "RELOAD TASK WAS CANCELLED");
+
+        if(progressDialog != null) {
+            progressDialog.dismiss();
+        }
 	}
 
 }

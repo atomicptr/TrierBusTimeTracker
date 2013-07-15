@@ -3,14 +3,7 @@ package de.kasoki.trierbustimetracker.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ConfigurationManager {
@@ -83,7 +76,7 @@ public class ConfigurationManager {
 
         this.useAutoReload = prefs.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, false);
         this.useNotifications = prefs.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, false);
-        this.useMobileConnectionForAppUpdates = prefs.getBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, false);
+        this.useMobileConnectionForAppUpdates = prefs.getBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, true);
 
         this.settingsLoaded = true;
     }

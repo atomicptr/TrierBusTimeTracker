@@ -25,5 +25,7 @@
     <string name="action_check_updates">Auf Updates prüfen</string>
     <string name="no_update_text">Keine Aktualisierungen verfügbar</string>
     <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
+    <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
+    <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
 
 </resources>

@@ -26,5 +26,7 @@
     <string name="action_check_updates">Check for updates</string>
     <string name="no_update_text">No updates available</string>
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
+    <string name="server_response_error">There seems to be a problem with the server. Error code \'%1$d\' received.</string>
+    <string name="connection_failed">Connection to server failed.</string>
 
 </resources>

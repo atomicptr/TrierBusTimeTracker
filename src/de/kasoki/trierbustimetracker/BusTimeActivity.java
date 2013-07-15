@@ -156,6 +156,34 @@ public class BusTimeActivity extends Activity {
 		mainHandler.post(r);
 	}
 
+    public void onReloadTaskFailed() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(listViewContent.isEmpty()) {
+                    HashMap<String, String> data = new HashMap<String, String>();
+
+                    data.put("NUMBER", "");
+                    data.put("DESTINATION", getString(R.string.connection_failed));
+                    data.put("TIME", "");
+
+                    listViewContent.add(data);
+
+                    notifyListViewDataSetChanged();
+                }
+            }
+        });
+    }
+
+    public void toastServerError(final int responseCode) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(BusTimeActivity.this, getString(R.string.server_response_error, responseCode), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 	@Override
 	public void onResume() {
 		reload();
