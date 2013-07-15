@@ -23,11 +23,13 @@
 // THE SOFTWARE.
 package de.kasoki.swtrealtime;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import android.util.Log;
+import de.kasoki.swtrealtime.exceptions.InvalidResponseException;
+import de.kasoki.swtrealtime.exceptions.ServerResponseException;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,11 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import android.util.Log;
 
 /**
  * Get real time information from SWT. Neither this library nor the author are related to SWT.
@@ -134,7 +131,7 @@ public class BusTime implements Comparable<BusTime> {
 	 * @param busStop The bus stop of interest ;).
 	 * @return
 	 */
-	public static List<BusTime> fromStopCode(BusStop busStop) {
+	public static List<BusTime> fromStopCode(BusStop busStop) throws ServerResponseException {
 		return BusTime.fromStopCode(busStop.getStopCode());
 	}
 	
@@ -146,7 +143,7 @@ public class BusTime implements Comparable<BusTime> {
 	 * @param stopCode The stop code of your bus stop.
 	 * @return
 	 */
-	public static List<BusTime> fromStopCode(String stopCode) {
+	public static List<BusTime> fromStopCode(String stopCode) throws ServerResponseException {
 		String url = "http://212.18.193.124/onlineinfo/onlineinfo/stopData";
 		String charset = "UTF-8";
 		
@@ -172,7 +169,9 @@ public class BusTime implements Comparable<BusTime> {
 			output.close();
 			
 			Log.d("HTTP RESPONSE", "" + connection.getResponseCode());
-			
+
+            handleHTTPResponse(connection.getResponseCode());
+
 			connection.connect();
 			
 			// read connection
@@ -192,14 +191,14 @@ public class BusTime implements Comparable<BusTime> {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (InvalidResponseException e) {
+            e.printStackTrace();
+        }
 		
 		return busTimeList;
 	}
 	
-	private static List<BusTime> parseResponse(String response) throws Exception {
+	private static List<BusTime> parseResponse(String response) throws InvalidResponseException {
 		List<BusTime> busTimeList = new ArrayList<BusTime>();
 		
 		if(response.startsWith("//OK")) {
@@ -232,13 +231,34 @@ public class BusTime implements Comparable<BusTime> {
 				e.printStackTrace();
 			}
 		} else {
-			throw new Exception("Error: Invalid Response: " + response);
+			throw new InvalidResponseException("Error: Invalid Response: " + response);
 		}
 		
 		return busTimeList;
 	}
-	
-	private static String getItemFromInnerInformationList(JSONArray innerInformations, int index) {
+
+    public static void handleHTTPResponse(int responseCode) throws ServerResponseException {
+        Log.i("Handle Response", "" + responseCode);
+
+        switch(responseCode) {
+            case 200:
+                Log.i("OKAY", "Server returned 200 everything is fine :)");
+            case 500:
+                throw new ServerResponseException("Internal Server Error", 500);
+            case 501:
+                throw new ServerResponseException("The request cannot be carried out by the server.", 501);
+            case 502:
+                throw new ServerResponseException("Bad Gateway", 502);
+            case 503:
+                throw new ServerResponseException("Temporarily Unavailable", 503);
+            case 504:
+                throw new ServerResponseException("The gateway has timed out", 504);
+            default:
+                Log.i("Unknown HTTP Response", "" + responseCode);
+        }
+    }
+
+	private static String getItemFromInnerInformationList(JSONArray innerInformations, int index) throws JSONException {
 		return innerInformations.getString(index - 1);
 	}
 	
