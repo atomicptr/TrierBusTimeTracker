@@ -243,6 +243,7 @@ public class BusTime implements Comparable<BusTime> {
         switch(responseCode) {
             case 200:
                 Log.i("OKAY", "Server returned 200 everything is fine :)");
+                break;
             case 500:
                 throw new ServerResponseException("Internal Server Error", 500);
             case 501:
@@ -255,6 +256,7 @@ public class BusTime implements Comparable<BusTime> {
                 throw new ServerResponseException("The gateway has timed out", 504);
             default:
                 Log.i("Unknown HTTP Response", "" + responseCode);
+                break;
         }
     }
 
