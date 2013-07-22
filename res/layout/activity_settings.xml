@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,72 +6,76 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context=".SettingsActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="20sp"
-        android:text="@string/settings_auto_reload_caption"
-        />
-    
-    <CheckBox
-        android:id="@+id/autoReloadCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/settings_use_auto_reload_text" />
-    
-    <CheckBox
-        android:id="@+id/use_notifications_for_reload_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/settings_use_notifications_reload_text" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="20sp"
-        android:text="@string/settings_app_update_caption"
-        />
-
-    <CheckBox
-        android:id="@+id/use_mobile_conn_for_app_update_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_use_mobile_conn_for_app_update" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="20sp"
-        android:text="@string/settings_delete_everything_caption"
-        />
-    
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-        <ToggleButton
-            android:id="@+id/deleteAllConfigurationFilesToggleButton"
+        android:orientation="vertical"
+        android:isScrollContainer="true">
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:onClick="onDeleteAllConfigurationFilesToggleButtonClicked" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:text="@string/settings_auto_reload_caption"
+            />
 
-        <Button
-            android:id="@+id/deleteAllConfigurationFilesButton"
+        <CheckBox
+            android:id="@+id/autoReloadCheckbox"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/settings_delete_everything_button_text"
-            android:onClick="onDeleteAllConfigurationFilesButtonClicked" />
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/settings_use_auto_reload_text" />
+
+        <CheckBox
+            android:id="@+id/use_notifications_for_reload_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/settings_use_notifications_reload_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:text="@string/settings_app_update_caption"
+            />
+
+        <CheckBox
+            android:id="@+id/use_mobile_conn_for_app_update_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_use_mobile_conn_for_app_update" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:text="@string/settings_delete_everything_caption"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <ToggleButton
+                android:id="@+id/deleteAllConfigurationFilesToggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="onDeleteAllConfigurationFilesToggleButtonClicked" />
+
+            <Button
+                android:id="@+id/deleteAllConfigurationFilesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/settings_delete_everything_button_text"
+                android:onClick="onDeleteAllConfigurationFilesButtonClicked" />
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
