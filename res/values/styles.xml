@@ -13,7 +13,7 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="AppTheme" parent="HoloTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
