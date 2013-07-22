@@ -1,27 +1,27 @@
 package de.kasoki.trierbustimetracker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.lazydroid.autoupdateapk.AutoUpdateApk;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.adapter.FavoriteListAdapter;
 import de.kasoki.trierbustimetracker.utils.AppUpdateObserver;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 import de.kasoki.trierbustimetracker.utils.Identifier;
-import com.lazydroid.autoupdateapk.AutoUpdateApk;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends Activity {
+public class MainActivity extends SherlockActivity {
 
 	private ArrayAdapter<String> spinnerAdapter;
 	private Spinner busStopSpinner;
@@ -102,8 +102,8 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
+        getSupportMenuInflater().inflate(R.menu.main_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(android.view.MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		
 		String selectedItem = favorites.get(info.position);

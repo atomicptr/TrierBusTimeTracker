@@ -1,34 +1,29 @@
 package de.kasoki.trierbustimetracker;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import de.kasoki.trierbustimetracker.utils.Helper;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends SherlockActivity {
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 		
-		if(Helper.getCurrentAPILevel() >= 11) {
+		if(Helper.getCurrentAPILevel() >= 7) {
 			this.addHomeAsUpButtonToActionBar();
 		}
 
 		TextView versionTextView = (TextView) this.findViewById(R.id.versionTextView);
 		versionTextView.setText(Helper.getVersion(this));
 	}
-	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
 	private void addHomeAsUpButtonToActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

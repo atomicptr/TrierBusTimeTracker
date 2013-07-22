@@ -1,19 +1,17 @@
 package de.kasoki.trierbustimetracker;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ToggleButton;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import de.kasoki.trierbustimetracker.utils.ConfigurationManager;
 import de.kasoki.trierbustimetracker.utils.Helper;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends SherlockActivity {
 
 	private ConfigurationManager config;
 	
@@ -22,7 +20,7 @@ public class SettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		
-		if(Helper.getCurrentAPILevel() >= 11) {
+		if(Helper.getCurrentAPILevel() >= 7) {
 			this.addHomeAsUpButtonToActionBar();
 		}
 		
@@ -31,9 +29,8 @@ public class SettingsActivity extends Activity {
 		toggleDeleteEverything(false);
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void addHomeAsUpButtonToActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override

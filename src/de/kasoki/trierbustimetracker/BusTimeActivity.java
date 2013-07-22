@@ -1,17 +1,17 @@
 package de.kasoki.trierbustimetracker;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import de.kasoki.swtrealtime.BusStop;
 import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter;
 import de.kasoki.trierbustimetracker.tasks.ReloadTask;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BusTimeActivity extends Activity {
+public class BusTimeActivity extends SherlockActivity {
 
 	private volatile ArrayList<HashMap<String, String>> listViewContent;
 
@@ -37,7 +37,7 @@ public class BusTimeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
 
-		if(Helper.getCurrentAPILevel() >= 11) {
+		if(Helper.getCurrentAPILevel() >= 7) {
 			this.addHomeAsUpButtonToActionBar();
 		}
 		
@@ -64,9 +64,8 @@ public class BusTimeActivity extends Activity {
 		reload();
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void addHomeAsUpButtonToActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -80,7 +79,7 @@ public class BusTimeActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.bustimes_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.bustimes_menu, menu);
 		return true;
 	}
 
