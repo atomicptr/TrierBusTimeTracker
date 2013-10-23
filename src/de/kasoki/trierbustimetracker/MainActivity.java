@@ -74,7 +74,7 @@ public class MainActivity extends SherlockActivity {
 		listView = (ListView) this.findViewById(R.id.favoritesListView);
 
 		spinnerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, busStopList);
+				R.layout.list_item_busstop_spinner, R.id.spinner_busstop_name, busStopList);
 
 		listAdapter = new FavoriteListAdapter(favorites, this);
 
