@@ -6,6 +6,7 @@
     <string name="action_reload">Aktualisieren</string>
     <string name="action_delete_config">Konfigurationen löschen</string>
     <string name="action_about_tbbt">Über diese App</string>
+    <string name="action_invite">Freunde einladen...</string>
     <string name="bustime_arrival_text">Ankunftszeit: %1$s %2$s %3$s%4$s</string>
     <string name="no_network_connection_text">Keine Netzwerkverbindung.</string>
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
@@ -27,5 +28,7 @@
     <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
     <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
     <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
+    <string name="invite_text">Hi, kennst du schon Trier Bus Time Tracker? Downloade die App hier: http://www.auto-update-apk.com/download/de.kasoki.trierbustimetracker oder benutze diesen QR Code: http://www.auto-update-apk.com/qrcode/de.kasoki.trierbustimetracker</string>
+    <string name="invite_text_title">Erzähle deinen Freunden von Trier Bus Time Tracker</string>
 
 </resources>

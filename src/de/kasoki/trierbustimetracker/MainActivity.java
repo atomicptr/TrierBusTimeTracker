@@ -118,6 +118,15 @@ public class MainActivity extends SherlockActivity {
 					Identifier.SETTINGS_REQUEST_CODE);
 			return true;
 
+        case R.id.action_invite:
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.invite_text));
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.invite_text_title)));
+
+            return true;
+
 		// about menu clicked
 		case R.id.action_about_tbbt:
 			intent = new Intent(this, AboutActivity.class);

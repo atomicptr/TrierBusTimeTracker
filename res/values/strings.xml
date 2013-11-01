@@ -7,6 +7,7 @@
     <string name="action_reload">Reload</string>
     <string name="action_delete_config">Delete config</string>
     <string name="action_about_tbbt">About</string>
+    <string name="action_invite">Invite friends...</string>
     <string name="bustime_arrival_text">Arrival time: %1$s %2$s %3$s%4$s</string>
     <string name="no_network_connection_text">No network connection.</string>
     <string name="item_already_on_favorites_list_text">This item is already on favorites list</string>
@@ -28,5 +29,7 @@
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
     <string name="server_response_error">There seems to be a problem with the server. Error code \'%1$d\' received.</string>
     <string name="connection_failed">Connection to server failed.</string>
+    <string name="invite_text">Hey, check out Trier Bus Time Tracker! Download link: http://www.auto-update-apk.com/download/de.kasoki.trierbustimetracker or here is a QR code: http://www.auto-update-apk.com/qrcode/de.kasoki.trierbustimetracker</string>
+    <string name="invite_text_title">Tell others about Trier Bus Time Tracker</string>
 
 </resources>

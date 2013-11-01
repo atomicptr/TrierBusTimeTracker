@@ -7,6 +7,12 @@
         android:title="@string/action_check_updates" />
 
     <item
+        android:id="@+id/action_invite"
+        android:orderInCategory="789"
+        android:showAsAction="never"
+        android:title="@string/action_invite" />
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="888"
         android:showAsAction="never"
