@@ -1,6 +1,8 @@
 package de.kasoki.trierbustimetracker;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,10 +39,13 @@ public class MainActivity extends SherlockActivity {
     private AutoUpdateApk updater;
     private AppUpdateObserver appUpdateObserver;
 
+    public static final String ACTIONBAR_COLOR = "#0356b9";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        setupTheme();
 
 		Log.d("TBBT", Helper.getVersion(this));
 
@@ -98,6 +103,11 @@ public class MainActivity extends SherlockActivity {
 
 		this.registerForContextMenu(listView);
 	}
+
+    private void setupTheme() {
+        this.getSupportActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor(MainActivity.ACTIONBAR_COLOR)));
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -2,6 +2,8 @@ package de.kasoki.trierbustimetracker;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +38,7 @@ public class BusTimeActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bustimes);
+        setupTheme();
 
 		if(Helper.getCurrentAPILevel() >= 7) {
 			this.addHomeAsUpButtonToActionBar();
@@ -63,6 +66,11 @@ public class BusTimeActivity extends SherlockActivity {
 		// get information
 		reload();
 	}
+
+    private void setupTheme() {
+        this.getSupportActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor(MainActivity.ACTIONBAR_COLOR)));
+    }
 
 	private void addHomeAsUpButtonToActionBar() {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);

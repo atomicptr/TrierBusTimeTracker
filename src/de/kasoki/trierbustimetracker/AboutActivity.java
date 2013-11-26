@@ -1,5 +1,7 @@
 package de.kasoki.trierbustimetracker;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -13,6 +15,7 @@ public class AboutActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
+        setupTheme();
 		
 		if(Helper.getCurrentAPILevel() >= 7) {
 			this.addHomeAsUpButtonToActionBar();
@@ -21,6 +24,11 @@ public class AboutActivity extends SherlockActivity {
 		TextView versionTextView = (TextView) this.findViewById(R.id.versionTextView);
 		versionTextView.setText(Helper.getVersion(this));
 	}
+
+    private void setupTheme() {
+        this.getSupportActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor(MainActivity.ACTIONBAR_COLOR)));
+    }
 
 	private void addHomeAsUpButtonToActionBar() {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
