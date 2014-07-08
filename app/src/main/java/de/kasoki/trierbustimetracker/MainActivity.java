@@ -181,7 +181,7 @@ public class MainActivity extends Activity {
             menu.setHeaderTitle(favorites.get(info.position));
 
             String[] menuItems = getResources().getStringArray(
-            R.array.favorites_menu);
+                R.array.favorites_menu);
 
             for (int i = 0; i < menuItems.length; i++) {
                 menu.add(Menu.NONE, i, i, menuItems[i]);

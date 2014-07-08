@@ -15,8 +15,6 @@ import de.kasoki.trierbustimetracker.utils.Helper;
 
 public class SettingsActivity extends Activity {
 
-    private ConfigurationManager config;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +24,6 @@ public class SettingsActivity extends Activity {
         if(Helper.getCurrentAPILevel() >= 7) {
             this.addHomeAsUpButtonToActionBar();
         }
-
-        config = new ConfigurationManager(this);
 
         toggleDeleteEverything(false);
     }
@@ -84,37 +80,12 @@ public class SettingsActivity extends Activity {
     protected void onStart() {
         // load settings
 
-        CheckBox autoReloadCheckbox = (CheckBox) this.findViewById(R.id.autoReloadCheckbox);
-        CheckBox useNotificationsForReloadCheckbox = (CheckBox) this.findViewById(R.id.use_notifications_for_reload_checkbox);
-        CheckBox useMobileConnectionForAppUpdatesCheckbox = (CheckBox) this.findViewById(R.id.use_mobile_conn_for_app_update_checkbox);
-
-        config.loadSettingsActivity();
-
-        try {
-            autoReloadCheckbox.setChecked(config.useAutoReload());
-            useNotificationsForReloadCheckbox.setChecked(config.useNotifications());
-            useMobileConnectionForAppUpdatesCheckbox.setChecked(config.useMobileConnectionForAppUpdates());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         super.onStart();
     }
 
     @Override
     protected void onStop() {
         // save settings
-
-        CheckBox autoReloadCheckbox = (CheckBox) this.findViewById(R.id.autoReloadCheckbox);
-        CheckBox useNotificationsForReloadCheckbox = (CheckBox) this.findViewById(R.id.use_notifications_for_reload_checkbox);
-        CheckBox useMobileConnectionForAppUpdatesCheckbox = (CheckBox) this.findViewById(R.id.use_mobile_conn_for_app_update_checkbox);
-
-        boolean useAutoReload = autoReloadCheckbox.isChecked();
-        boolean useNotifications = useNotificationsForReloadCheckbox.isChecked();
-        boolean useMobileConnectionForAppUpdates = useMobileConnectionForAppUpdatesCheckbox.isChecked();
-
-        config.saveSettingsActivity(useAutoReload, useNotifications, useMobileConnectionForAppUpdates);
-
         super.onStop();
     }
 }
