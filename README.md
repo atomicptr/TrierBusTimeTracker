@@ -3,7 +3,11 @@ Trier Bus Time Tracker
 
 Android bus time tracker app for Trier, Germany.
 
-### Dependencies
+## License
+
+This app is licensed under the terms of the MIT license.
+
+## Dependencies
 
 Here is a list of the 3rd party libraries i'm using in this project:
 
