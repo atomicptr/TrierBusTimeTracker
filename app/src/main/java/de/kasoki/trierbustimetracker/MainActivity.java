@@ -129,6 +129,11 @@ public class MainActivity extends Activity {
                 Identifier.SETTINGS_REQUEST_CODE);
                 return true;
 
+            case R.id.action_donate:
+                intent = new Intent(this, DonateActivity.class);
+                this.startActivity(intent);
+                return true;
+
             // about menu clicked
             case R.id.action_about_tbbt:
                 intent = new Intent(this, AboutActivity.class);
@@ -342,14 +347,5 @@ public class MainActivity extends Activity {
     // delete ALL the settings!
     public void deleteAllSettings() {
         config.clear();
-    }
-
-    public void showNoUpdatesToast() {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.no_update_text), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

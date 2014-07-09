@@ -7,6 +7,7 @@
     <string name="action_reload">Aktualisieren</string>
     <string name="action_delete_config">Konfigurationen löschen</string>
     <string name="action_about_tbbt">Über diese App</string>
+    <string name="action_donate">Spenden</string>
     <string name="bustime_arrival_text">Ankunftszeit: %1$s %2$s %3$s%4$s</string>
     <string name="no_network_connection_text">Keine Netzwerkverbindung.</string>
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
@@ -18,15 +19,13 @@
     <string name="settings_use_mobile_conn_for_app_update">Erlaube Benutzung der mobilen Datenverbindung zum Aktualisieren der Anwendung</string>
     <string name="bustime_no_bus">Innerhalb der nächsten Stunde fährt kein Bus von dieser Haltestelle ab.</string>
     <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
-    <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)</string>
+    <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
     <string name="about_data_text"><b>Über die Echtzeitdaten</b>:\nAlle Echtzeitinformationen werde von der Online Auskunft der SWT (Stadtwerke Trier) verarbeitet. Weder diese Applikationen noch der Autor haben in irgendeiner Weise etwas mit den Stadtwerken Trier zu tun.</string>
     <string name="settings_use_auto_reload_text">Benutze die Automatische Aktualisierung für Abfahrtzeiten</string>
     <string name="settings_use_notifications_reload_text">Erstelle eine \"Notification\" wenn sich Abfahrtszeiten ändern.</string>
     <string name="loading_dialog_text">Lade Informationen...</string>
-    <string name="action_check_updates">Auf Updates prüfen</string>
-    <string name="no_update_text">Keine Aktualisierungen verfügbar</string>
     <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
     <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
     <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
-
+    <string name="donate_url">http://donate.kasoki.de/de</string>
 </resources>
