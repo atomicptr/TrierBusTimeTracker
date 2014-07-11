@@ -6,9 +6,9 @@
     <string name="action_settings">Paramètres</string>
     <string name="action_reload">Actualiser</string>
     <string name="action_delete_config">Supprimer les paramètres</string>
-    <string name="action_about_tbbt">A propos de l'application</string>
+    <string name="action_about_tbbt">A propos de l\'application</string>
     <string name="action_donate">Faire un don</string>
-    <string name="bustime_arrival_text">Temps d'arrivée: %1$s %2$s %3$s%4$s</string>
+    <string name="bustime_arrival_text">Temps d\'arrivée: %1$s %2$s %3$s%4$s</string>
     <string name="no_network_connection_text">Pas de connexion disponible.</string>
     <string name="item_already_on_favorites_list_text">Cet arrêt existe déjà dans la liste des favoris</string>
     <string name="favorite_item_deleted">%s a été supprimé des favoris.</string>
@@ -16,16 +16,16 @@
     <string name="settings_auto_reload_caption">Mise à jour automatique des temps de départ</string>
     <string name="settings_delete_everything_caption">Supprimer TOUS les paramètres</string>
     <string name="settings_app_update_caption">Options des mises à jour</string>
-    <string name="settings_use_mobile_conn_for_app_update">Permettre l'utilisation de la connexion mobile pour mettre l'application à jour</string>
+    <string name="settings_use_mobile_conn_for_app_update">Permettre l\'utilisation de la connexion mobile pour mettre l\'application à jour</string>
     <string name="bustime_no_bus">Cet arrêt ne prévoit aucun départ pendant la prochaine heure.</string>
     <string name="about_developer_text"><b>Développement</b>:\nChristopher Kaster</string>
     <string name="about_special_thanks"><b>Remerciements particuliers</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nBen Raus (French translation)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
-    <string name="about_data_text"><b>A propos des données en temps réel</b>:\nToutes les données en temps réel sont mises à disposition par le service de renseignement en ligne de l'SWT (Stadtwerke Trier). Ni l'application ni l'auteur sont en relation avec les "Stadtwerke Trier".</string>
+    <string name="about_data_text"><b>A propos des données en temps réel</b>:\nToutes les données en temps réel sont mises à disposition par le service de renseignement en ligne de l\'SWT (Stadtwerke Trier). Ni l\'application ni l\'auteur sont en relation avec les "Stadtwerke Trier".</string>
     <string name="settings_use_auto_reload_text">Actualiser automatiquement les heures de départ</string>
-    <string name="settings_use_notifications_reload_text">Créer une \"Notification\" lors d'un changement des heures de départ.</string>
+    <string name="settings_use_notifications_reload_text">Créer une \"Notification\" lors d\'un changement des heures de départ.</string>
     <string name="loading_dialog_text">Chargement des données...</string>
-    <string name="shortcut_created">Le raccourci \'%1$s\' a été ajouté à l'écran d'accueil.</string>
-    <string name="server_response_error">Une erreur avec le serveur est survenue. Code d'erreur: \'%1$d\' </string>
+    <string name="shortcut_created">Le raccourci \'%1$s\' a été ajouté à l\'écran d\'accueil.</string>
+    <string name="server_response_error">Une erreur avec le serveur est survenue. Code d\'erreur: \'%1$d\' </string>
     <string name="connection_failed">La connexion au serveur a échoué.</string>
     <string name="donate_url">http://donate.kasoki.de/fr</string>
 </resources>

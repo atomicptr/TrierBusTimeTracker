@@ -122,13 +122,7 @@ public class MainActivity extends Activity {
         Intent intent;
 
         switch (item.getItemId()) {
-            // settings menu clicked
-            case R.id.action_settings:
-                intent = new Intent(this, SettingsActivity.class);
-                this.startActivityForResult(intent,
-                Identifier.SETTINGS_REQUEST_CODE);
-                return true;
-
+            // donate menu clicked
             case R.id.action_donate:
                 intent = new Intent(this, DonateActivity.class);
                 this.startActivity(intent);
@@ -298,25 +292,6 @@ public class MainActivity extends Activity {
         this.listAdapter.notifyDataSetChanged();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(resultCode == RESULT_OK) {
-
-            // Got request code from settings
-            if(requestCode == Identifier.SETTINGS_REQUEST_CODE) {
-                boolean deleteSettings = data.getExtras().getBoolean(
-                        "DELETE_SETTINGS", false);
-
-                if(deleteSettings) {
-                    this.deleteAllSettings();
-
-                    favorites.clear();
-                    listAdapter.notifyDataSetChanged();
-                }
-            }
-        }
-    }
-
     // This method loads the favorites list on start
     @Override
     protected void onStart() {
@@ -342,10 +317,5 @@ public class MainActivity extends Activity {
         config.saveFavorites(favorites);
 
         super.onStop();
-    }
-
-    // delete ALL the settings!
-    public void deleteAllSettings() {
-        config.clear();
     }
 }
