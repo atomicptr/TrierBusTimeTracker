@@ -31,12 +31,6 @@ public class ConfigurationManager {
 
     private Activity parent;
 
-    // settings_activity
-    private boolean settingsLoaded = false;
-    private boolean useAutoReload = false;
-    private boolean useNotifications = false;
-    private boolean useMobileConnectionForAppUpdates = true;
-
     public ConfigurationManager(Activity parent) {
         this.parent = parent;
     }
@@ -67,62 +61,5 @@ public class ConfigurationManager {
         }
 
         editor.commit();
-    }
-
-    /** Removes all configuration files */
-    public void clear() {
-        String[] configFileNames = {
-            Identifier.APP_FAVORITE_FILE_IDENTIFIER,
-            Identifier.APP_SETTINGS_FILE_IDENTIFIER
-        };
-
-        for(String configFile : configFileNames) {
-            SharedPreferences.Editor editor = parent.getSharedPreferences(configFile, Context.MODE_PRIVATE).edit();
-            editor.clear().commit();
-        }
-    }
-
-    public void saveSettingsActivity(boolean useAutoReload, boolean useNotifications, boolean useMobileConnectionForAppUpdates) {
-        SharedPreferences.Editor editor = parent.getSharedPreferences(Identifier.APP_SETTINGS_FILE_IDENTIFIER, Context.MODE_PRIVATE).edit();
-
-        editor.putBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, useAutoReload);
-        editor.putBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, useNotifications);
-        editor.putBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, useMobileConnectionForAppUpdates);
-
-        editor.commit();
-    }
-
-    public void loadSettingsActivity() {
-        SharedPreferences prefs = parent.getSharedPreferences(Identifier.APP_SETTINGS_FILE_IDENTIFIER, Context.MODE_PRIVATE);
-
-        this.useAutoReload = prefs.getBoolean(Identifier.APP_SETTINGS_USE_AUTO_RELOAD_IDENTIFIER, false);
-        this.useNotifications = prefs.getBoolean(Identifier.APP_SETTINGS_USE_NOTIFICATIONS_IDENTIFIER, false);
-        this.useMobileConnectionForAppUpdates = prefs.getBoolean(Identifier.APP_SETTINGS_USE_MOBILE_CONN_FOR_APP_UPDATE, true);
-
-        this.settingsLoaded = true;
-    }
-
-    public boolean useAutoReload() {
-        if(!this.settingsLoaded) {
-            this.loadSettingsActivity();
-        }
-
-        return this.useAutoReload;
-    }
-
-    public boolean useNotifications() {
-        if(!this.settingsLoaded) {
-            this.loadSettingsActivity();
-        }
-
-        return this.useNotifications;
-    }
-
-    public boolean useMobileConnectionForAppUpdates() {
-        if(!this.settingsLoaded) {
-            this.loadSettingsActivity();
-        }
-
-        return this.useMobileConnectionForAppUpdates;
     }
 }
