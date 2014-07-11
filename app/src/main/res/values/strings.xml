@@ -16,7 +16,7 @@
     <string name="settings_delete_everything_caption">Delete all settings</string>
     <string name="bustime_no_bus">There are no buses in the next hour.</string>
     <string name="about_developer_text"><b>Development</b>:\nChristopher Kaster</string>
-    <string name="about_special_thanks"><b>Special thanks to</b>:\nDaniel Fett\nMarc Serre from the \"Noun Project\" (App icon)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
+    <string name="about_special_thanks"><b>Special thanks to</b>:\nDaniel Fett\nMarc Serre from the \"Noun Project\" (App icon)\nBen Raus (French translation)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
     <string name="about_data_text"><b>About the data</b>:\nThe realtime data is parsed from the SWT (Stadtwerke Trier) realtime information website. Neither this project nor the author are somehow related to the SWT.</string>
     <string name="loading_dialog_text">loading...</string>
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
