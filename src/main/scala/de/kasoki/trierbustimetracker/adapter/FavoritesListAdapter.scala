@@ -10,9 +10,11 @@ import android.widget._
 
 import de.kasoki.trierbustimetracker.R;
 
-class FavoritesListAdapter(val favorites:Buffer[String], val context:Context) extends BaseAdapter {
-    override def getCount():Int = favorites.length
-    override def getItem(position:Int):Object = favorites(position)
+class FavoritesListAdapter(val context:Context) extends BaseAdapter {
+    var items:Buffer[String] = Buffer[String]()
+
+    override def getCount():Int = items.length
+    override def getItem(position:Int):Object = items(position)
     override def getItemId(position:Int):Long = position
 
     override def getView(position:Int, convertView:View, parent:ViewGroup):View = {
@@ -26,7 +28,7 @@ class FavoritesListAdapter(val favorites:Buffer[String], val context:Context) ex
 
         val busStopName = view.findViewById(R.id.busstop_name).asInstanceOf[TextView]
 
-        busStopName.setText(favorites(position))
+        busStopName.setText(items(position))
 
         return view
     }
