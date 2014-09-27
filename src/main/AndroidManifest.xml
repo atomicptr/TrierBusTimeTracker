@@ -28,11 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity
+        <activity
             android:name="de.kasoki.trierbustimetracker.BusTimeActivity"
             android:label="@string/app_name"
             android:exported="true">
-        </activity>-->
+        </activity>
         <activity
             android:name="de.kasoki.trierbustimetracker.DonateActivity"
             android:label="@string/action_donate">

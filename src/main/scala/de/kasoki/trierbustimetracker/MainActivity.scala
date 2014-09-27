@@ -97,13 +97,11 @@ class MainActivity extends SActivity {
         val busStop = BusStop.getBusStopByName(busStopName)
 
         if(AndroidHelper.isNetworkAvailable(this)) {
-            /*val intent = new Intent(this, classOf[BusTimeActivity])
+            val intent = new Intent(this, classOf[BusTimeActivity])
 
             intent.putExtra("BUS_TIME_CODE", busStop.code)
 
-            this.startActivity(intent)*/
-
-            println(busStop.code)
+            this.startActivity(intent)
         } else {
             Log.d("TrierBusTimeTracker", "NO NETWORK CONNECTION")
 
@@ -175,7 +173,7 @@ class MainActivity extends SActivity {
     def contextAddShortcutToHomescreen(name:String) {
         val code = BusStop.getBusStopByName(name).code
 
-        /*val shortcutIntent = new Intent(this, classOf[BusTimeActivity])
+        val shortcutIntent = new Intent(this, classOf[BusTimeActivity])
 
         shortcutIntent.setAction(Intent.ACTION_MAIN)
 
@@ -191,7 +189,7 @@ class MainActivity extends SActivity {
 
         this.sendBroadcast(addIntent)
 
-        toast(getString(R.string.shortcut_created, name))*/
+        toast(getString(R.string.shortcut_created, name))
     }
 
     def contextDeleteEntry(position:Int) {
