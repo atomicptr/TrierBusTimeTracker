@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget._
 
-import de.kasoki.trierbustimetracker.R;
+import de.kasoki.trierbustimetracker.R
 
 class FavoritesListAdapter(val context:Context) extends BaseAdapter {
     var items:Buffer[String] = Buffer[String]()

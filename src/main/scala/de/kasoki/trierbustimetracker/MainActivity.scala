@@ -102,6 +102,8 @@ class MainActivity extends SActivity {
             intent.putExtra("BUS_TIME_CODE", busStop.code)
 
             this.startActivity(intent)
+
+            AndroidHelper.slideIn(this)
         } else {
             Log.d("TrierBusTimeTracker", "NO NETWORK CONNECTION")
 
@@ -122,6 +124,7 @@ class MainActivity extends SActivity {
         item.getItemId() match {
             case R.id.action_donate => {
                 val intent = new Intent(this, classOf[DonateActivity])
+
                 this.startActivity(intent)
 
                 return true
@@ -129,6 +132,7 @@ class MainActivity extends SActivity {
 
             case R.id.action_about_tbbt => {
                 val intent = new Intent(this, classOf[AboutActivity])
+
                 this.startActivity(intent)
 
                 return true

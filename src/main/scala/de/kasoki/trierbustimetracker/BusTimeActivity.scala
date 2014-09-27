@@ -56,7 +56,9 @@ class BusTimeActivity extends SActivity {
     override def onOptionsItemSelected(item:MenuItem):Boolean = {
         item.getItemId() match {
             case android.R.id.home => {
-                finish();
+                finish()
+
+                AndroidHelper.slideBack(this)
 
                 return true
             }
@@ -109,6 +111,12 @@ class BusTimeActivity extends SActivity {
 
             toast(noNetwork)
         }
+    }
+
+    override def onBackPressed() {
+        super.onBackPressed()
+
+        AndroidHelper.slideBack(this)
     }
 
     def list():ListView = this.findViewById(R.id.busStopListView).asInstanceOf[ListView]

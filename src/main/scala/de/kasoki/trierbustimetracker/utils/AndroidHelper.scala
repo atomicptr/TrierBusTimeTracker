@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 
+import de.kasoki.trierbustimetracker.R
+
 object AndroidHelper {
     def currentApiLevel:Int = android.os.Build.VERSION.SDK_INT
 
@@ -22,5 +24,13 @@ object AndroidHelper {
         }
 
         return false
+    }
+
+    def slideIn(activity:Activity) {
+        activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+    }
+
+    def slideBack(activity:Activity) {
+        activity.overridePendingTransition(R.anim.slideback_out, R.anim.slideback_in)
     }
 }

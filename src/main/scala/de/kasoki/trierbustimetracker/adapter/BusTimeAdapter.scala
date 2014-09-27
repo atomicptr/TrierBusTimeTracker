@@ -2,16 +2,16 @@ package de.kasoki.trierbustimetracker.adapter
 
 import scala.collection.mutable.Buffer
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.TextView
 
 import de.kasoki.swtrealtime.BusTime
 
-import de.kasoki.trierbustimetracker.R;
+import de.kasoki.trierbustimetracker.R
 
 class BusTimeAdapter(val context:Context) extends BaseAdapter {
     var items:List[BusTime] = List[BusTime]()
