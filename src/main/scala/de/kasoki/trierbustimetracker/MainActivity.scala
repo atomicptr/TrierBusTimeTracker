@@ -1,14 +1,19 @@
 package de.kasoki.trierbustimetracker
 
 import org.scaloid.common._
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+
+import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 
 class MainActivity extends SActivity {
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle);
+
+        ActionBarHelper.colorActionBar(this)
 
         this.setContentView(R.layout.activity_main)
     }
@@ -20,13 +25,20 @@ class MainActivity extends SActivity {
     }
 
     override def onOptionsItemSelected(item:MenuItem):Boolean = {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.getItemId()
+        item.getItemId() match {
+            case R.id.action_donate => {
+                val intent = new Intent(this, classOf[DonateActivity])
+                this.startActivity(intent)
 
-        if(id == R.id.action_donate) {
-            return true;
+                return true
+            }
+
+            case R.id.action_about_tbbt => {
+                val intent = new Intent(this, classOf[AboutActivity])
+                this.startActivity(intent)
+
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item);
