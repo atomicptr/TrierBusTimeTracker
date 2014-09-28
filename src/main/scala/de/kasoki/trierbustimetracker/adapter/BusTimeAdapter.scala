@@ -39,9 +39,25 @@ class BusTimeAdapter(val context:Context) extends BaseAdapter {
         destinationText.setText(time.destination)
 
         if(time.delay > 0) {
-            timeText.setText(time.arrivalTimeAsString + " + " + time.delay + "m")
+            timeText.setText(
+                context.getResources().getString(
+                    R.string.bustime_arrival_text,
+                    time.arrivalTimeAsString,
+                    "+",
+                    time.delay.toString,
+                    "m"
+                )
+            )
         } else {
-            timeText.setText(time.arrivalTimeAsString)
+            timeText.setText(
+                context.getResources().getString(
+                    R.string.bustime_arrival_text,
+                    time.arrivalTimeAsString,
+                    "",
+                    "",
+                    ""
+                )
+            )
         }
 
         return view
