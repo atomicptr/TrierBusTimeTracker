@@ -27,7 +27,7 @@ class MainActivity extends SActivity {
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle);
 
-        Log.d("TrierBusTimeTracker", "Start... Version: " + AndroidHelper.version(this))
+        debug("Start... Version: " + AndroidHelper.version(this))
 
         ActionBarHelper.colorActionBar(this)
 
@@ -105,7 +105,7 @@ class MainActivity extends SActivity {
 
             AndroidHelper.slideIn(this)
         } else {
-            Log.d("TrierBusTimeTracker", "NO NETWORK CONNECTION")
+            debug("NO NETWORK CONNECTION")
 
             val noNetworkText = getResources().getString(
                 R.string.no_network_connection_text)

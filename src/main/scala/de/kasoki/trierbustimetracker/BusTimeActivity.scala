@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget._
 import android.util.Log
+import android.content.DialogInterface
 
 import de.kasoki.swtrealtime._
 
@@ -93,19 +94,45 @@ class BusTimeActivity extends SActivity {
 
                             this.timesAdapter.notifyDataSetChanged()
                         } else {
-                            alert("", getResources().getString(R.string.bustime_no_bus))
+                            val message = getResources().getString(R.string.bustime_no_bus)
+
+                            new AlertDialogBuilder("", message) {
+                                positiveButton("Retry", reload())
+                                setNegativeButton("Cancel", new DialogInterface.OnClickListener {
+                                    def onClick(dialog: DialogInterface, which: Int):Unit = {
+                                        finish()
+                                        AndroidHelper.slideBack(BusTimeActivity.this)
+                                    }
+                                })
+                            }.show()
                         }
                     })
                 }
 
                 case Failure(t:Throwable) => {
-                    Log.d("TrierBusTimeTracker_ERR", t.toString)
+                    error(t.toString)
+
+                    val sw = new java.io.StringWriter()
+                    t.printStackTrace(new java.io.PrintWriter(sw))
+                    val str = sw.toString()
+
+                    error(str)
+
+                    new AlertDialogBuilder("", t.toString) {
+                        positiveButton("Retry", reload())
+                        setNegativeButton("Cancel", new DialogInterface.OnClickListener {
+                            def onClick(dialog: DialogInterface, which: Int):Unit = {
+                                finish()
+                                AndroidHelper.slideBack(BusTimeActivity.this)
+                            }
+                        })
+                    }.show()
                 }
             }
 
         } else {
             // No connection
-            Log.d("TrierBusTimeTracker", "NO NETWORK CONNECTION")
+            debug("NO NETWORK CONNECTION")
 
             val noNetwork = getResources().getString(R.string.no_network_connection_text)
 
