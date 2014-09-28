@@ -80,6 +80,7 @@ class BusTimeActivity extends SActivity {
             val progressDialog = spinnerDialog("", "loading...")
 
             val future = Future {
+                BusTime.timeout = 5000 // 5s
                 BusTime.fromStopCode(this.code)
             }
 
