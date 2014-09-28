@@ -77,7 +77,12 @@ class BusTimeActivity extends SActivity {
     def reload() {
         if(AndroidHelper.isNetworkAvailable(this)) {
 
-            val progressDialog = spinnerDialog("", "loading...")
+            val loadingText = getResources().getString(R.string.loading_dialog_text)
+
+            val progressDialog = spinnerDialog("", loadingText)
+
+            val retryText = getResources().getString(R.string.retry_text)
+            val cancelText = getResources().getString(android.R.string.cancel)
 
             val future = Future {
                 BusTime.timeout = 5000 // 5s
@@ -98,8 +103,8 @@ class BusTimeActivity extends SActivity {
                             val message = getResources().getString(R.string.bustime_no_bus)
 
                             new AlertDialogBuilder("", message) {
-                                positiveButton("Retry", reload())
-                                setNegativeButton("Cancel", new DialogInterface.OnClickListener {
+                                positiveButton(retryText, reload())
+                                setNegativeButton(cancelText, new DialogInterface.OnClickListener {
                                     def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
                                 })
                                 setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -120,8 +125,8 @@ class BusTimeActivity extends SActivity {
                     error(str)
 
                     new AlertDialogBuilder("", t.toString) {
-                        positiveButton("Retry", reload())
-                        setNegativeButton("Cancel", new DialogInterface.OnClickListener {
+                        positiveButton(retryText, reload())
+                        setNegativeButton(cancelText, new DialogInterface.OnClickListener {
                             def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
                         })
                         setOnCancelListener(new DialogInterface.OnCancelListener() {

@@ -23,4 +23,5 @@
     <string name="server_response_error">There seems to be a problem with the server. Error code \'%1$d\' received.</string>
     <string name="connection_failed">Connection to server failed.</string>
     <string name="donate_url">http://donate.kasoki.de</string>
+    <string name="retry_text">Retry</string>
 </resources>

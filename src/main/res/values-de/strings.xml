@@ -28,4 +28,5 @@
     <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
     <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
     <string name="donate_url">http://donate.kasoki.de/de</string>
+    <string name="retry_text">Wiederholen</string>
 </resources>
