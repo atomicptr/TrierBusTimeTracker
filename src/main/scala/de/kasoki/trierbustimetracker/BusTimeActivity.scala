@@ -99,10 +99,10 @@ class BusTimeActivity extends SActivity {
                             new AlertDialogBuilder("", message) {
                                 positiveButton("Retry", reload())
                                 setNegativeButton("Cancel", new DialogInterface.OnClickListener {
-                                    def onClick(dialog: DialogInterface, which: Int):Unit = {
-                                        finish()
-                                        AndroidHelper.slideBack(BusTimeActivity.this)
-                                    }
+                                    def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                                })
+                                setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                    def onCancel(dialog:DialogInterface):Unit = closeActivity()
                                 })
                             }.show()
                         }
@@ -121,10 +121,10 @@ class BusTimeActivity extends SActivity {
                     new AlertDialogBuilder("", t.toString) {
                         positiveButton("Retry", reload())
                         setNegativeButton("Cancel", new DialogInterface.OnClickListener {
-                            def onClick(dialog: DialogInterface, which: Int):Unit = {
-                                finish()
-                                AndroidHelper.slideBack(BusTimeActivity.this)
-                            }
+                            def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                        })
+                        setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            def onCancel(dialog:DialogInterface):Unit = closeActivity()
                         })
                     }.show()
                 }
@@ -138,6 +138,11 @@ class BusTimeActivity extends SActivity {
 
             toast(noNetwork)
         }
+    }
+
+    def closeActivity() {
+        finish()
+        AndroidHelper.slideBack(BusTimeActivity.this)
     }
 
     override def onBackPressed() {
