@@ -35,30 +35,20 @@ class BusTimeAdapter(val context:Context) extends BaseAdapter {
 
         val time = items(position)
 
-        numberText.setText(time.number.toString)
-        destinationText.setText(time.destination)
+        var op = "+"
+        var delay = time.delay.toString
+        var minute = "m"
 
-        if(time.delay > 0) {
-            timeText.setText(
-                context.getResources().getString(
-                    R.string.bustime_arrival_text,
-                    time.arrivalTimeAsString,
-                    "+",
-                    time.delay.toString,
-                    "m"
-                )
-            )
-        } else {
-            timeText.setText(
-                context.getResources().getString(
-                    R.string.bustime_arrival_text,
-                    time.arrivalTimeAsString,
-                    "",
-                    "",
-                    ""
-                )
-            )
+        if(time.delay == 0) {
+            op = ""
+            delay = ""
+            minute = ""
         }
+
+        numberText.setText("%02d".format(time.number))
+        destinationText.setText(time.destination)
+        timeText.setText(context.getResources().getString(R.string.bustime_arrival_text,
+            time.arrivalTimeAsString, op, delay, minute))
 
         return view
     }
