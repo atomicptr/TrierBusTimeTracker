@@ -142,7 +142,18 @@ class BusTimeActivity extends SActivity {
 
             val noNetwork = getResources().getString(R.string.no_network_connection_text)
 
-            toast(noNetwork)
+            val retryText = getResources().getString(R.string.retry_text)
+            val cancelText = getResources().getString(android.R.string.cancel)
+
+            new AlertDialogBuilder("", noNetwork) {
+                positiveButton(retryText, reload())
+                setNegativeButton(cancelText, new DialogInterface.OnClickListener {
+                    def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                })
+                setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    def onCancel(dialog:DialogInterface):Unit = closeActivity()
+                })
+            }.show()
         }
     }
 

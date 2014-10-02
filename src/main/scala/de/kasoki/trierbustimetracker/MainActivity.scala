@@ -96,22 +96,13 @@ class MainActivity extends SActivity {
     def startBusTimeActivity(busStopName:String) {
         val busStop = BusStop.getBusStopByName(busStopName)
 
-        if(AndroidHelper.isNetworkAvailable(this)) {
-            val intent = new Intent(this, classOf[BusTimeActivity])
+        val intent = new Intent(this, classOf[BusTimeActivity])
 
-            intent.putExtra("BUS_TIME_CODE", busStop.code)
+        intent.putExtra("BUS_TIME_CODE", busStop.code)
 
-            this.startActivity(intent)
+        this.startActivity(intent)
 
-            AndroidHelper.slideIn(this)
-        } else {
-            debug("NO NETWORK CONNECTION")
-
-            val noNetworkText = getResources().getString(
-                R.string.no_network_connection_text)
-
-            toast(noNetworkText)
-        }
+        AndroidHelper.slideIn(this)
     }
 
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
