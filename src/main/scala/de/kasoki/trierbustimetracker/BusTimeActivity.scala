@@ -105,7 +105,7 @@ class BusTimeActivity extends SActivity {
                             new AlertDialogBuilder("", message) {
                                 positiveButton(retryText, reload())
                                 setNegativeButton(cancelText, new DialogInterface.OnClickListener {
-                                    def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                                    def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
                                 })
                                 setOnCancelListener(new DialogInterface.OnCancelListener() {
                                     def onCancel(dialog:DialogInterface):Unit = closeActivity()
@@ -127,7 +127,7 @@ class BusTimeActivity extends SActivity {
                     new AlertDialogBuilder("", t.toString) {
                         positiveButton(retryText, reload())
                         setNegativeButton(cancelText, new DialogInterface.OnClickListener {
-                            def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                            def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
                         })
                         setOnCancelListener(new DialogInterface.OnCancelListener() {
                             def onCancel(dialog:DialogInterface):Unit = closeActivity()
@@ -148,7 +148,7 @@ class BusTimeActivity extends SActivity {
             new AlertDialogBuilder("", noNetwork) {
                 positiveButton(retryText, reload())
                 setNegativeButton(cancelText, new DialogInterface.OnClickListener {
-                    def onClick(dialog: DialogInterface, which: Int):Unit = closeActivity()
+                    def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
                 })
                 setOnCancelListener(new DialogInterface.OnCancelListener() {
                     def onCancel(dialog:DialogInterface):Unit = closeActivity()
