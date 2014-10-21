@@ -116,6 +116,8 @@ class BusTimeActivity extends SActivity {
                 }
 
                 case Failure(t:Throwable) => {
+                    progressDialog.dismiss()
+
                     error(t.toString)
 
                     val sw = new java.io.StringWriter()
