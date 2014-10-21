@@ -127,10 +127,22 @@ class BusTimeActivity extends SActivity {
                     new AlertDialogBuilder("", t.toString) {
                         positiveButton(retryText, reload())
                         setNegativeButton(cancelText, new DialogInterface.OnClickListener {
-                            def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
+                            def onClick(dialog:DialogInterface, which:Int):Unit = {
+                                if(timesAdapter.items.length > 0) {
+                                    dialog.dismiss()
+                                } else {
+                                    closeActivity()
+                                }
+                            }
                         })
                         setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            def onCancel(dialog:DialogInterface):Unit = closeActivity()
+                            def onCancel(dialog:DialogInterface):Unit = {
+                                if(timesAdapter.items.length > 0) {
+                                    dialog.dismiss()
+                                } else {
+                                    closeActivity()
+                                }
+                            }
                         })
                     }.show()
                 }
@@ -148,10 +160,22 @@ class BusTimeActivity extends SActivity {
             new AlertDialogBuilder("", noNetwork) {
                 positiveButton(retryText, reload())
                 setNegativeButton(cancelText, new DialogInterface.OnClickListener {
-                    def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
+                    def onClick(dialog:DialogInterface, which:Int):Unit = {
+                        if(timesAdapter.items.length > 0) {
+                            dialog.dismiss()
+                        } else {
+                            closeActivity()
+                        }
+                    }
                 })
                 setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    def onCancel(dialog:DialogInterface):Unit = closeActivity()
+                    def onCancel(dialog:DialogInterface):Unit = {
+                        if(timesAdapter.items.length > 0) {
+                            dialog.dismiss()
+                        } else {
+                            closeActivity()
+                        }
+                    }
                 })
             }.show()
         }
