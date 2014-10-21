@@ -8,9 +8,11 @@ object ActionBarHelper {
     val actionBarColor = "#0356b9"
 
     def colorActionBar(activity:Activity) {
-        activity.getActionBar().setBackgroundDrawable(
-            new ColorDrawable(Color.parseColor(ActionBarHelper.actionBarColor))
-        )
+        if(AndroidHelper.currentApiLevel < 21) {
+            activity.getActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor(ActionBarHelper.actionBarColor))
+            )
+        }
     }
 
     def enableHomeAsUp(activity:Activity) {
