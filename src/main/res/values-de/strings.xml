@@ -13,16 +13,11 @@
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
     <string name="favorite_item_deleted">%s wurde von der Favoritenliste entfernt.</string>
     <string name="settings_delete_everything_button_text">Lösche ALLE Einstellungen</string>
-    <string name="settings_auto_reload_caption">Automatische Aktualisierung der Abfahrzeiten</string>
     <string name="settings_delete_everything_caption">Lösche ALLE Einstellungen</string>
-    <string name="settings_app_update_caption">Aktualisierungseinstellungen</string>
-    <string name="settings_use_mobile_conn_for_app_update">Erlaube Benutzung der mobilen Datenverbindung zum Aktualisieren der Anwendung</string>
     <string name="bustime_no_bus">Innerhalb der nächsten Stunde fährt kein Bus von dieser Haltestelle ab.</string>
     <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
     <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nBen Raus (French translation)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
     <string name="about_data_text"><b>Über die Echtzeitdaten</b>:\nAlle Echtzeitinformationen werde von der Online Auskunft der SWT (Stadtwerke Trier) verarbeitet. Weder diese Applikationen noch der Autor haben in irgendeiner Weise etwas mit den Stadtwerken Trier zu tun.</string>
-    <string name="settings_use_auto_reload_text">Benutze die Automatische Aktualisierung für Abfahrtzeiten</string>
-    <string name="settings_use_notifications_reload_text">Erstelle eine \"Notification\" wenn sich Abfahrtszeiten ändern.</string>
     <string name="loading_dialog_text">Lade Informationen...</string>
     <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
     <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
