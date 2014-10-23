@@ -17,6 +17,7 @@
         android:text="Default Text"
         android:textIsSelectable="false"
         android:textSize="20sp"
+        android:textColor="#333333"
         android:textStyle="normal" />
 
 </LinearLayout>

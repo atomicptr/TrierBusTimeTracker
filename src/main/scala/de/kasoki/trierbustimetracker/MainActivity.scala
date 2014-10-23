@@ -11,6 +11,8 @@ import android.widget._
 import android.content.Context._
 import android.util.Log
 
+import android.support.v7.app.ActionBarActivity
+
 import de.kasoki.swtrealtime.BusTime
 import de.kasoki.swtrealtime.BusStop
 
@@ -20,7 +22,7 @@ import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.Identifier
 
-class MainActivity extends SActivity {
+class MainActivity extends ActionBarActivity with SActivity {
 
     private val favoritesListAdapter = new FavoritesListAdapter(this)
 
@@ -28,8 +30,6 @@ class MainActivity extends SActivity {
         super.onCreate(bundle);
 
         debug("Start... Version: " + AndroidHelper.version(this))
-
-        ActionBarHelper.colorActionBar(this)
 
         this.setContentView(R.layout.activity_main)
 

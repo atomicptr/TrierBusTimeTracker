@@ -14,13 +14,15 @@ import android.widget._
 import android.util.Log
 import android.content.DialogInterface
 
+import android.support.v7.app.ActionBarActivity
+
 import de.kasoki.swtrealtime._
 
 import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 
-class BusTimeActivity extends SActivity {
+class BusTimeActivity extends ActionBarActivity with SActivity {
 
     val timesAdapter:BusTimeAdapter = new BusTimeAdapter(this)
     var code:String = ""
@@ -30,7 +32,6 @@ class BusTimeActivity extends SActivity {
 
         this.setContentView(R.layout.activity_bustimes)
 
-        ActionBarHelper.colorActionBar(this)
         ActionBarHelper.enableHomeAsUp(this)
 
         val intent = getIntent()

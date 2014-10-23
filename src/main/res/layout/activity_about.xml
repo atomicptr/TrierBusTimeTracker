@@ -21,6 +21,7 @@
                 android:text="@string/app_name"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
+                android:textColor="#333333"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -29,28 +30,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#333333" />
 
             <TextView
                 android:id="@+id/developerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="@string/about_developer_text" />
+                android:text="@string/about_developer_text"
+                android:textColor="#333333" />
 
             <TextView
                 android:id="@+id/specialThanksTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/about_special_thanks" />
+                android:text="@string/about_special_thanks"
+                android:textColor="#333333" />
 
             <TextView
                 android:id="@+id/aboutDataTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/about_data_text" />
+                android:text="@string/about_data_text"
+                android:textColor="#333333" />
         </LinearLayout>
 
 </ScrollView>

@@ -6,17 +6,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 
+import android.support.v7.app.ActionBarActivity
+
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 
-class AboutActivity extends SActivity {
+class AboutActivity extends ActionBarActivity with SActivity {
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle)
 
         this.setContentView(R.layout.activity_about)
 
-        ActionBarHelper.colorActionBar(this)
         ActionBarHelper.enableHomeAsUp(this)
 
         val versionText = this.findViewById(R.id.versionTextView).asInstanceOf[TextView]

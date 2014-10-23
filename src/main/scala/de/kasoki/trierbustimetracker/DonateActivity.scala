@@ -6,16 +6,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 
+import android.support.v7.app.ActionBarActivity
+
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 
-class DonateActivity extends SActivity {
+class DonateActivity extends ActionBarActivity with SActivity {
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle)
 
         this.setContentView(R.layout.activity_donate)
 
-        ActionBarHelper.colorActionBar(this)
         ActionBarHelper.enableHomeAsUp(this)
 
         val webView = this.findViewById(R.id.webview).asInstanceOf[WebView]
