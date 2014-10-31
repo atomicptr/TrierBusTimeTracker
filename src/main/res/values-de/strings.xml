@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- general -->
     <string name="app_name">Trier Bus Time Tracker</string>
-    <string name="app_name_about">Trier Bus Time Tracker | Über</string>
-    <string name="settings_title">Einstellungen</string>
-    <string name="action_settings">Einstellungen</string>
-    <string name="action_reload">Aktualisieren</string>
-    <string name="action_delete_config">Konfigurationen löschen</string>
-    <string name="action_about_tbbt">Über diese App</string>
+    <string name="no_network_connection_text">Keine Verbindung zum Internet.</string>
+
+    <!-- Main Activity -->
+    <string name="action_about_tbbt">Über</string>
     <string name="action_donate">Spenden</string>
+    <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits ein Favorit</string>
+    <string name="favorite_item_deleted">%s wurde von den Favoriten entfernt.</string>
+    <string name="shortcut_created">\'%1$s\' wurde zum Homescreen hinzugefügt.</string>
+
+    <!-- BusTime Activity -->
+    <string name="action_reload">Neu laden</string>
+    <string name="loading_dialog_text">Am laden...</string>
     <string name="bustime_arrival_text">Ankunftszeit: %1$s %2$s %3$s%4$s</string>
-    <string name="no_network_connection_text">Keine Netzwerkverbindung.</string>
-    <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits in der Favoritenliste.</string>
-    <string name="favorite_item_deleted">%s wurde von der Favoritenliste entfernt.</string>
-    <string name="settings_delete_everything_button_text">Lösche ALLE Einstellungen</string>
-    <string name="settings_delete_everything_caption">Lösche ALLE Einstellungen</string>
-    <string name="bustime_no_bus">Innerhalb der nächsten Stunde fährt kein Bus von dieser Haltestelle ab.</string>
-    <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
-    <string name="about_special_thanks"><b>Besonderer Dank gilt</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nBen Raus (French translation)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
-    <string name="about_data_text"><b>Über die Echtzeitdaten</b>:\nAlle Echtzeitinformationen werde von der Online Auskunft der SWT (Stadtwerke Trier) verarbeitet. Weder diese Applikationen noch der Autor haben in irgendeiner Weise etwas mit den Stadtwerken Trier zu tun.</string>
-    <string name="loading_dialog_text">Lade Informationen...</string>
-    <string name="shortcut_created">Shortcut \'%1$s\' wurde zum Homescreen hinzugefügt.</string>
-    <string name="server_response_error">Es ist ein Problem mit dem Server aufgetreten. Fehlercode \'%1$d\' erhalten.</string>
+    <string name="bustime_no_bus">Es fahren keine Busse in der nächsten Stunde von dieser Haltestelle ab</string>
     <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
+    <string name="retry_text">Erneut versuchen</string>
+
+    <!-- About Activity -->
+    <string name="app_name_about">Über</string>
+    <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
+    <string name="about_special_thanks"><b>Spezieller Dank an</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nBen Raus (Französische Übersetzung)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
+    <string name="about_data_text"><b>Über die Daten</b>:\nDie Echtzeitdaten werden von der API der Stadtwerke Trier bezogen. Weder die App noch der Entwickler haben etwas mit dem SWT etwas zu tun</string>
+    <string name="server_response_error">Es wurde ein Problem mit dem Server festgestellt. Fehlercode \'%1$d\' erhalten.</string>
+
+    <!-- Donate Activity -->
     <string name="donate_url">http://donate.kasoki.de/de</string>
-    <string name="retry_text">Wiederholen</string>
 </resources>
