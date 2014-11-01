@@ -12,7 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget._
 import android.util.Log
-import android.content.DialogInterface
+import android.content._
 
 import android.support.v7.app.ActionBarActivity
 
@@ -36,6 +36,10 @@ class BusTimeActivity extends ActionBarActivity with SActivity {
 
         val intent = getIntent()
 
+        handleIntent(intent)
+    }
+
+    private def handleIntent(intent:Intent) {
         this.code = intent.getStringExtra("BUS_TIME_CODE")
 
         val listView = list()
@@ -47,6 +51,11 @@ class BusTimeActivity extends ActionBarActivity with SActivity {
 
         // get information
         reload()
+    }
+
+    override def onNewIntent(intent:Intent) {
+        setIntent(intent)
+        handleIntent(intent)
     }
 
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
