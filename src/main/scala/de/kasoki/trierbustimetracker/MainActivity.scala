@@ -6,12 +6,15 @@ import scala.collection.JavaConversions
 
 import android.content.Intent
 import android.os.Bundle
+import android.app._
 import android.view._
 import android.widget._
 import android.content.Context._
 import android.util.Log
 
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.ActionBarActivity
+import android.support.v7.widget.SearchView
 
 import de.kasoki.swtrealtime.BusTime
 import de.kasoki.swtrealtime.BusStop
@@ -22,7 +25,7 @@ import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.Identifier
 
-class MainActivity extends ActionBarActivity with SActivity {
+class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQueryTextListener {
 
     private val favoritesListAdapter = new FavoritesListAdapter(this)
 
@@ -33,26 +36,8 @@ class MainActivity extends ActionBarActivity with SActivity {
 
         this.setContentView(R.layout.activity_main)
 
-        // init bus stop spinner
-        val busStopSpinner = spinner()
-
-        val busStops = Buffer[String]()
-
-        for(name <- BusStop.names) {
-            busStops += name
-        }
-
-        val spinnerAdapter = new ArrayAdapter[String](
-            this,
-            R.layout.list_item_busstop_spinner,
-            R.id.spinner_busstop_name,
-            JavaConversions.bufferAsJavaList(busStops)
-        )
-
-        busStopSpinner.setAdapter(spinnerAdapter)
-
         // init favorites list
-        val listView = this.findViewById(R.id.favoritesListView).asInstanceOf[ListView]
+        val listView = this.findViewById(R.id.favorites_list_view).asInstanceOf[ListView]
 
         listView.setAdapter(favoritesListAdapter)
 
@@ -63,34 +48,6 @@ class MainActivity extends ActionBarActivity with SActivity {
         })
 
         this.registerForContextMenu(listView)
-    }
-
-    def onAddToFavoritesButtonClicked(view:View) {
-        val busStopSpinner = spinner()
-
-        val item = busStopSpinner.getSelectedItem().asInstanceOf[String]
-
-        if(!this.favoritesListAdapter.items.contains(item)) {
-            runOnUiThread({
-                favoritesListAdapter.items += item
-                favoritesListAdapter.items = favoritesListAdapter.items.sorted
-
-                favoritesListAdapter.notifyDataSetChanged()
-            })
-        } else {
-            val itemAlreadyOnFavoritesText = getResources().getString(
-                R.string.item_already_on_favorites_list_text)
-
-            toast(itemAlreadyOnFavoritesText)
-        }
-    }
-
-    def onActionSelectedButtonClicked(view:View) {
-        val busStopSpinner = spinner()
-
-        val name = busStopSpinner.getSelectedItem().asInstanceOf[String]
-
-        startBusTimeActivity(name)
     }
 
     def startBusTimeActivity(busStopName:String) {
@@ -106,9 +63,20 @@ class MainActivity extends ActionBarActivity with SActivity {
     }
 
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
-        // Inflate the menu; this adds items to the action bar if it is present.
         this.getMenuInflater().inflate(R.menu.main, menu)
+
+        setupSearchView(menu.findItem(R.id.action_search))
+
         return true;
+    }
+
+    private def setupSearchView(searchItem:MenuItem) {
+        val searchView = MenuItemCompat.getActionView(searchItem).asInstanceOf[SearchView]
+
+        searchView.setIconifiedByDefault(true)
+        searchView.setQueryHint(getString(R.string.search_hint))
+
+        searchView.setOnQueryTextListener(this)
     }
 
     override def onOptionsItemSelected(item:MenuItem):Boolean = {
@@ -134,7 +102,7 @@ class MainActivity extends ActionBarActivity with SActivity {
     }
 
     override def onCreateContextMenu(menu:ContextMenu, view:View, menuInfo:ContextMenu.ContextMenuInfo) {
-        if(view.getId() == R.id.favoritesListView) {
+        if(view.getId() == R.id.favorites_list_view) {
             val info = menuInfo.asInstanceOf[AdapterView.AdapterContextMenuInfo]
 
             menu.setHeaderTitle(favoritesListAdapter.items(info.position))
@@ -213,6 +181,16 @@ class MainActivity extends ActionBarActivity with SActivity {
         this.favoritesListAdapter.notifyDataSetChanged()
     }
 
+    override def onQueryTextChange(newString:String):Boolean = {
+        info(newString)
+        return false
+    }
+
+    override def onQueryTextSubmit(query:String):Boolean = {
+        info(query + " DONE")
+        return false
+    }
+
     override def onStart() {
         val prefs = getSharedPreferences(Identifier.APP_FAVORITE_FILE_IDENTIFIER, MODE_PRIVATE)
 
@@ -247,6 +225,4 @@ class MainActivity extends ActionBarActivity with SActivity {
 
         super.onStop()
     }
-
-    def spinner():Spinner = this.findViewById(R.id.busStopSpinner).asInstanceOf[Spinner]
 }

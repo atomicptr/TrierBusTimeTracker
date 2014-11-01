@@ -9,39 +9,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/busStopSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="100"
-            />
-
-        <ImageButton
-            android:id="@+id/addToFavoritesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_star"
-            android:gravity="left|center_vertical"
-            android:onClick="onAddToFavoritesButtonClicked"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/actionSelectedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_done"
-            android:gravity="left|center_vertical"
-            android:onClick="onActionSelectedButtonClicked"
-            android:layout_weight="1" />
-    </LinearLayout>
-
     <ListView
-        android:id="@+id/favoritesListView"
+        android:id="@+id/favorites_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:clickable="true"

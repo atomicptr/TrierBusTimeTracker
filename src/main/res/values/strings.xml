@@ -10,6 +10,8 @@
     <string name="item_already_on_favorites_list_text">This item is already on favorites list</string>
     <string name="favorite_item_deleted">Removed %s from favorites.</string>
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Enter bus stop name...</string>
 
     <!-- BusTime Activity -->
     <string name="action_reload">Reload</string>
