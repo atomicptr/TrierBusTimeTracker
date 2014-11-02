@@ -9,9 +9,14 @@ import android.os.Bundle
 import android.app._
 import android.view._
 import android.widget._
+import android.graphics._
 import android.content.Context._
 import android.util.Log
 
+import android.provider.BaseColumns
+import android.database.MatrixCursor
+
+import android.support.v4.widget.SimpleCursorAdapter
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.ActionBarActivity
 import android.support.v7.widget.SearchView
@@ -23,11 +28,13 @@ import de.kasoki.trierbustimetracker.adapter.FavoritesListAdapter
 
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
+import de.kasoki.trierbustimetracker.utils.FavoritesManager
 import de.kasoki.trierbustimetracker.utils.Identifier
 
 class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQueryTextListener {
 
     private val favoritesListAdapter = new FavoritesListAdapter(this)
+    private var adapter:SimpleCursorAdapter = null
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle);
@@ -48,6 +55,16 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
         })
 
         this.registerForContextMenu(listView)
+
+        if(!FavoritesManager.has(this, BusStop.HAUPTBAHNHOF)) {
+            FavoritesManager.add(this, BusStop.HAUPTBAHNHOF)
+            favoritesListAdapter.notifyDataSetChanged()
+        }
+
+        if(!FavoritesManager.has(this, BusStop.HOCHSCHULETRIER)) {
+            FavoritesManager.add(this, BusStop.HOCHSCHULETRIER)
+            favoritesListAdapter.notifyDataSetChanged()
+        }
     }
 
     def startBusTimeActivity(busStopName:String) {
@@ -65,18 +82,37 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
         this.getMenuInflater().inflate(R.menu.main, menu)
 
-        setupSearchView(menu.findItem(R.id.action_search))
+        val searchItem = menu.findItem(R.id.action_search)
+
+        //val searchView = new SearchView(this)
+        //MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS)
+        //MenuItemCompat.setActionView(searchItem, searchView)
+
+        val searchView = searchItem.getActionView().asInstanceOf[SearchView]
+
+        if(searchView != null) {
+            searchView.setIconifiedByDefault(true)
+            searchView.setQueryHint(getString(R.string.search_hint))
+
+            val from = Array("BusStopName")
+            val to = Array(R.id.text1)
+
+            adapter = new SimpleCursorAdapter(
+                this,
+                R.layout.list_item_searchview,
+                null,
+                from,
+                to
+            )
+
+            searchView.setSuggestionsAdapter(adapter)
+
+            searchView.setOnQueryTextListener(this)
+        } else {
+            error("searchView was null?")
+        }
 
         return true;
-    }
-
-    private def setupSearchView(searchItem:MenuItem) {
-        val searchView = MenuItemCompat.getActionView(searchItem).asInstanceOf[SearchView]
-
-        searchView.setIconifiedByDefault(true)
-        searchView.setQueryHint(getString(R.string.search_hint))
-
-        searchView.setOnQueryTextListener(this)
     }
 
     override def onOptionsItemSelected(item:MenuItem):Boolean = {
@@ -96,6 +132,8 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
 
                 return true
             }
+
+            case _ => {}
         }
 
         return super.onOptionsItemSelected(item);
@@ -181,8 +219,25 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
         this.favoritesListAdapter.notifyDataSetChanged()
     }
 
-    override def onQueryTextChange(newString:String):Boolean = {
-        info(newString)
+    override def onQueryTextChange(query:String):Boolean = {
+        info(query)
+
+        val c = new MatrixCursor(Array(BaseColumns._ID, "BusStopName"))
+
+        var i = 0
+
+        for(bs <- BusStop.values) {
+            val name = bs.asInstanceOf[BusStop.BusStopType].name
+
+            if(name.toLowerCase.startsWith(query.toLowerCase)) {
+                c.addRow(Array[Object](i.asInstanceOf[Object], name.asInstanceOf[Object]))
+            }
+
+            i += 1
+        }
+
+        adapter.changeCursor(c)
+
         return false
     }
 
@@ -192,17 +247,7 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
     }
 
     override def onStart() {
-        val prefs = getSharedPreferences(Identifier.APP_FAVORITE_FILE_IDENTIFIER, MODE_PRIVATE)
-
-        val length = prefs.getInt("favorites_length", 0)
-
-        favoritesListAdapter.items.clear()
-
-        for(i <- 0 until length) {
-            favoritesListAdapter.items += prefs.getString("favorites" + i, null)
-        }
-
-        favoritesListAdapter.items = favoritesListAdapter.items.sorted
+        favoritesListAdapter.items = FavoritesManager.load(this)
 
         favoritesListAdapter.notifyDataSetChanged()
 
@@ -210,18 +255,7 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
     }
 
     override def onStop() {
-        val prefs = getSharedPreferences(Identifier.APP_FAVORITE_FILE_IDENTIFIER, MODE_PRIVATE)
-        val editor = prefs.edit()
-
-        val length = favoritesListAdapter.getCount()
-
-        editor.putInt("favorites_length", length)
-
-        for(i <- 0 until length) {
-            editor.putString("favorites" + i, favoritesListAdapter.items(i))
-        }
-
-        editor.commit()
+        FavoritesManager.save(this, favoritesListAdapter.items)
 
         super.onStop()
     }

@@ -54,6 +54,8 @@ class BusTimeActivity extends ActionBarActivity with SActivity {
     }
 
     override def onNewIntent(intent:Intent) {
+        super.onNewIntent(intent)
+
         setIntent(intent)
         handleIntent(intent)
     }
