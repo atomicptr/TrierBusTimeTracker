@@ -10,6 +10,8 @@
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits ein Favorit</string>
     <string name="favorite_item_deleted">%s wurde von den Favoriten entfernt.</string>
     <string name="shortcut_created">\'%1$s\' wurde zum Homescreen hinzugefügt.</string>
+    <string name="action_search">Suchen</string>
+    <string name="search_hint">Name der Haltestelle eingeben...</string>
 
     <!-- BusTime Activity -->
     <string name="action_reload">Neu laden</string>
