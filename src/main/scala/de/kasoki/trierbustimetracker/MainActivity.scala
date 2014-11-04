@@ -16,11 +16,6 @@ import android.util.Log
 import android.provider.BaseColumns
 import android.database.MatrixCursor
 
-import android.support.v4.widget.SimpleCursorAdapter
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.app.ActionBarActivity
-import android.support.v7.widget.SearchView
-
 import de.kasoki.swtrealtime.BusTime
 import de.kasoki.swtrealtime.BusStop
 
@@ -31,7 +26,7 @@ import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.FavoritesManager
 import de.kasoki.trierbustimetracker.utils.Identifier
 
-class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQueryTextListener {
+class MainActivity extends SActivity with SearchView.OnQueryTextListener {
 
     private val favoritesListAdapter = new FavoritesListAdapter(this)
     private var adapter:SimpleCursorAdapter = null
@@ -42,6 +37,8 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
         debug("Start... Version: " + AndroidHelper.version(this))
 
         this.setContentView(R.layout.activity_main)
+
+        ActionBarHelper.colorActionBar(this)
 
         // init favorites list
         val listView = this.findViewById(R.id.favorites_list_view).asInstanceOf[ListView]
@@ -83,10 +80,6 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
         this.getMenuInflater().inflate(R.menu.main, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-
-        //val searchView = new SearchView(this)
-        //MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS)
-        //MenuItemCompat.setActionView(searchItem, searchView)
 
         val searchView = searchItem.getActionView().asInstanceOf[SearchView]
 
@@ -132,8 +125,6 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
 
                 return true
             }
-
-            case _ => {}
         }
 
         return super.onOptionsItemSelected(item);
@@ -220,8 +211,6 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
     }
 
     override def onQueryTextChange(query:String):Boolean = {
-        info(query)
-
         val c = new MatrixCursor(Array(BaseColumns._ID, "BusStopName"))
 
         var i = 0
@@ -242,7 +231,16 @@ class MainActivity extends ActionBarActivity with SActivity with SearchView.OnQu
     }
 
     override def onQueryTextSubmit(query:String):Boolean = {
-        info(query + " DONE")
+        for(bs <- BusStop.values) {
+            val name = bs.asInstanceOf[BusStop.BusStopType].name
+
+            if(name.toLowerCase.startsWith(query.toLowerCase)) {
+                startBusTimeActivity(name)
+
+                return false
+            }
+        }
+
         return false
     }
 

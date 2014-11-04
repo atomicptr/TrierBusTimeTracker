@@ -1,11 +1,21 @@
 package de.kasoki.trierbustimetracker.utils
 
-import android.support.v7.app.ActionBarActivity
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 
 object ActionBarHelper {
-    def enableHomeAsUp(activity:ActionBarActivity) {
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    val actionBarColor = "#0356b9"
+
+    def colorActionBar(activity:Activity) {
+        if(AndroidHelper.currentApiLevel < 21) {
+            activity.getActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor(ActionBarHelper.actionBarColor))
+            )
+        }
+    }
+
+    def enableHomeAsUp(activity:Activity) {
+        activity.getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
