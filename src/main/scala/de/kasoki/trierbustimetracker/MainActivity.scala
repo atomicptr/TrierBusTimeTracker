@@ -26,10 +26,12 @@ import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.FavoritesManager
 import de.kasoki.trierbustimetracker.utils.Identifier
 
-class MainActivity extends SActivity with SearchView.OnQueryTextListener {
+class MainActivity extends SActivity with SearchView.OnQueryTextListener with SearchView.OnSuggestionListener {
 
     private val favoritesListAdapter = new FavoritesListAdapter(this)
     private var adapter:SimpleCursorAdapter = null
+
+    private var searchView:SearchView = null
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle);
@@ -81,7 +83,7 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener {
 
         val searchItem = menu.findItem(R.id.action_search)
 
-        val searchView = searchItem.getActionView().asInstanceOf[SearchView]
+        searchView = searchItem.getActionView().asInstanceOf[SearchView]
 
         if(searchView != null) {
             searchView.setIconifiedByDefault(true)
@@ -101,6 +103,7 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener {
             searchView.setSuggestionsAdapter(adapter)
 
             searchView.setOnQueryTextListener(this)
+            searchView.setOnSuggestionListener(this)
         } else {
             error("searchView was null?")
         }
@@ -241,6 +244,18 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener {
             }
         }
 
+        return false
+    }
+
+    override def onSuggestionClick(position:Int):Boolean = {
+        val name = adapter.getItem(position).asInstanceOf[MatrixCursor].getString(1)
+
+        startBusTimeActivity(name)
+
+        return true
+    }
+
+    override def onSuggestionSelect(position:Int):Boolean = {
         return false
     }
 

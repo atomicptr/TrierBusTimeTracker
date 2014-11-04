@@ -96,7 +96,8 @@ class BusTimeActivity extends SActivity {
             val cancelText = getResources().getString(android.R.string.cancel)
 
             val future = Future {
-                BusTime.timeout = 5000 // 5s
+                val timeout = 5000 // 5s
+                BusTime.timeout = timeout
                 BusTime.fromStopCode(this.code)
             }
 
