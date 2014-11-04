@@ -19,6 +19,7 @@ import de.kasoki.swtrealtime._
 import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
+import de.kasoki.trierbustimetracker.utils.FavoritesManager
 
 class BusTimeActivity extends SActivity {
 
@@ -45,8 +46,10 @@ class BusTimeActivity extends SActivity {
 
         listView.setAdapter(timesAdapter)
 
+        val busStop = BusStop.getBusStopByCode(this.code)
+
         // set title to bus stop
-        this.setTitle(BusStop.getBusStopByCode(this.code).name)
+        this.setTitle(busStop.name)
 
         // get information
         reload()
@@ -62,6 +65,16 @@ class BusTimeActivity extends SActivity {
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
         // Inflate the menu; this adds items to the action bar if it is present.
         this.getMenuInflater().inflate(R.menu.bustimes_menu, menu)
+
+        val favoritesItem = menu.findItem(R.id.action_favorite)
+
+        val busStop = BusStop.getBusStopByCode(this.code)
+
+        if(FavoritesManager.has(this, busStop)) {
+            favoritesItem.setIcon(R.drawable.ic_favorite_filled)
+            invalidateOptionsMenu()
+        }
+
         return true;
     }
 
@@ -71,6 +84,30 @@ class BusTimeActivity extends SActivity {
                 finish()
 
                 AndroidHelper.slideBack(this)
+
+                return true
+            }
+
+            case R.id.action_favorite => {
+                val busStop = BusStop.getBusStopByCode(this.code)
+
+                if(FavoritesManager.has(this, busStop)) {
+                    item.setIcon(R.drawable.ic_favorite_empty)
+
+                    FavoritesManager.remove(this, busStop)
+
+                    val message = getResources().getString(R.string.favorite_item_deleted, busStop.name)
+                    toast(message)
+                } else {
+                    item.setIcon(R.drawable.ic_favorite_filled)
+
+                    FavoritesManager.add(this, busStop)
+
+                    val message = getResources().getString(R.string.favorite_item_added, busStop.name)
+                    toast(message)
+                }
+
+                invalidateOptionsMenu()
 
                 return true
             }

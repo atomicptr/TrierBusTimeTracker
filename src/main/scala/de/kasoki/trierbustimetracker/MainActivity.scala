@@ -54,16 +54,6 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         })
 
         this.registerForContextMenu(listView)
-
-        if(!FavoritesManager.has(this, BusStop.HAUPTBAHNHOF)) {
-            FavoritesManager.add(this, BusStop.HAUPTBAHNHOF)
-            favoritesListAdapter.notifyDataSetChanged()
-        }
-
-        if(!FavoritesManager.has(this, BusStop.HOCHSCHULETRIER)) {
-            FavoritesManager.add(this, BusStop.HOCHSCHULETRIER)
-            favoritesListAdapter.notifyDataSetChanged()
-        }
     }
 
     def startBusTimeActivity(busStopName:String) {
@@ -81,9 +71,9 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
     override def onCreateOptionsMenu(menu:Menu):Boolean = {
         this.getMenuInflater().inflate(R.menu.main, menu)
 
-        val searchItem = menu.findItem(R.id.action_search)
+        val searchViewMenuItem = menu.findItem(R.id.action_search)
 
-        searchView = searchItem.getActionView().asInstanceOf[SearchView]
+        searchView = searchViewMenuItem.getActionView().asInstanceOf[SearchView]
 
         if(searchView != null) {
             searchView.setIconifiedByDefault(true)

@@ -8,6 +8,7 @@
     <string name="action_about_tbbt">About</string>
     <string name="action_donate">Donate</string>
     <string name="item_already_on_favorites_list_text">This item is already on favorites list</string>
+    <string name="favorite_item_added">Added %s to the favorites.</string>
     <string name="favorite_item_deleted">Removed %s from favorites.</string>
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
     <string name="action_search">Search</string>

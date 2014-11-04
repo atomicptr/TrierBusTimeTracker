@@ -46,7 +46,11 @@ object FavoritesManager {
     def remove(activity:Activity, busStop:BusStop.BusStopType) {
         val curr = FavoritesManager.load(activity)
 
-        curr -= busStop.name
+        val index = curr.indexOf(busStop.name)
+
+        if(index >= 0) {
+            curr.remove(index)
+        }
 
         FavoritesManager.save(activity, curr)
     }

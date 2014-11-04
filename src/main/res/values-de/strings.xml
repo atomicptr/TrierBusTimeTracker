@@ -8,6 +8,7 @@
     <string name="action_about_tbbt">Über</string>
     <string name="action_donate">Spenden</string>
     <string name="item_already_on_favorites_list_text">Diese Haltestelle ist bereits ein Favorit</string>
+    <string name="favorite_item_added">%s wurde zu den Favoriten hinzugefügt.</string>
     <string name="favorite_item_deleted">%s wurde von den Favoriten entfernt.</string>
     <string name="shortcut_created">\'%1$s\' wurde zum Homescreen hinzugefügt.</string>
     <string name="action_search">Suchen</string>
