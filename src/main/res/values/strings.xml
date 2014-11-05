@@ -21,6 +21,7 @@
     <string name="bustime_no_bus">There are no buses in the next hour.</string>
     <string name="connection_failed">Connection to server failed.</string>
     <string name="retry_text">Retry</string>
+    <string name="action_add_to_homescreen">Add shortcut to Homescreen</string>
 
     <!-- About Activity -->
     <string name="app_name_about">About</string>

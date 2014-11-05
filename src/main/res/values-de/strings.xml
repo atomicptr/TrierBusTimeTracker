@@ -21,6 +21,7 @@
     <string name="bustime_no_bus">Es fahren keine Busse in der nächsten Stunde von dieser Haltestelle ab</string>
     <string name="connection_failed">Verbindung zum Server fehlgeschlagen.</string>
     <string name="retry_text">Erneut versuchen</string>
+    <string name="action_add_to_homescreen">Auf Homescreen hinzufügen</string>
 
     <!-- About Activity -->
     <string name="app_name_about">Über</string>

@@ -20,6 +20,7 @@ import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter
 import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.FavoritesManager
+import de.kasoki.trierbustimetracker.utils.ShortcutManager
 
 class BusTimeActivity extends SActivity {
 
@@ -114,6 +115,16 @@ class BusTimeActivity extends SActivity {
 
             case R.id.action_reload => {
                 reload()
+
+                return true
+            }
+
+            case R.id.action_add_to_homescreen => {
+                val busStop = BusStop.getBusStopByCode(code)
+
+                ShortcutManager.create(this, busStop)
+
+                toast(getString(R.string.shortcut_created, busStop.name))
 
                 return true
             }

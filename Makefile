@@ -4,3 +4,6 @@ run:
 
 clean:
 	sbt clean clean-files
+
+release:
+	sbt android:package-release

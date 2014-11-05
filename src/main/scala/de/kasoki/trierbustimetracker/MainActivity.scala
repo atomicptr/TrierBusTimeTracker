@@ -25,6 +25,7 @@ import de.kasoki.trierbustimetracker.utils.ActionBarHelper
 import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.FavoritesManager
 import de.kasoki.trierbustimetracker.utils.Identifier
+import de.kasoki.trierbustimetracker.utils.ShortcutManager
 
 class MainActivity extends SActivity with SearchView.OnQueryTextListener with SearchView.OnSuggestionListener {
 
@@ -156,23 +157,9 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
     }
 
     def contextAddShortcutToHomescreen(name:String) {
-        val code = BusStop.getBusStopByName(name).code
+        val busStop = BusStop.getBusStopByName(name)
 
-        val shortcutIntent = new Intent(this, classOf[BusTimeActivity])
-
-        shortcutIntent.setAction(Intent.ACTION_MAIN)
-
-        shortcutIntent.putExtra("BUS_TIME_CODE", code)
-
-        val addIntent = new Intent()
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent)
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name)
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher))
-
-        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT")
-
-        this.sendBroadcast(addIntent)
+        ShortcutManager.create(this, busStop)
 
         toast(getString(R.string.shortcut_created, name))
     }
