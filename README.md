@@ -17,3 +17,8 @@ Download the application on Google Play
 ## License
 
 This app is licensed under the terms of the MIT license.
+
+## Asset attributions
+
+* App icon is based on "Bus-Stop" by Marc Serre from the Noun Project
+* Action Bar icons are from [Googles Material Design repo](https://github.com/google/material-design-icons)
