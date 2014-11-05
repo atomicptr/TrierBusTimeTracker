@@ -183,7 +183,17 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
 
         val message = getResources().getString(R.string.favorite_item_deleted, item)
 
+        checkIfThereAreStillFavorites()
+
         toast(message)
+    }
+
+    private def checkIfThereAreStillFavorites() {
+        if(favoritesListAdapter.items.length > 0) {
+            findViewById(R.id.no_favorites_overlay).setVisibility(View.INVISIBLE)
+        } else {
+            findViewById(R.id.no_favorites_overlay).setVisibility(View.VISIBLE)
+        }
     }
 
     override def onSaveInstanceState(state:Bundle) {
@@ -246,6 +256,8 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
 
     override def onStart() {
         favoritesListAdapter.items = FavoritesManager.load(this)
+
+        checkIfThereAreStillFavorites()
 
         favoritesListAdapter.notifyDataSetChanged()
 
