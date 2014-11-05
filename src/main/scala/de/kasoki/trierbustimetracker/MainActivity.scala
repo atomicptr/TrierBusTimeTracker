@@ -26,6 +26,7 @@ import de.kasoki.trierbustimetracker.utils.AndroidHelper
 import de.kasoki.trierbustimetracker.utils.FavoritesManager
 import de.kasoki.trierbustimetracker.utils.Identifier
 import de.kasoki.trierbustimetracker.utils.ShortcutManager
+import de.kasoki.trierbustimetracker.utils.RateMyAppHelper
 
 class MainActivity extends SActivity with SearchView.OnQueryTextListener with SearchView.OnSuggestionListener {
 
@@ -105,6 +106,12 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
 
     override def onOptionsItemSelected(item:MenuItem):Boolean = {
         item.getItemId() match {
+            case R.id.action_rate => {
+                RateMyAppHelper.openRateIntent(this)
+
+                return true
+            }
+
             case R.id.action_donate => {
                 val intent = new Intent(this, classOf[DonateActivity])
 
@@ -241,6 +248,8 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         favoritesListAdapter.items = FavoritesManager.load(this)
 
         favoritesListAdapter.notifyDataSetChanged()
+
+        RateMyAppHelper.openAfterNCalls(this, 20)
 
         super.onStart()
     }

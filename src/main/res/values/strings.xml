@@ -13,6 +13,10 @@
     <string name="shortcut_created">Added shortcut \'%1$s\' to homescreen</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Enter bus stop name...</string>
+    <string name="action_rate">Rate...</string>
+    <string name="rate_title">Rate the Application on Google Play</string>
+    <string name="rate_now_button">Rate now</string>
+    <string name="rate_never_button">Don\'t show again</string>
 
     <!-- BusTime Activity -->
     <string name="action_reload">Reload</string>
