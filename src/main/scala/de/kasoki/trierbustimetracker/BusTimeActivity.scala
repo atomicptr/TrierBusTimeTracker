@@ -32,10 +32,13 @@ class BusTimeActivity extends SActivity {
 
         this.setContentView(R.layout.activity_bustimes)
 
-        ActionBarHelper.colorActionBar(this)
-        ActionBarHelper.enableHomeAsUp(this)
-
         val intent = getIntent()
+
+        ActionBarHelper.colorActionBar(this)
+
+        if(intent.hasExtra("FROM_MAIN_ACTIVITY")) {
+            ActionBarHelper.enableHomeAsUp(this)
+        }
 
         handleIntent(intent)
     }
@@ -245,7 +248,10 @@ class BusTimeActivity extends SActivity {
 
     def closeActivity() {
         finish()
-        AndroidHelper.slideBack(BusTimeActivity.this)
+
+        if(getIntent.hasExtra("FROM_MAIN_ACTIVITY")) {
+            AndroidHelper.slideBack(BusTimeActivity.this)
+        }
     }
 
     override def onBackPressed() {

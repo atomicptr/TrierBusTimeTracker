@@ -63,6 +63,7 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         val intent = new Intent(this, classOf[BusTimeActivity])
 
         intent.putExtra("BUS_TIME_CODE", busStop.code)
+        intent.putExtra("FROM_MAIN_ACTIVITY", true)
 
         this.startActivity(intent)
 
