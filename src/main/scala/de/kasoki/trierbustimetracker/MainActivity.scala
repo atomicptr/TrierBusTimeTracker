@@ -216,7 +216,7 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         for(bs <- BusStop.values) {
             val name = bs.asInstanceOf[BusStop.BusStopType].name
 
-            if(name.toLowerCase.startsWith(query.toLowerCase)) {
+            if(name.toLowerCase.contains(query.toLowerCase)) {
                 c.addRow(Array[Object](i.asInstanceOf[Object], name.asInstanceOf[Object]))
             }
 
@@ -232,7 +232,7 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         for(bs <- BusStop.values) {
             val name = bs.asInstanceOf[BusStop.BusStopType].name
 
-            if(name.toLowerCase.startsWith(query.toLowerCase)) {
+            if(name.toLowerCase.contains(query.toLowerCase)) {
                 startBusTimeActivity(name)
 
                 return false
