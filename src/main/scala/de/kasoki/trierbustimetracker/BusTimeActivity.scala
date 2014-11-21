@@ -30,6 +30,8 @@ class BusTimeActivity extends SActivity {
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle)
 
+        invalidateOptionsMenu()
+
         this.setContentView(R.layout.activity_bustimes)
 
         val intent = getIntent()
@@ -76,7 +78,6 @@ class BusTimeActivity extends SActivity {
 
         if(FavoritesManager.has(this, busStop)) {
             favoritesItem.setIcon(R.drawable.ic_favorite_filled)
-            invalidateOptionsMenu()
         }
 
         return true;
