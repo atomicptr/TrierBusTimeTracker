@@ -17,6 +17,8 @@
     <string name="rate_now_button">Jetzt Applikation</string>
     <string name="rate_never_button">Nicht mehr anzeigen</string>
     <string name="no_favorites_text">Bisher hast du noch keine Favoriten.</string>
+    <string name="old_version">Veralterte Version von Trier Bus Time Tracker gefunden.</string>
+    <string name="remove_text">Entfernen</string>
 
     <!-- BusTime Activity -->
     <string name="action_reload">Neu laden</string>

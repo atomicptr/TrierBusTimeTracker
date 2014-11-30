@@ -17,6 +17,8 @@
     <string name="rate_now_button">Rate now</string>
     <string name="rate_never_button">Don\'t show again</string>
     <string name="no_favorites_text">You don\'t have any favorites yet.</string>
+    <string name="old_version">Old version of Trier Bus Time Tracker found.</string>
+    <string name="remove_text">Remove</string>
 
     <!-- BusTime Activity -->
     <string name="action_reload">Reload</string>

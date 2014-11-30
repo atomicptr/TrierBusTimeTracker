@@ -12,6 +12,8 @@ import android.widget._
 import android.graphics._
 import android.content.Context._
 import android.util.Log
+import android.net.Uri
+import android.content.pm.PackageManager
 
 import android.provider.BaseColumns
 import android.database.MatrixCursor
@@ -56,6 +58,31 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         })
 
         this.registerForContextMenu(listView)
+
+        if(isOldTrierBusTimeTrackerInstalled()) {
+            new AlertDialogBuilder("", getString(R.string.old_version)) {
+                positiveButton(getString(R.string.remove_text), {
+                    val intent = new Intent(Intent.ACTION_DELETE)
+                    intent.setData(Uri.parse("package:de.kasoki.trierbustimetracker"))
+                    startActivity(intent)
+                })
+            }.show()
+        }
+    }
+
+    def isOldTrierBusTimeTrackerInstalled():Boolean = {
+        val pm = getPackageManager();
+
+        val uri = "de.kasoki.trierbustimetracker"
+
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true
+        } catch {
+            case ex:Exception => return false
+        }
+
+        return false
     }
 
     def startBusTimeActivity(busStopName:String) {
