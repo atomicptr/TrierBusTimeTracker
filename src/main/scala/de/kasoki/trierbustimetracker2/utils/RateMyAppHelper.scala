@@ -1,4 +1,4 @@
-package de.kasoki.trierbustimetracker.utils
+package de.kasoki.trierbustimetracker2.utils
 
 import org.scaloid.common._
 import android.app._
@@ -6,7 +6,7 @@ import android.content._
 import android.content.Context
 import android.net.Uri
 
-import de.kasoki.trierbustimetracker.R
+import de.kasoki.trierbustimetracker2.R
 
 object RateMyAppHelper {
     def openAfterNCalls(activity:Activity, num:Int) {

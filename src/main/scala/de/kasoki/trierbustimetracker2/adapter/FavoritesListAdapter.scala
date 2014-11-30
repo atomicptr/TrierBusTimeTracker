@@ -1,4 +1,4 @@
-package de.kasoki.trierbustimetracker.adapter
+package de.kasoki.trierbustimetracker2.adapter
 
 import scala.collection.mutable.Buffer
 
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget._
 
-import de.kasoki.trierbustimetracker.R
+import de.kasoki.trierbustimetracker2.R
 
 class FavoritesListAdapter(val context:Context) extends BaseAdapter {
     var items:Buffer[String] = Buffer[String]()

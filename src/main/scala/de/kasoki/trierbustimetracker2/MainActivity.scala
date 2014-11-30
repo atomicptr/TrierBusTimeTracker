@@ -1,4 +1,4 @@
-package de.kasoki.trierbustimetracker
+package de.kasoki.trierbustimetracker2
 
 import org.scaloid.common._
 import scala.collection.mutable.Buffer
@@ -19,14 +19,14 @@ import android.database.MatrixCursor
 import de.kasoki.swtrealtime.BusTime
 import de.kasoki.swtrealtime.BusStop
 
-import de.kasoki.trierbustimetracker.adapter.FavoritesListAdapter
+import de.kasoki.trierbustimetracker2.adapter.FavoritesListAdapter
 
-import de.kasoki.trierbustimetracker.utils.ActionBarHelper
-import de.kasoki.trierbustimetracker.utils.AndroidHelper
-import de.kasoki.trierbustimetracker.utils.FavoritesManager
-import de.kasoki.trierbustimetracker.utils.Identifier
-import de.kasoki.trierbustimetracker.utils.ShortcutManager
-import de.kasoki.trierbustimetracker.utils.RateMyAppHelper
+import de.kasoki.trierbustimetracker2.utils.ActionBarHelper
+import de.kasoki.trierbustimetracker2.utils.AndroidHelper
+import de.kasoki.trierbustimetracker2.utils.FavoritesManager
+import de.kasoki.trierbustimetracker2.utils.Identifier
+import de.kasoki.trierbustimetracker2.utils.ShortcutManager
+import de.kasoki.trierbustimetracker2.utils.RateMyAppHelper
 
 class MainActivity extends SActivity with SearchView.OnQueryTextListener with SearchView.OnSuggestionListener {
 
@@ -108,14 +108,6 @@ class MainActivity extends SActivity with SearchView.OnQueryTextListener with Se
         item.getItemId() match {
             case R.id.action_rate => {
                 RateMyAppHelper.openRateIntent(this)
-
-                return true
-            }
-
-            case R.id.action_donate => {
-                val intent = new Intent(this, classOf[DonateActivity])
-
-                this.startActivity(intent)
 
                 return true
             }

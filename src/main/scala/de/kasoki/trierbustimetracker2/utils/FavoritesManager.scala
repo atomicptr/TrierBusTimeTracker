@@ -1,4 +1,4 @@
-package de.kasoki.trierbustimetracker.utils
+package de.kasoki.trierbustimetracker2.utils
 
 import scala.collection.mutable.Buffer
 

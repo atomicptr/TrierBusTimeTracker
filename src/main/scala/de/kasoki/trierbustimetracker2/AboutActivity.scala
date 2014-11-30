@@ -1,25 +1,27 @@
-package de.kasoki.trierbustimetracker
+package de.kasoki.trierbustimetracker2
 
 import org.scaloid.common._
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.webkit.WebView
+import android.widget.TextView
 
-import de.kasoki.trierbustimetracker.utils.ActionBarHelper
+import de.kasoki.trierbustimetracker2.utils.ActionBarHelper
+import de.kasoki.trierbustimetracker2.utils.AndroidHelper
 
-class DonateActivity extends SActivity {
+class AboutActivity extends SActivity {
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle)
 
-        this.setContentView(R.layout.activity_donate)
+        this.setContentView(R.layout.activity_about)
 
         ActionBarHelper.colorActionBar(this)
         ActionBarHelper.enableHomeAsUp(this)
 
-        val webView = this.findViewById(R.id.webview).asInstanceOf[WebView]
-        webView.loadUrl(this.getString(R.string.donate_url))
+        val versionText = this.findViewById(R.id.versionTextView).asInstanceOf[TextView]
+
+        versionText.setText(AndroidHelper.version(this))
     }
 
     override def onOptionsItemSelected(item:MenuItem):Boolean = {

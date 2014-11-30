@@ -1,4 +1,4 @@
-package de.kasoki.trierbustimetracker
+package de.kasoki.trierbustimetracker2
 
 import org.scaloid.common._
 import scala.concurrent.Future
@@ -16,11 +16,11 @@ import android.content._
 
 import de.kasoki.swtrealtime._
 
-import de.kasoki.trierbustimetracker.adapter.BusTimeAdapter
-import de.kasoki.trierbustimetracker.utils.ActionBarHelper
-import de.kasoki.trierbustimetracker.utils.AndroidHelper
-import de.kasoki.trierbustimetracker.utils.FavoritesManager
-import de.kasoki.trierbustimetracker.utils.ShortcutManager
+import de.kasoki.trierbustimetracker2.adapter.BusTimeAdapter
+import de.kasoki.trierbustimetracker2.utils.ActionBarHelper
+import de.kasoki.trierbustimetracker2.utils.AndroidHelper
+import de.kasoki.trierbustimetracker2.utils.FavoritesManager
+import de.kasoki.trierbustimetracker2.utils.ShortcutManager
 
 class BusTimeActivity extends SActivity {
 

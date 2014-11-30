@@ -1,12 +1,12 @@
-package de.kasoki.trierbustimetracker.utils
+package de.kasoki.trierbustimetracker2.utils
 
 import android.app.Activity
 import android.content.Intent
 
 import de.kasoki.swtrealtime.BusStop
 
-import de.kasoki.trierbustimetracker.BusTimeActivity
-import de.kasoki.trierbustimetracker.R
+import de.kasoki.trierbustimetracker2.BusTimeActivity
+import de.kasoki.trierbustimetracker2.R
 
 object ShortcutManager {
     def create(activity:Activity, busStop:BusStop.BusStopType) {

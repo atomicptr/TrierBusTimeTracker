@@ -1,11 +1,11 @@
-package de.kasoki.trierbustimetracker.utils
+package de.kasoki.trierbustimetracker2.utils
 
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 
-import de.kasoki.trierbustimetracker.R
+import de.kasoki.trierbustimetracker2.R
 
 object AndroidHelper {
     def currentApiLevel:Int = android.os.Build.VERSION.SDK_INT
