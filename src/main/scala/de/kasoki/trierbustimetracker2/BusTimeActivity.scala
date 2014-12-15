@@ -7,12 +7,15 @@ import scala.util.Success
 import scala.util.Failure
 import scala.collection.mutable.Buffer
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget._
 import android.util.Log
 import android.content._
+
+import android.support.v4.widget.SwipeRefreshLayout
 
 import de.kasoki.swtrealtime._
 
@@ -22,10 +25,12 @@ import de.kasoki.trierbustimetracker2.utils.AndroidHelper
 import de.kasoki.trierbustimetracker2.utils.FavoritesManager
 import de.kasoki.trierbustimetracker2.utils.ShortcutManager
 
-class BusTimeActivity extends SActivity {
+class BusTimeActivity extends SActivity with SwipeRefreshLayout.OnRefreshListener {
 
     val timesAdapter:BusTimeAdapter = new BusTimeAdapter(this)
     var code:String = ""
+
+    var refresh:SwipeRefreshLayout = null
 
     override def onCreate(bundle:Bundle) {
         super.onCreate(bundle)
@@ -41,6 +46,10 @@ class BusTimeActivity extends SActivity {
         if(intent.hasExtra("FROM_MAIN_ACTIVITY")) {
             ActionBarHelper.enableHomeAsUp(this)
         }
+
+        // setup refresh layout
+        refresh = findViewById(R.id.refresh_layout).asInstanceOf[SwipeRefreshLayout]
+        refresh.setOnRefreshListener(this)
 
         handleIntent(intent)
     }
@@ -58,7 +67,7 @@ class BusTimeActivity extends SActivity {
         this.setTitle(busStop.name)
 
         // get information
-        reload()
+        reload(true)
     }
 
     override def onNewIntent(intent:Intent) {
@@ -117,12 +126,6 @@ class BusTimeActivity extends SActivity {
                 return true
             }
 
-            case R.id.action_reload => {
-                reload()
-
-                return true
-            }
-
             case R.id.action_add_to_homescreen => {
                 val busStop = BusStop.getBusStopByCode(code)
 
@@ -137,12 +140,20 @@ class BusTimeActivity extends SActivity {
         return super.onOptionsItemSelected(item)
     }
 
-    def reload() {
+    def onRefresh() {
+        reload(false)
+    }
+
+    def reload(useProgressDialog:Boolean) {
         if(AndroidHelper.isNetworkAvailable(this)) {
 
             val loadingText = getResources().getString(R.string.loading_dialog_text)
 
-            val progressDialog = spinnerDialog("", loadingText)
+            var progressDialog:ProgressDialog = null
+
+            if(useProgressDialog) {
+                progressDialog = spinnerDialog("", loadingText)
+            }
 
             val retryText = getResources().getString(R.string.retry_text)
             val cancelText = getResources().getString(android.R.string.cancel)
@@ -157,7 +168,11 @@ class BusTimeActivity extends SActivity {
                 case Success(times) => {
 
                     runOnUiThread({
-                        progressDialog.dismiss()
+                        if(useProgressDialog) {
+                            progressDialog.dismiss()
+                        } else {
+                            refresh.setRefreshing(false)
+                        }
 
                         if(times.length > 0) {
                             this.timesAdapter.items = times.sorted
@@ -167,7 +182,7 @@ class BusTimeActivity extends SActivity {
                             val message = getResources().getString(R.string.bustime_no_bus)
 
                             new AlertDialogBuilder("", message) {
-                                positiveButton(retryText, reload())
+                                positiveButton(retryText, reload(true))
                                 setNegativeButton(cancelText, new DialogInterface.OnClickListener {
                                     def onClick(dialog:DialogInterface, which:Int):Unit = closeActivity()
                                 })
@@ -180,7 +195,11 @@ class BusTimeActivity extends SActivity {
                 }
 
                 case Failure(t:Throwable) => {
-                    progressDialog.dismiss()
+                    if(useProgressDialog) {
+                        progressDialog.dismiss()
+                    } else {
+                        refresh.setRefreshing(false)
+                    }
 
                     error(t.toString)
 
@@ -191,7 +210,7 @@ class BusTimeActivity extends SActivity {
                     error(str)
 
                     new AlertDialogBuilder("", t.toString) {
-                        positiveButton(retryText, reload())
+                        positiveButton(retryText, reload(true))
                         setNegativeButton(cancelText, new DialogInterface.OnClickListener {
                             def onClick(dialog:DialogInterface, which:Int):Unit = {
                                 if(timesAdapter.items.length > 0) {
@@ -224,7 +243,7 @@ class BusTimeActivity extends SActivity {
             val cancelText = getResources().getString(android.R.string.cancel)
 
             new AlertDialogBuilder("", noNetwork) {
-                positiveButton(retryText, reload())
+                positiveButton(retryText, reload(true))
                 setNegativeButton(cancelText, new DialogInterface.OnClickListener {
                     def onClick(dialog:DialogInterface, which:Int):Unit = {
                         if(timesAdapter.items.length > 0) {
