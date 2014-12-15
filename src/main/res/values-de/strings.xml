@@ -32,7 +32,7 @@
     <!-- About Activity -->
     <string name="app_name_about">Über</string>
     <string name="about_developer_text"><b>Entwicklung</b>:\nChristopher Kaster</string>
-    <string name="about_special_thanks"><b>Spezieller Dank an</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nBen Raus (Französische Übersetzung)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
+    <string name="about_special_thanks"><b>Spezieller Dank an</b>:\nDaniel Fett\nMarc Serre vom \"Noun Project\" (App icon)\nMichael Peter Kick (Alpha Tester)\nJustin Weinberg (Alpha Tester)</string>
     <string name="about_data_text"><b>Über die Daten</b>:\nDie Echtzeitdaten werden von der API der Stadtwerke Trier bezogen. Weder die App noch der Entwickler haben etwas mit dem SWT etwas zu tun</string>
     <string name="server_response_error">Es wurde ein Problem mit dem Server festgestellt. Fehlercode \'%1$d\' erhalten.</string>
 
